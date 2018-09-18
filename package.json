@@ -1,7 +1,7 @@
 {
-  "name": "glupe-base",
+  "name": "international-waste-shipments-frontend-training",
   "version": "0.0.1",
-  "description": "",
+  "description": "Node.js implementation of the International Waste Shipments frontend",
   "main": "index.js",
   "scripts": {
     "build:css": "bin/build-css",
@@ -11,8 +11,8 @@
     "test": "npm run lint && npm run unit-test",
     "postinstall": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Department for Environment, Food and Rural Affairs <https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs>.",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "boom": "7.2.0",
     "govuk-frontend": "2.0.0",
