@@ -1,7 +1,7 @@
 # International Waste Shipments Frontend Training
 
 This repository provides a Node.js based solution for the frontend of the [International Waste Shipments service](https://github.com/DEFRA/prsd-iws).
-This solution exists for training purposes.
+This solution exists for training purposes. The structure of this repository is based on that of [Defra Hapi web boilerplate](https://github.com/DEFRA/hapi-web-boilerplate).
 
 ## Contributing to this project
 
