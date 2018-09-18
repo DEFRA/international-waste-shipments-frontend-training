@@ -19,8 +19,7 @@ This solution exists for training purposes. The structure of this repository is 
 
 Node v8+
 
-
-# Running the application
+## Running the application
 
 First build the application using:
 
@@ -31,7 +30,6 @@ Currently this will just build the `govuk-frontend` sass but may be extended to 
 Now the application is ready to run:
 
 `$ node index.js`
-
 
 ## Contributing to this project
 
