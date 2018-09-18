@@ -1,5 +1,10 @@
 # International Waste Shipments Frontend Training
 
+| Branch  | Travis CI |
+| ------------- | ------------- |
+| master  | [![Build Status](https://travis-ci.com/DEFRA/international-waste-shipments-frontend-training.svg?branch=master)](https://travis-ci.com/DEFRA/international-waste-shipments-frontend-training)   |
+| develop | [![Build Status](https://travis-ci.com/DEFRA/international-waste-shipments-frontend-training.svg?branch=develop)](https://travis-ci.com/DEFRA/international-waste-shipments-frontend-training)  |
+
 This repository provides a Node.js based solution for the frontend of the [International Waste Shipments service](https://github.com/DEFRA/prsd-iws).
 This solution exists for training purposes. The structure of this repository is based on that of [Defra Hapi web boilerplate](https://github.com/DEFRA/hapi-web-boilerplate).
 
