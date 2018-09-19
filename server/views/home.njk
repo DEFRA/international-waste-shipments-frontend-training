@@ -1,28 +1,15 @@
 {% extends 'layout.njk' %}
 
-{% from "date-input/macro.njk" import govukDateInput %}
+{% from "button/macro.njk" import govukButton %}
 
 {% block content %}
   <div class="govuk-body">
-    {{
-      govukDateInput({
-        id: "dob",
-        namePrefix: "dob",
-        fieldset: {
-          legend: {
-            text: "What is your date of birth?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 1980"
-        }
-      })
-    }}
-
-
-    <p>{{title}}</p>
-    <p>{{message}}</p>
+  <h1>Your homepage</h1>
+    <h3>Would you like to start a notification?</h3>
+    <p>Start a new notification now or read the <a href="#">supporting information</a> first.</p>
+    <p>You could also <a href="#">create a new notification based on a previous one.</a></p>
+    {{ govukButton({
+      "text": "Start a new notification"
+    }) }}
   </div>
 {% endblock %}
