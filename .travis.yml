@@ -25,7 +25,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - npm test
+  - markdownlint $PWD --ignore node_modules && npm test
 
- after_script:
+after_script:
   - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
