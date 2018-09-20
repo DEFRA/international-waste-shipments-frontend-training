@@ -4,8 +4,7 @@ module.exports = {
   options: {
     handler: (request, h) => {
       return h.view('home', {
-        title: 'Hello',
-        message: 'World'
+        view: 'home'
       })
     }
   }
