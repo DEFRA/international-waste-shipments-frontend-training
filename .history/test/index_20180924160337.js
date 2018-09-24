@@ -46,9 +46,9 @@ lab.experiment('Web test', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('POST /competent-authority error if multiple competent authorities selected', async () => {
+  lab.test('PUT /competent-authority error if multiple competent authorities selected', async () => {
     const options = {
-      method: 'POST',
+      method: 'PUT',
       url: '/competent-authority',
       payload: {
         competentAuthorities: [{ competentAuthority: 'ea' }, { competentAuthority: 'sepa' }]
@@ -59,13 +59,12 @@ lab.experiment('Web test', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('POST /competent-authority existing is updated if id supplied', async () => {
+  lab.test('PUT /competent-authority existing is updated if id supplied', async () => {
     const options = {
-      method: 'POST',
+      method: 'PUT',
       url: '/competent-authority',
       payload: {
-        competentAuthority: 'ea',
-        id: '1'
+        competentAuthority: 'ea'
       }
     }
 

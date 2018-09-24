@@ -33,9 +33,9 @@ lab.experiment('Web test', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('PUT /competent-authority one competent authority selected', async () => {
+  lab.test('POST /competent-authority one competent authority selected', async () => {
     const options = {
-      method: 'PUT',
+      method: 'POST',
       url: '/competent-authority',
       payload: {
         competentAuthority: 'ea'
@@ -57,19 +57,5 @@ lab.experiment('Web test', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(400)
-  })
-
-  lab.test('POST /competent-authority existing is updated if id supplied', async () => {
-    const options = {
-      method: 'POST',
-      url: '/competent-authority',
-      payload: {
-        competentAuthority: 'ea',
-        id: '1'
-      }
-    }
-
-    const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(200)
   })
 })
