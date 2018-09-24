@@ -3,6 +3,7 @@
 {% from "button/macro.njk" import govukButton %}
 
 {% block content %}
+<form action="/notification" method="get">
   <div class="govuk-body">
   <h1>Your homepage</h1>
     <h3>Would you like to start a notification?</h3>
@@ -11,5 +12,6 @@
     {{ govukButton({
       "text": "Start a new notification"
     }) }}
+    </form>
   </div>
 {% endblock %}

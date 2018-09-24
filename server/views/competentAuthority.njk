@@ -1,0 +1,93 @@
+{% extends 'layout.njk' %}
+
+{% from "button/macro.njk" import govukButton %}
+{% from "error-message/macro.njk" import govukErrorMessage %}
+
+    
+{% block content %}
+  <div class="govuk-body">
+    <form action="/notification" method="post" name="compAuth">
+    {% from "radios/macro.njk" import govukRadios %}
+
+    {% if errorMessage %}
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "competentAuthority",
+        name: "competentAuthority",
+        fieldset: {
+          legend: {
+          text: "Which competent authority are you applying to?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+        text: "Select the competent authority for the country you are exporting waste from:"
+        },
+        errorMessage: {
+          text: "Please select an option"
+        },
+        items: [
+            {
+              value: "EA",
+              text: "Environment Agency(EA)"
+            },
+            {
+              value: "SEPA",
+              text: "Scottish Environment Agency(SEPA)"
+            },
+            {
+              value: "NIEA",
+              text: "Northern Ireland Environment Agency (NIEA)"
+            },
+            {
+              value: "NRW",
+              text: "Natural Resources Wales(NRW)"
+            }
+          ]
+        }) 
+      }}
+    {% endif %}
+    {% if not errorMessage%}
+    {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "competent-authority",
+        name: "competent-authority",
+        fieldset: {
+          legend: {
+          text: "Which competent authority are you applying to?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+        text: "Select the competent authority for the country you are exporting waste from:"
+        },
+        items: [
+            {
+              value: "EA",
+              text: "Environment Agency(EA)"
+            },
+            {
+              value: "SEPA",
+              text: "Scottish Environment Agency(SEPA)"
+            },
+            {
+              value: "NIEA",
+              text: "Northern Ireland Environment Agency (NIEA)"
+            },
+            {
+              value: "NRW",
+              text: "Natural Resources Wales(NRW)"
+            }
+          ]
+        }) 
+      }}
+      {% endif %}
+    
+    {{ govukButton({
+      "text": "Save and continue"
+    }) }}
+    </form>
+  </div>
+{% endblock %}
