@@ -53,18 +53,30 @@ lab.experiment('Route tests', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
-    Code.expect(response.headers['location']).to.equal('./')
+    Code.expect(response.headers['location']).to.equal('./type')
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  // Sad tests
-  lab.test('get /dodgy-path', async () => {
+  lab.test('GET /type route works', async () => {
+    const options = {
+      method: 'GET',
+      url: '/type'
+    }
+    const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.headers['content-type']).to.include('text/html')
+  })
+
+  lab.test('POST /type route works', async () => {
     const options = {
       method: 'POST',
-      url: '/dodgy-path'
+      url: '/type',
+      payload: { type: 'recovery' }
     }
 
     const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(404)
+    Code.expect(response.statusCode).to.equal(302)
+    Code.expect(response.headers['location']).to.equal('./')
+    Code.expect(response.headers['content-type']).to.include('text/html')
   })
 })
