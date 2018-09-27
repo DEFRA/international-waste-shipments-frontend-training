@@ -31,6 +31,7 @@
     "good-squeeze": "5.1.0",
     "lab": "16.1.0",
     "node-sass": "4.9.3",
+    "sinon": "^6.3.4",
     "standard": "12.0.1"
   }
 }
