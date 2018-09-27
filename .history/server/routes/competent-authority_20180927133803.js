@@ -1,7 +1,5 @@
 const api = require('../services/notification-api')
 
-const competentAuthorites = ['ea', 'sepa', 'niea', 'nrw']
-
 module.exports = [{
   method: 'GET',
   path: '/competent-authority',
@@ -19,10 +17,12 @@ module.exports = [{
   options: {
     handler: (request, h) => {
       let competentAuthority = request.payload.competentAuthority
-      console.log('competent authority: ' + competentAuthority)
+      console.log(competentAuthority)
 
       let id = request.payload.id
-      console.log('id: ' + id)
+      console.log(id)
+
+      let competentAuthorites = ['ea', 'sepa', 'niea', 'nrw']
 
       if (!competentAuthorites.includes(competentAuthority)) {
         console.log('competent authority invalid')

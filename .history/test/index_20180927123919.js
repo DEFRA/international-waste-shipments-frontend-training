@@ -1,5 +1,6 @@
 const Lab = require('lab')
 const Code = require('code')
+const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../server')
 
@@ -71,5 +72,15 @@ lab.experiment('Web test', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
+  })
+
+  it('POST /competent-authority calls api for new notification', function () {
+    const api = require('../server/services/api')
+    var callback = sinon.fake()
+    var proxy = api.apiCreate(callback)
+
+    proxy()
+
+    assert(callback.calledOnce)
   })
 })
