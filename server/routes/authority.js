@@ -1,5 +1,5 @@
 const joi = require('joi')
-const ViewModel = require('../models/authority-view.js')
+const ViewModel = require('../models/authority-model.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
@@ -33,7 +33,7 @@ module.exports = [{
     handler: handlers.post,
     validate: {
       payload: {
-        authority: joi.string().required().max(10)
+        authority: joi.string().required().max(4)
       },
       failAction: handlers.fail
     }
