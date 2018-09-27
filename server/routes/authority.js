@@ -9,7 +9,7 @@ const handlers = {
   post: async (request, h) => {
     // let authority = request.payload.authority
     // Add authority to Redis
-    return h.redirect('./')
+    return h.redirect('./type')
   },
 
   fail: (request, h, error) => {
