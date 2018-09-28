@@ -8,7 +8,8 @@ function request (url, path, token, method, value) {
     token: token
   }
 
-  var request = http.request(options, function (res) {
+  try{
+  http.request(options, function (res) {
     console.log('Status: ' + res.statusCode)
     res.on('data', function (chunk) {
       console.log('Body: ' + chunk)
@@ -16,9 +17,9 @@ function request (url, path, token, method, value) {
     })
     return res.statusCode
   })
-  request.on('error', function (err) {
-    return err.statusCode
-  })
+  } catch{
+    
+  }
 }
 
 module.exports.request = request

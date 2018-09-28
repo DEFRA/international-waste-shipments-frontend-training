@@ -14,7 +14,6 @@ function request (url, path, token, method, value) {
       console.log('Body: ' + chunk)
       return chunk
     })
-    return res.statusCode
   })
   request.on('error', function (err) {
     return err.statusCode
