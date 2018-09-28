@@ -1,0 +1,29 @@
+{% extends 'layout.njk' %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% from "button/macro.njk" import govukButton %}
+
+
+{% block content %}
+  <div class="govuk-body">
+    <form method="PUT">
+
+      <h1>Your notification number</h1>
+
+      <p>Here is your notification number:</p>
+      {{ govukInsetText(model) }} 
+    
+      <p>Print and complete a <a href='..../pdfs/f'>financial guarantee form</a>. An approved financial guarantee must be in place before any shipments can be made.</p>
+
+      {{ govukButton({
+  text: "Save and continue"
+}) }}
+    </form>
+  </div>
+
+{% endblock %}
+
+
+
+GB 0001 006421
+
+
