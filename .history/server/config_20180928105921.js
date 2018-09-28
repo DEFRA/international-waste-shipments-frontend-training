@@ -5,8 +5,8 @@ const schema = {
   port: joi.number().default(3000),
   env: joi.string().valid('development', 'test', 'production').default('development'),
   notificationApi: joi.object({
-    url: joi.string().required().default('localhost'),
-    token: joi.string().required().default('token')
+    url: joi.string(),
+    token: joi.string()
   })
 }
 
@@ -15,8 +15,8 @@ const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   notificationApi: {
-    url: 'localhost',
-    token: 'token'
+    url: '',
+    token: ''
   }
 }
 

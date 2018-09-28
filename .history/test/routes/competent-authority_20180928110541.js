@@ -3,7 +3,6 @@ const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
-const api = require('../../server/services/notification-api')
 
 lab.experiment('Web test', () => {
   let server
@@ -25,8 +24,6 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('POST /competent-authority one competent authority selected', async () => {
-    sinon.mock(api)
-
     const options = {
       method: 'POST',
       url: '/competent-authority',
@@ -53,8 +50,6 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('POST /competent-authority existing is updated if id supplied', async () => {
-    sinon.mock(api)
-
     const options = {
       method: 'POST',
       url: '/competent-authority',
@@ -69,6 +64,8 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('POST /competent-authority calls api for new notification', async () => {
+    const api = require('../../server/services/notification-api')
+
     let mockApi = sinon.mock(api)
 
     const options = {

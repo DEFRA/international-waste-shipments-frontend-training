@@ -3,21 +3,13 @@ const joi = require('joi')
 // Define config schema
 const schema = {
   port: joi.number().default(3000),
-  env: joi.string().valid('development', 'test', 'production').default('development'),
-  notificationApi: joi.object({
-    url: joi.string().required().default('localhost'),
-    token: joi.string().required().default('token')
-  })
+  env: joi.string().valid('development', 'test', 'production').default('development')
 }
 
 // Build config
 const config = {
   port: process.env.PORT,
-  env: process.env.NODE_ENV,
-  notificationApi: {
-    url: 'localhost',
-    token: 'token'
-  }
+  env: process.env.NODE_ENV
 }
 
 // Validate config

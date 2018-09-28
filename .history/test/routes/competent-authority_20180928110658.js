@@ -25,7 +25,7 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('POST /competent-authority one competent authority selected', async () => {
-    sinon.mock(api)
+    let mockApi = sinon.mock(api)
 
     const options = {
       method: 'POST',
@@ -53,7 +53,7 @@ lab.experiment('Web test', () => {
   })
 
   lab.test('POST /competent-authority existing is updated if id supplied', async () => {
-    sinon.mock(api)
+    let mockApi = sinon.mock(api)
 
     const options = {
       method: 'POST',

@@ -8,7 +8,9 @@ module.exports = [{
   path: '/competent-authority',
   options: {
     handler: (request, h) => {
-      return h.view('competent-authority', new ViewModel(null))
+      return h.view('competent-authority', {
+        model: new ViewModel()
+      })
     }
   }
 },
@@ -25,7 +27,9 @@ module.exports = [{
 
       if (!competentAuthorites.includes(competentAuthority)) {
         console.log('competent authority invalid')
-        return h.view('competent-authority', new ViewModel(true)).code(400)
+        return h.view('competent-authority', {
+          model: new ViewModel(true)
+        }).code(400)
       } else {
         api.put(id)
         console.log('competent authority accepted')
