@@ -89,4 +89,8 @@ lab.experiment('Competent Authority Tests', () => {
     mockApi.expects('put').once()
     mockApi.restore()
   })
+
+  lab.after(async () => {
+    await server.stop()
+  })
 })

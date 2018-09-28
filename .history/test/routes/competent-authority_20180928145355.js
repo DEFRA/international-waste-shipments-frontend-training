@@ -40,8 +40,10 @@ lab.experiment('Competent Authority Tests', () => {
     }
 
     const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(200)
+
     mockApiPut.restore()
+
+    Code.expect(response.statusCode).to.equal(200)
   })
 
   lab.test('3 - POST /competent-authority error if multiple competent authorities selected', async () => {
@@ -58,7 +60,7 @@ lab.experiment('Competent Authority Tests', () => {
   })
 
   lab.test('4 - POST /competent-authority existing is updated if id supplied', async () => {
-    var mockApi = sinon.mock(api)
+    sinon.mock(api)
 
     const options = {
       method: 'POST',
@@ -71,11 +73,10 @@ lab.experiment('Competent Authority Tests', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
-    mockApi.restore()
   })
 
   lab.test('5 - POST /competent-authority calls api for new notification', async () => {
-    var mockApi = sinon.mock(api)
+    let mockApi = sinon.mock(api)
 
     const options = {
       method: 'POST',
@@ -86,7 +87,7 @@ lab.experiment('Competent Authority Tests', () => {
     }
 
     server.inject(options)
+
     mockApi.expects('put').once()
-    mockApi.restore()
   })
 })

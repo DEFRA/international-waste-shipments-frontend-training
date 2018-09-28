@@ -27,9 +27,10 @@ module.exports = [{
         console.log('competent authority invalid')
         return h.view('competent-authority', new ViewModel(true)).code(400)
       } else {
-        api.put(id)
-        console.log('competent authority accepted')
-        return h.response(competentAuthority).code(200)
+        let res = api.put(id)
+          console.log('competent authority accepted')
+          return h.response(competentAuthority).code(200)
+        }        
       }
     }
   }

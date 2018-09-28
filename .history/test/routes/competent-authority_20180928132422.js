@@ -5,7 +5,7 @@ const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
 const api = require('../../server/services/notification-api')
 
-lab.experiment('Competent Authority Tests', () => {
+lab.experiment('Web test', () => {
   let server
 
   // Create server before the tests
@@ -13,7 +13,7 @@ lab.experiment('Competent Authority Tests', () => {
     server = await createServer()
   })
 
-  lab.test('1 - GET /competent-authority route works', async () => {
+  lab.test('GET /competent-authority route works', async () => {
     const options = {
       method: 'GET',
       url: '/competent-authority'
@@ -24,12 +24,9 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('2 - POST /competent-authority one competent authority selected', async () => {
-    var mockApiPut = sinon.stub(api, 'put').callsFake(function fakePut () {
-      return {
-        statusCode: 200
-      }
-    })
+  lab.test('POST /competent-authority one competent authority selected', async () => {
+    var mockApi = sinon.mock(api)
+    mockApi.put.returns({ on: sinon.stub().yields(200) })
 
     const options = {
       method: 'POST',
@@ -41,10 +38,12 @@ lab.experiment('Competent Authority Tests', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
-    mockApiPut.restore()
   })
 
-  lab.test('3 - POST /competent-authority error if multiple competent authorities selected', async () => {
+  lab.test('POST /competent-authority error if multiple competent authorities selected', async () => {
+    var mockApi = sinon.mock(api)
+    mockApi.put.returns({ on: sinon.stub().yields(200) })
+
     const options = {
       method: 'POST',
       url: '/competent-authority',
@@ -57,8 +56,8 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('4 - POST /competent-authority existing is updated if id supplied', async () => {
-    var mockApi = sinon.mock(api)
+  lab.test('POST /competent-authority existing is updated if id supplied', async () => {
+    sinon.mock(api)
 
     const options = {
       method: 'POST',
@@ -71,11 +70,10 @@ lab.experiment('Competent Authority Tests', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
-    mockApi.restore()
   })
 
-  lab.test('5 - POST /competent-authority calls api for new notification', async () => {
-    var mockApi = sinon.mock(api)
+  lab.test('POST /competent-authority calls api for new notification', async () => {
+    let mockApi = sinon.mock(api)
 
     const options = {
       method: 'POST',
@@ -86,7 +84,7 @@ lab.experiment('Competent Authority Tests', () => {
     }
 
     server.inject(options)
+
     mockApi.expects('put').once()
-    mockApi.restore()
   })
 })

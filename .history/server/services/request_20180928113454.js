@@ -18,4 +18,4 @@ function request (url, path, token, method, value) {
   })
 }
 
-module.exports.request = request
+module.exports = request
