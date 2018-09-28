@@ -9,50 +9,13 @@
     <form action="/notification" method="post" name="compAuth">
     {% from "radios/macro.njk" import govukRadios %}
 
-    {% if errorMessage %}
-    {{ govukRadios({
+    {% set radios={
         classes: "govuk-radios",
         idPrefix: "competentAuthority",
         name: "competentAuthority",
-        fieldset: {
-          legend: {
-          text: "Which competent authority are you applying to?",
-          isPageHeading: true,
-          classes: "govuk-fieldset__legend--xl"
-          }
+        errorMessage:{
+          text:"please choose an option"
         },
-        hint: {
-        text: "Select the competent authority for the country you are exporting waste from:"
-        },
-        errorMessage: {
-          text: "Please select an option"
-        },
-        items: [
-            {
-              value: "EA",
-              text: "Environment Agency(EA)"
-            },
-            {
-              value: "SEPA",
-              text: "Scottish Environment Agency(SEPA)"
-            },
-            {
-              value: "NIEA",
-              text: "Northern Ireland Environment Agency (NIEA)"
-            },
-            {
-              value: "NRW",
-              text: "Natural Resources Wales(NRW)"
-            }
-          ]
-        }) 
-      }}
-    {% endif %}
-    {% if not errorMessage%}
-    {{ govukRadios({
-        classes: "govuk-radios",
-        idPrefix: "competent-authority",
-        name: "competent-authority",
         fieldset: {
           legend: {
           text: "Which competent authority are you applying to?",
@@ -81,10 +44,17 @@
               text: "Natural Resources Wales(NRW)"
             }
           ]
-        }) 
-      }}
-      {% endif %}
-    
+        } 
+      %}
+      {# If there is no error the error message will be striped from the control#}
+     {%if not errorMessage%}
+        {% set message="\"errorMessage\":"+radios.errorMessage|dump+","%}
+        {%set resObj=radios|dump|replace(message,'')%}
+          {{govukRadios(resObj | jsonParse)}}
+      {%else%}
+      {# Else the control will be rendered as it is#}
+          {{govukRadios(radios)}}
+      {%endif%}
     {{ govukButton({
       "text": "Save and continue"
     }) }}

@@ -7,20 +7,13 @@ module.exports = [{
     }
   }
 },
-{ // (POST) set competent authority navigating to a specific path
-  // The result of this design will be a lot of different methods/paths one for each stage of the user journey
-  method: 'POST',
-  path: '/notification/CompAuth',
-  handler: (request, h) => {
-    console.log('Routing - Payload = ' + JSON.stringify(request.payload))
-    console.log(request.payload)
-    if (JSON.stringify(request.payload) === '{}') {
-      console.log('Throw an error')
-      return h.view('competentAuthority', { errorMessage: true })
-    } else {
-      console.log('set the competent authority')
+{
+  method: 'GET',
+  path: '/notification/{id}',
+  options: {
+    handler: (request, h) => {
+      return 'details view of notification ' + request.params.id // h.view('competentAuthority', { id: request.params.id, errorMessage: '' })
     }
-    return request.payload
   }
 },
 { // (POST) set competent authority navigating to single path
