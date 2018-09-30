@@ -35,6 +35,7 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/competent-authority',
       payload: {
+        id: 'GB 0001 000001',
         competentAuthority: 'ea'
       }
     }
@@ -44,11 +45,29 @@ lab.experiment('Competent Authority Tests', () => {
     mockApiPut.restore()
   })
 
-  lab.test('3 - POST /competent-authority error if multiple competent authorities selected', async () => {
+  lab.test('3 - POST /competent-authority calls api for new notification', async () => {
+    var mockApi = sinon.mock(api)
+
     const options = {
       method: 'POST',
       url: '/competent-authority',
       payload: {
+        id: 'GB 0001 000001',
+        competentAuthority: 'ea'
+      }
+    }
+
+    server.inject(options)
+    mockApi.expects('put').once()
+    mockApi.restore()
+  })
+
+  lab.test('4 - POST /competent-authority error if multiple competent authorities selected', async () => {
+    const options = {
+      method: 'POST',
+      url: '/competent-authority',
+      payload: {
+        id: 'GB 0001 000001',
         competentAuthorities: [{ competentAuthority: 'ea' }, { competentAuthority: 'sepa' }]
       }
     }
@@ -57,36 +76,17 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('4 - POST /competent-authority existing is updated if id supplied', async () => {
-    var mockApi = sinon.mock(api)
-
+  lab.test('5 - POST /competent-authority error if invalid competent authority selected', async () => {
     const options = {
       method: 'POST',
       url: '/competent-authority',
       payload: {
-        competentAuthority: 'ea',
-        id: '1'
+        id: 'GB 0001 000001',
+        competentAuthorities: 'rpa'
       }
     }
 
     const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(200)
-    mockApi.restore()
-  })
-
-  lab.test('5 - POST /competent-authority calls api for new notification', async () => {
-    var mockApi = sinon.mock(api)
-
-    const options = {
-      method: 'POST',
-      url: '/competent-authority',
-      payload: {
-        competentAuthority: 'ea'
-      }
-    }
-
-    server.inject(options)
-    mockApi.expects('put').once()
-    mockApi.restore()
+    Code.expect(response.statusCode).to.equal(400)
   })
 })

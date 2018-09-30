@@ -1,4 +1,4 @@
-function ViewModel (error) {
+function ViewModel (error, competentAuthority) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
     idPrefix: 'competentAuthority',
@@ -35,6 +35,10 @@ function ViewModel (error) {
     this.model.errorMessage = {
       'text': 'Please select a competent authority'
     }
+  }
+
+  if (competentAuthority != null) {
+    this.model.items.find(x => x.value === competentAuthority).checked = true
   }
 }
 

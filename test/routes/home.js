@@ -3,7 +3,7 @@ const Code = require('code')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
 
-lab.experiment('Web test', () => {
+lab.experiment('Home Tests', () => {
   let server
 
   // Create server before the tests

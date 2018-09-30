@@ -6,12 +6,13 @@
 {% block content %}
   <div class="govuk-body">
   <form method="post" action="/competent-authority">
+  <input type="hidden" name="id" value="{{ id }}"/>
 
-{{ govukRadios(model) }}
+  {{ govukRadios(model.model) }}
 
-{{ govukButton({
-  text: "Save and continue"
-}) }}
+  {{ govukButton({
+    text: "Save and continue"
+  }) }}
 </form>
   </div>
 {% endblock %}

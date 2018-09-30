@@ -1,14 +1,21 @@
 const api = require('../services/notification-api')
 const ViewModel = require('../models/competent-authority.js')
+const Joi = require('joi')
 
-const competentAuthorites = ['ea', 'sepa', 'niea', 'nrw']
+const schema = {
+  competentAuthority: Joi.any().valid('ea', 'sepa', 'niea', 'nrw').required()
+}
 
 module.exports = [{
   method: 'GET',
   path: '/competent-authority',
   options: {
     handler: (request, h) => {
-      return h.view('competent-authority', new ViewModel(false))
+      let notification = api.get()
+      return h.view('competent-authority', {
+        model: new ViewModel(false, notification.competentAuthority),
+        id: notification.id
+      })
     }
   }
 },
@@ -17,19 +24,24 @@ module.exports = [{
   path: '/competent-authority',
   options: {
     handler: (request, h) => {
-      let competentAuthority = request.payload.competentAuthority
-      console.log('competent authority: ' + competentAuthority)
-
       let id = request.payload.id
-      console.log('id: ' + id)
+      let competentAuthority = request.payload.competentAuthority
+      console.log(`id: ${id} competent authority: ${competentAuthority}`)
 
-      if (!competentAuthorites.includes(competentAuthority)) {
+      // If competent authortiy is not valid then return view
+      // otherwise call API put method
+      if (Joi.validate({ competentAuthority: competentAuthority }, schema).error != null) {
         console.log('competent authority invalid')
-        return h.view('competent-authority', new ViewModel(true)).code(400)
+        return h.view('competent-authority', {
+          model: new ViewModel(true, competentAuthority),
+          id: id
+        }).code(400)
       } else {
-        api.put(id)
         console.log('competent authority accepted')
-        return h.response(competentAuthority).code(200)
+        let notification = api.get(id)
+        notification.competentAuthority = competentAuthority
+        let response = api.put(notification)
+        return h.response(notification).code(response.statusCode)
       }
     }
   }
