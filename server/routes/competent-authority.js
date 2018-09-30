@@ -8,10 +8,10 @@ const schema = {
 
 module.exports = [{
   method: 'GET',
-  path: '/competent-authority',
+  path: '/competent-authority/{id?}',
   options: {
     handler: (request, h) => {
-      let notification = api.get()
+      let notification = api.get(request.params.id)
       return h.view('competent-authority', {
         model: new ViewModel(false, notification.competentAuthority),
         id: notification.id

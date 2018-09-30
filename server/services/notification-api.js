@@ -11,7 +11,7 @@ function get (id) {
   // As no API yet exists just return new notifiction.
   // return request.request(config.notificationApi.url, 'notification', config.notificationApi.token, 'GET', id)
   return {
-    id: 'GB 0001 000001'
+    id: id || 'GB 0001 000001'
   }
 }
 

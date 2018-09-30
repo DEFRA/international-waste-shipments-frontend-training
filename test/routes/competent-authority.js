@@ -24,7 +24,18 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('2 - POST /competent-authority one competent authority selected', async () => {
+  lab.test('2 - GET /competent-authority route works with id', async () => {
+    const options = {
+      method: 'GET',
+      url: '/competent-authority/testid'
+    }
+
+    const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.headers['content-type']).to.include('text/html')
+  })
+
+  lab.test('3 - POST /competent-authority one competent authority selected', async () => {
     var mockApiPut = sinon.stub(api, 'put').callsFake(function fakePut () {
       return {
         statusCode: 200
@@ -45,7 +56,7 @@ lab.experiment('Competent Authority Tests', () => {
     mockApiPut.restore()
   })
 
-  lab.test('3 - POST /competent-authority calls api for new notification', async () => {
+  lab.test('4 - POST /competent-authority calls api for new notification', async () => {
     var mockApi = sinon.mock(api)
 
     const options = {
@@ -62,7 +73,7 @@ lab.experiment('Competent Authority Tests', () => {
     mockApi.restore()
   })
 
-  lab.test('4 - POST /competent-authority error if multiple competent authorities selected', async () => {
+  lab.test('5 - POST /competent-authority error if multiple competent authorities selected', async () => {
     const options = {
       method: 'POST',
       url: '/competent-authority',
@@ -76,7 +87,7 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('5 - POST /competent-authority error if invalid competent authority selected', async () => {
+  lab.test('6 - POST /competent-authority error if invalid competent authority selected', async () => {
     const options = {
       method: 'POST',
       url: '/competent-authority',
