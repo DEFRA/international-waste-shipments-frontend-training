@@ -1,0 +1,31 @@
+{% from "radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  idPrefix: "competent-authority",
+  name: "competent-authority",
+  fieldset: {
+    legend: {
+      text: "Which competent authority are you applying to?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--xl"
+    }
+  },
+  items: [
+    {
+      value: "ea",
+      text: "Environment Agency (EA)"
+    },
+    {
+      value: "sepa",
+      text: "Scotting Environment Protection Agency (SEPA)"
+    },
+    {
+      value: "niea",
+      text: "Northern Ireland Environment Agency (NIEA)"
+    },
+    {
+      value: "nrw",
+      text: "Natural Resources Wales (NRW)"
+    }
+  ]
+}) }}
