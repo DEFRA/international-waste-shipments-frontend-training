@@ -41,7 +41,11 @@ module.exports = [{
         let notification = api.get(id)
         notification.shipmentType = shipmentType
         let response = api.put(notification)
-        return h.response(notification).code(response.statusCode)
+        if (response.statusCode === 200) {
+          return h.redirect(`/notification/number/${id}`)
+        } else {
+          throw new Error()
+        }
       }
     }
   }

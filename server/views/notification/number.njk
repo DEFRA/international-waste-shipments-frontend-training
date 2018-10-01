@@ -1,0 +1,26 @@
+{% extends 'layout.njk' %}
+
+{% from "button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-body"> 
+ 
+<h1 class"heading-large">Your notification number</h1>
+
+<p>Here is your notification number:</p>
+
+<div class="govuk-inset-text">
+  <h1 class"heading-large">{{ id }}</h1>
+</div>
+
+<p>Your notification number has been saved automatically.</p>
+
+<p>Print and completed a <a href="#">financial guarantee form</a>.
+An approved financial guarantee must be in place before any shipments can be made.</p>
+
+  {{ govukButton({
+    text: "Save and continue"
+  }) }}
+
+  </div>
+{% endblock %}
