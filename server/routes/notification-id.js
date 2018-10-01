@@ -1,9 +1,9 @@
 const joi = require('joi')
-const ViewModel = require('../models/notificationId-model.js')
+const ViewModel = require('../models/notification-id-model.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    return h.view('notificationId', new ViewModel(null))
+    return h.view('notification-id', new ViewModel(null))
   },
 
   post: async (request, h) => {
@@ -13,13 +13,13 @@ const handlers = {
   },
 
   fail: (request, h, error) => {
-    return h.view('notificationId', new ViewModel(error)).takeover()
+    return h.view('notification-id', new ViewModel(error)).takeover()
   }
 }
 
 module.exports = [{
   method: 'GET',
-  path: '/notificationId',
+  path: '/notification-id',
   options: {
     description: 'Handle the page request for notificationId',
     handler: handlers.get
@@ -27,7 +27,7 @@ module.exports = [{
 },
 {
   method: 'POST',
-  path: '/notificationId',
+  path: '/notification-id',
   options: {
     description: 'Handle the post to the notificationId page',
     handler: handlers.post,

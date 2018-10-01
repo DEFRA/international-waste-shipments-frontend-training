@@ -4,7 +4,7 @@ const routes = [].concat(
   require('../routes/public'),
   require('../routes/authority'),
   require('../routes/type'),
-  require('../routes/notificationId')
+  require('../routes/notification-id')
 )
 
 module.exports = {

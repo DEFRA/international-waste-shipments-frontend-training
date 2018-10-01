@@ -10,7 +10,7 @@ const handlers = {
     // let type = request.payload.type
     // Add notification to Redis
     console.log(request.payload)
-    return h.redirect('./notificationId')
+    return h.redirect('./notification-id')
   },
 
   fail: (request, h, error) => {

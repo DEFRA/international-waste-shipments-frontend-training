@@ -34,7 +34,7 @@ lab.experiment('Happy path Test', () => {
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
-    Code.expect(response.headers['location']).to.equal('./notificationId')
+    Code.expect(response.headers['location']).to.equal('./notification-id')
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 })

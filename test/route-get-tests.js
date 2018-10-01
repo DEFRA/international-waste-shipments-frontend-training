@@ -16,7 +16,7 @@ lab.experiment('Route tests', () => {
     '/about',
     '/authority',
     '/type',
-    '/notificationId'
+    '/notification-id'
   ]
 
   urls.forEach(url => {
