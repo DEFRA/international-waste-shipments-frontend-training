@@ -38,7 +38,10 @@ function ViewModel (error, competentAuthority) {
   }
 
   if (competentAuthority != null) {
-    this.model.items.find(x => x.value === competentAuthority).checked = true
+    let item = this.model.items.find(x => x.value === competentAuthority)
+    if (item != null) {
+      item.checked = true
+    }
   }
 }
 
