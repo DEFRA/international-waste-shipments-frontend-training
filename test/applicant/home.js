@@ -29,7 +29,7 @@ lab.experiment('Web test', () => {
     }
 
     const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.statusCode).to.equal(302)
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 })
