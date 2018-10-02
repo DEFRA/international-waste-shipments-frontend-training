@@ -1,28 +1,26 @@
 {% extends 'layout.njk' %}
+{% from "button/macro.njk" import govukButton %}
 
-{% from "date-input/macro.njk" import govukDateInput %}
+
 
 {% block content %}
   <div class="govuk-body">
-    {{
-      govukDateInput({
-        id: "dob",
-        namePrefix: "dob",
-        fieldset: {
-          legend: {
-            text: "What is your date of birth?",
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--xl"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 1980"
-        }
-      })
-    }}
+    <h1 class="heading-large">Your Homepage</h1>
+    <h2 class="heading-medium">Would you like to start a notification?</h2>
+    <p>Start a new notification now or read the
+      <a href="https://www.gov.uk/guidance/importing-and-exporting-waste">supporting information</a>
+      first.
+      </br>
+      You could also
+      <a href="">create a new notification based on a previous one</a>.
+    </p>
+    
 
+    {{ govukButton({
+      text: "Start now",
+      href: "/competent-authority",
+      classes: "govuk-button--start"
+    }) }}
 
-    <p>{{title}}</p>
-    <p>{{message}}</p>
   </div>
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'layout.njk' %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-body">
+
+    <form method="POST" action="/competent-authority">
+
+      {{ govukRadios({
+        classes: "govuk-radios",
+        idPrefix: "competentAuthority",
+        name: "competentAuthority",
+        fieldset: {
+          legend: {
+            text: "Which competent authority are you apllying to?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+          text: "Select the competant authority for the country you are exporting waste from:"
+        },
+        items: [
+        {
+            value: "EA",
+            text: "Environment Agency (EA)"
+          },
+          {
+            value: "SEPA",
+            text: "Scottish Environment Protection Agency (SEPA)"
+          },
+          {
+            value: "NIEA",
+            text: "Northern Ireland Environment Agency (NIEA)"
+          },
+          {
+            value: "NRW",
+            text: "Natural Resources Wales"
+          }
+        ]
+      }) }}
+
+      
+      {{ govukButton({
+        text: "Save and continue"
+      }) }}
+
+    </form>
+      
+</div>
+{% endblock %}

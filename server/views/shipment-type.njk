@@ -1,0 +1,45 @@
+{% extends 'layout.njk' %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
+{% block content%}
+<div class="govukBody">
+    <form action="/shipment-type" method="post">
+        {{ govukRadios({
+          classes: "govuk-radios",
+          idPrefix: "shipmentType",
+          name: "shipmentType",
+          fieldset: {
+            legend: {
+              text: "What type of waste shipment notification are you applying for?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--xl"
+            }
+          },
+          items: [
+            {
+              value: "recovery",
+              text: "Recovery"
+            },
+            {
+              value: "disposal",
+              text: "Disposal"
+            }
+          ],
+          errorMessage: {
+              text: "hello"
+          }
+        
+        }) }}
+
+
+        
+
+        {{ govukButton({
+          text: "Save and continue"
+        }) }}
+
+    </form>
+</div>
+
+{% endblock %}
