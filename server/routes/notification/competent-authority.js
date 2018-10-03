@@ -22,14 +22,11 @@ module.exports = [{
     } else {
       if (request.params.id === '') {
         console.log('no id, request.payload.competentAuthority:' + request.payload.competentAuthority)
-        api.setCompetentAuthority(request.payload.competentAuthority)
+        api.setCompetentAuthority(null, request.payload.competentAuthority)
         return request.payload
       } else {
         console.log('id recieved update existing notfication with:' + request.payload.competentAuthority)
-        let notification = api.getNotification(request.params.id)
-        notification.competentAuthority = request.payload.competentAuthority
-        // api.setCompetentAuthority(request.payload.competentAuthority)
-        return request.payload
+        return api.setCompetentAuthority(request.params.id, request.payload.competentAuthority)
       }
     }
   }

@@ -1,6 +1,6 @@
 
 function notification () {
-  this.id = 123
+  this.id = 'GB098'
   this.competentAuthority = 'EA'
 }
 
@@ -10,9 +10,15 @@ function getNotification (id) {
   return notification
 }
 
-function setCompetentAuthority (CA) {
+function setCompetentAuthority (id, CA) {
   console.log('NotificationAPI SET CA:' + CA)
-  notification.competentAuthority = CA
+  if (id === null) {
+    // generate a new id
+    notification.id = 'GB123'
+  } else {
+    notification.competentAuthority = CA
+    console.log('NotificatonAPI Comp Auth = ' + notification.competentAuthority)
+  }
   return notification.competentAuthority
 }
 

@@ -96,14 +96,15 @@ lab.experiment('Web test', () => {
   })
   // Notification API CALL TEST - POST payload
   lab.test('POST /notification CA and Spy NotificationAPI with notifiaction id', async () => {
-    var notificactionSpy = sinon.spy(notificationAPI, 'getNotification')
+    var notificactionSpy = sinon.spy(notificationAPI, 'setCompetentAuthority')
     const options = {
       method: 'POST',
       url: '/notification/competent-authority/GB123',
       payload: { 'competentAuthority': 'SEPA' }
     }
     const response = await server.inject(options)
-    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('{"competentAuthority":"SEPA"}')
+    console.log('reponse payload test 8' + response.payload)
+    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('SEPA')
 
     sinon.assert.calledOnce(notificactionSpy)
     notificactionSpy.restore()
