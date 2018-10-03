@@ -1,0 +1,55 @@
+{% extends 'layout.njk' %}
+
+{% from "button/macro.njk" import govukButton %}
+{% from "error-message/macro.njk" import govukErrorMessage %}
+
+    
+{% block content %}
+  <div class="govuk-body">
+    <form action="/notification/typeof" method="post" name="typeof">
+    {% from "radios/macro.njk" import govukRadios %}
+
+    {% set radios={
+        classes: "govuk-radios",
+        idPrefix: "typeOfShipment",
+        name: "typeOfShipment",
+        errorMessage:{
+          text:"Please choose an option"
+        },
+        fieldset: {
+          legend: {
+          text: "What type of waste shipment notification are you applying for?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+          }
+        },
+        hint: {
+        text: "Select the type of shipment:"
+        },
+        items: [
+            {
+              value: "Recovery",
+              text: "Recovery"
+            },
+            {
+              value: "Disposal",
+              text: "Disposal"
+            }
+          ]
+        } 
+      %}
+      {# If there is no error the error message will be striped from the control#}
+     {%if not errorMessage%}
+        {% set message="\"errorMessage\":"+radios.errorMessage|dump+","%}
+        {%set resObj=radios|dump|replace(message,'')%}
+          {{govukRadios(resObj | jsonParse)}}
+      {%else%}
+      {# Else the control will be rendered as it is#}
+          {{govukRadios(radios)}}
+      {%endif%}
+    {{ govukButton({
+      "text": "Save and continue"
+    }) }}
+    </form>
+  </div>
+{% endblock %}
