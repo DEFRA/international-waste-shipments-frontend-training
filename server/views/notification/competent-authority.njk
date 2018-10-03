@@ -6,7 +6,7 @@
     
 {% block content %}
   <div class="govuk-body">
-    <form action="/notification" method="post" name="compAuth">
+    <form action="/notification/competent-authority/" method="post" name="compAuth">
     {% from "radios/macro.njk" import govukRadios %}
 
     {% set radios={
@@ -14,7 +14,7 @@
         idPrefix: "competentAuthority",
         name: "competentAuthority",
         errorMessage:{
-          text:"please choose an option"
+          text:"Please choose an option"
         },
         fieldset: {
           legend: {

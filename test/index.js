@@ -1,7 +1,9 @@
 const Lab = require('lab')
 const Code = require('code')
+const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../server')
+const notificationAPI = require('../server/services/notification-api')
 
 lab.experiment('Web test', () => {
   let server
@@ -36,7 +38,7 @@ lab.experiment('Web test', () => {
   lab.test('GET /notification route works', async () => {
     const options = {
       method: 'GET',
-      url: '/notification'
+      url: '/notification/competent-authority'
     }
     const response = await server.inject(options)
     Code.expect(response.statusCode, 'notifaction routing test').to.equal(200)
@@ -47,9 +49,10 @@ lab.experiment('Web test', () => {
   lab.test('POST /notification route no payload expect 404 page with status 200', async () => {
     const options = {
       method: 'POST',
-      url: '/notification'
+      url: '/notification/competent-authority'
     }
     const response = await server.inject(options)
+    console.log('The Status code ' + response.statusCode)
     Code.expect(response.statusCode, 'notifaction routing test').to.equal(200)
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
@@ -58,32 +61,51 @@ lab.experiment('Web test', () => {
   lab.test('POST /notification POST CA', async () => {
     const options = {
       method: 'POST',
-      url: '/notification',
+      url: '/notification/competent-authority/',
       payload: { 'competentAuthority': 'EA' }
 
     }
     const response = await server.inject(options)
-    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('EA')
+    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('{"competentAuthority":"EA"}')
   })
 
   // Notification Test - PUT update notification
   lab.test('PUT /notification update', async () => {
     const options = {
       method: 'PUT',
-      url: '/notification/1',
-      payload: { 'Test': 'Update Notification' }
+      url: '/notification/competent-authority/2',
+      payload: { 'competentAuthority': 'SEPA' }
     }
     const response = await server.inject(options)
-    Code.expect(response.payload, 'notifaction PUT update').to.contain('Update Notification')
+    Code.expect(response.payload, 'notifaction PUT update').to.contain('{"competentAuthority":"SEPA"}')
   })
-  // Notification Test - PUT create notification
-  lab.test('PUT /notification create', async () => {
+
+  // Notification API CALL TEST - POST payload
+  lab.test('POST /notification CA and Spy Notification API', async () => {
+    var notificactionSpy = sinon.spy(notificationAPI, 'setCompetentAuthority')
     const options = {
-      method: 'PUT',
-      url: '/notification/'
+      method: 'POST',
+      url: '/notification/competent-authority/',
+      payload: { 'competentAuthority': 'EA' }
     }
     const response = await server.inject(options)
-    console.log(response.payload)
-    Code.expect(response.payload, 'notifaction PUT create').to.contain('Create New Notification')
+    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('{"competentAuthority":"EA"}')
+
+    sinon.assert.calledOnce(notificactionSpy)
+    notificactionSpy.restore()
+  })
+  // Notification API CALL TEST - POST payload
+  lab.test('POST /notification CA and Spy NotificationAPI with notifiaction id', async () => {
+    var notificactionSpy = sinon.spy(notificationAPI, 'getNotification')
+    const options = {
+      method: 'POST',
+      url: '/notification/competent-authority/GB123',
+      payload: { 'competentAuthority': 'SEPA' }
+    }
+    const response = await server.inject(options)
+    Code.expect(response.payload, 'notifaction routing test with CA').to.contain('{"competentAuthority":"SEPA"}')
+
+    sinon.assert.calledOnce(notificactionSpy)
+    notificactionSpy.restore()
   })
 })
