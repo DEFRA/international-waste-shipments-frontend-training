@@ -1,0 +1,23 @@
+  
+{% extends 'layout.njk' %}
+
+{% from "button/macro.njk" import govukButton %}
+{% from "error-message/macro.njk" import govukErrorMessage %}
+{% from "inset-text/macro.njk" import govukInsetText %}
+{% block content %}
+  <div class="govuk-body">
+    <form action="/notification/final" method="post" name="typeof">
+    <h1>Your notification number</h1>
+    <p>Here is your notification number:</p>
+    {{ govukInsetText({
+      text: notification
+      }) 
+      }}
+    <p>Your unique notification number has been saved automatically.</p>
+    <p>Print and complete a <a href="#">financial</a> <a href="#">guarantee form</a>. An approved financial guarantee must be in place before any shipments can be made.</p>
+    {{ govukButton({
+      "text": "Save and continue"
+    }) }}
+    </form>
+  </div>
+{% endblock %}
