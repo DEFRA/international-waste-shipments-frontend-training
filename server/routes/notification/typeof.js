@@ -32,7 +32,7 @@ module.exports = [{
       } else {
         api.setTypeOf(null, request.payload.typeOfShipment)
       }
-      return request.payload
+      return h.redirect('final')
     }
   }
 },

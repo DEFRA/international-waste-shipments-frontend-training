@@ -2,6 +2,7 @@ const Lab = require('lab')
 const Code = require('code')
 const sinon = require('sinon')
 const type = require('../test/TypeOfShipment/index')
+const final = require('../test/final/index')
 const lab = exports.lab = Lab.script()
 const createServer = require('../server')
 const notificationAPI = require('../server/services/notification-api')
@@ -67,7 +68,7 @@ lab.experiment('Web test', () => {
 
     }
     const response = await server.inject(options)
-    Code.expect(response.statusCode, 'notifaction routing test').to.equal(200)
+    Code.expect(response.statusCode, 'notifaction routing test').to.equal(302)
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
@@ -91,7 +92,7 @@ lab.experiment('Web test', () => {
       payload: { 'competentAuthority': 'EA' }
     }
     const response = await server.inject(options)
-    Code.expect(response.statusCode, 'notifaction routing test').to.equal(200)
+    Code.expect(response.statusCode, 'notifaction routing test').to.equal(302)
     Code.expect(response.headers['content-type']).to.include('text/html')
 
     sinon.assert.calledOnce(notificactionSpy)
@@ -114,7 +115,3 @@ lab.experiment('Web test', () => {
     notificactionSpy.restore()
   })
 })
-
-// lab.experiment('Web test type of shipment', () => {
-// type.exists )
-// })

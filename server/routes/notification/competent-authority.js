@@ -23,7 +23,7 @@ module.exports = [{
       if (request.params.id === '') {
         console.log('no id, request.payload.competentAuthority:' + request.payload.competentAuthority)
         api.setCompetentAuthority(null, request.payload.competentAuthority)
-        return h.view('notification/typeof')
+        return h.redirect('../typeof')
       } else {
         console.log('id recieved update existing notfication with:' + request.payload.competentAuthority)
         return api.setCompetentAuthority(request.params.id, request.payload.competentAuthority)

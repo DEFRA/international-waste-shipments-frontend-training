@@ -3,7 +3,8 @@ const routes = [].concat(
   require('../routes/about'),
   require('../routes/public'),
   require('../routes/notification/competent-authority'),
-  require('../routes/notification/typeof')
+  require('../routes/notification/typeof'),
+  require('../routes/notification/final')
 )
 
 module.exports = {
