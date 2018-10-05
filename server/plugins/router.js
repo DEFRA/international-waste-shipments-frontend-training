@@ -1,6 +1,8 @@
 const routes = [].concat(
-  require('../routes/home'),
-  require('../routes/about'),
+  require('../routes/applicant/home'),
+  require('../routes/notification/competent-authority'),
+  require('../routes/notification/shipment-type'),
+  require('../routes/notification/notification-id'),
   require('../routes/public')
 )
 

@@ -1,0 +1,16 @@
+{% extends 'layout.njk' %}
+{% from "button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-body">
+    <h1 class="heading-large">{{model.title}}</h1>
+    <h2 class="heading-medium">{{model.question}}</h2>
+    <p>Start a new notification now or read the <a href={{model.wasteLink}}>supporting information</a> first.</p>
+    <p>You could also <a href="#">create a new notification based on a previous one</a>.</p>
+    {{ govukButton({
+      text: "Start a new notification",
+      href: "/notification/competent-authority",
+      classes: "govuk-button--start"
+    }) }}
+  </div>
+{% endblock %}
