@@ -1,4 +1,4 @@
-const joi = require('joi')
+const schema = require('../../schema/notification/shipment-type')
 const ViewModel = require('../../models/notification/shipment-type.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
@@ -11,7 +11,8 @@ const handlers = {
   },
 
   fail: (request, h, error) => {
-    return h.view('notification/shipment-type', new ViewModel(error)).takeover()
+    const shipmentType = (request.payload.type)
+    return h.view('notification/shipment-type', new ViewModel(shipmentType, error)).takeover()
   }
 }
 
@@ -29,10 +30,7 @@ module.exports = [{
   options: {
     description: 'Handle the post to the shipment type page',
     handler: handlers.post,
-    validate: {
-      payload: {
-        type: joi.string().required().max(10)
-      },
+    validate: { payload: { type: schema },
       failAction: handlers.fail
     }
   }

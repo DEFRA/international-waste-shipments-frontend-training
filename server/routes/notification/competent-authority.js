@@ -1,4 +1,4 @@
-const joi = require('joi')
+const schema = require('../../schema/notification/competent-authority')
 const ViewModel = require('../../models/notification/competent-authority.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
@@ -11,7 +11,8 @@ const handlers = {
   },
 
   fail: (request, h, error) => {
-    return h.view('notification/competent-authority', new ViewModel(error)).takeover()
+    const competentAuthority = (request.payload.authority)
+    return h.view('notification/competent-authority', new ViewModel(competentAuthority, error)).takeover()
   }
 }
 
@@ -29,10 +30,7 @@ module.exports = [{
   options: {
     description: 'Handle the post to the competent authority page',
     handler: handlers.post,
-    validate: {
-      payload: {
-        authority: joi.string().required().max(4)
-      },
+    validate: { payload: { authority: schema },
       failAction: handlers.fail
     }
   }

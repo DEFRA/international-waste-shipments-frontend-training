@@ -1,4 +1,4 @@
-function ViewModel (error) {
+function ViewModel (shipmentType, error) {
   // Constructor function to create logic dependent nunjucks page
 
   this.model = {
@@ -24,6 +24,14 @@ function ViewModel (error) {
         }
       }
     ]
+  }
+
+  // Check if a shipment type has been added to the model. If it has, set the corresponding checked property
+  if (shipmentType != null) {
+    let item = this.model.items.find(x => x.value === shipmentType)
+    if (item != null) {
+      item.checked = true
+    }
   }
 
   // If error is passed to model then this error property is added to the model and therefore radio macro

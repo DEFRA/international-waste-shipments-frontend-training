@@ -1,5 +1,5 @@
 const joi = require('joi')
-const ViewModel = require('../../models/notification/notification-id-model.js')
+const ViewModel = require('../../models/notification/notification-id.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {

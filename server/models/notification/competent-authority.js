@@ -1,4 +1,4 @@
-function ViewModel (error) {
+function ViewModel (competentAuthority, error) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
     idPrefix: 'authority',
@@ -29,6 +29,14 @@ function ViewModel (error) {
       }
     ]
   }
+
+  if (competentAuthority != null) {
+    let item = this.model.items.find(x => x.value === competentAuthority)
+    if (item != null) {
+      item.checked = true
+    }
+  }
+
   // If error is passed to model then this error property is added to the model and therefore radio macro
   this.hasError = !!error
   if (this.hasError === true) {
