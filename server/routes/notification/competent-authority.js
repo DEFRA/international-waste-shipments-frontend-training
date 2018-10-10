@@ -3,16 +3,26 @@ const ViewModel = require('../../models/notification/competent-authority.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    return h.view('notification/competent-authority', new ViewModel(null))
+    let notification = request.yar.get('notification')
+    if (notification == null) {
+      notification = {}
+    }
+    return h.view('notification/competent-authority', new ViewModel(notification.authority, false))
   },
 
   post: async (request, h) => {
+    let notification = request.yar.get('notification')
+    if (notification == null) {
+      notification = {}
+    }
+    notification.authority = request.payload.authority
+    request.yar.set('notification', notification)
     return h.redirect('./shipment-type')
   },
 
   fail: (request, h, error) => {
-    const competentAuthority = (request.payload.authority)
-    return h.view('notification/competent-authority', new ViewModel(competentAuthority, error)).takeover()
+    const authority = (request.payload.authority)
+    return h.view('notification/competent-authority', new ViewModel(authority, error)).takeover()
   }
 }
 
