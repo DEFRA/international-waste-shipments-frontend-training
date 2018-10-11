@@ -1,3 +1,5 @@
+const baseRouteHandler = require('../ext/base-route-handler')
+const hoek = require('hoek')
 const schema = require('../../schema/notification/shipment-type')
 const ViewModel = require('../../models/notification/shipment-type.js')
 // GET, POST & FAIL handlers seperated from the route export
@@ -24,7 +26,7 @@ module.exports = [{
     handler: handlers.get
   }
 },
-{
+hoek.merge({
   method: 'POST',
   path: '/notification/shipment-type',
   options: {
@@ -34,5 +36,4 @@ module.exports = [{
       failAction: handlers.fail
     }
   }
-}
-]
+}, baseRouteHandler.post)]

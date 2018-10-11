@@ -1,5 +1,6 @@
 const joi = require('joi')
 const ViewModel = require('../../models/notification/notification-id.js')
+const sessionCache = require('../../services/session-cache.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
@@ -7,9 +8,9 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    // let authority = request.payload.authority
-    // Add authority to Redis
-    return h.redirect('/applicant/home')
+    // The  transaction is complete so destroy the session cookie
+    sessionCache.destroy(request, h)
+    return h.redirect('/')
   },
 
   fail: (request, h, error) => {

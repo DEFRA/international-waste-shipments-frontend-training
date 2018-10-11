@@ -24,6 +24,23 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
+  lab.test('2 - POST /notification/shipment-type calls api for new notification', async () => {
+    var mockApi = sinon.mock(api)
+
+    const options = {
+      method: 'POST',
+      url: '/notification/shipment-type',
+      payload: {
+        type: 'recovery'
+      }
+    }
+
+    server.inject(options)
+    mockApi.expects('put').once()
+    mockApi.verify()
+    mockApi.restore()
+  })
+
   lab.test('2 - POST /notification/shipment-type one type selected', async () => {
     var mockApiPut = sinon.stub(api, 'put').callsFake(function fakePut () {
       return {
@@ -57,6 +74,7 @@ lab.experiment('Shipment Type Tests', () => {
 
     server.inject(options)
     mockApi.expects('put').once()
+    mockApi.verify()
     mockApi.restore()
   })
 

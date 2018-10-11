@@ -10,12 +10,16 @@ async function createServer () {
         options: {
           abortEarly: false
         }
+      },
+      cache: {
+        otherwise: 'no-cache, must-revalidate, max-age=0, no-store'
       }
     }
   })
 
   // Register the plugins
   await server.register(require('inert'))
+  await server.register(require('./plugins/auth'))
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))

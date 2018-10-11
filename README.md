@@ -13,10 +13,13 @@ This solution exists for training purposes. The structure of this repository is 
 
 ## Environment variables
 
-| name     | description      | required | default |            valid            | notes |
-|----------|------------------|:--------:|---------|:---------------------------:|-------|
-| NODE_ENV | Node environment |    no    |         | development,test,production |       |
-| PORT     | Port number      |    no    | 3000    |                             |       |
+| name                                  | description              | required | default |            valid            |
+|---------------------------------------|--------------------------|:--------:|---------|:---------------------------:|
+| NODE_ENV                              | Node environment         |    no    |         | development,test,production |
+| PORT                                  | Port number              |    no    | 3000    |                             |
+| IWS_NOTIFICATION_SESSION_COOKIE_NAME  | Notification cookie name |    yes   |         |                             |
+| IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length   |    yes   |         |                             |
+| IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout          |    yes   | 5000    |                             |
 
 ## Prerequires
 
