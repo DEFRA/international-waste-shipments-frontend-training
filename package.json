@@ -9,7 +9,8 @@
     "lint": "standard",
     "unit-test": "lab --verbose",
     "test": "npm run lint && npm run unit-test",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "start": "node index.js"
   },
   "author": "Department for Environment, Food and Rural Affairs <https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs>.",
   "license": "SEE LICENSE IN LICENSE",
