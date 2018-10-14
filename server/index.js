@@ -1,8 +1,9 @@
+'use strict'
 const hapi = require('hapi')
-const config = require('./config')
 
 async function createServer () {
   // Create the hapi server
+  const config = require('./config')
   const server = hapi.server({
     port: config.port,
     routes: {

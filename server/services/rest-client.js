@@ -1,5 +1,6 @@
+const config = require('../config')
 const wreck = require('wreck').defaults({
-  timeout: process.env.IWS_REQUEST_TIMEOUT_IN_MILLIS || 5000
+  timeout: config.restClientTimeoutMillis
 })
 
 const self = module.exports = {
@@ -9,7 +10,7 @@ const self = module.exports = {
         const res = response.res
         const payload = response.payload
 
-        if (res.statusCode !== 200) {
+        if (res.statusCode < 200 || res.statusCode >= 300) {
           const err = (payload || new Error('Unknown error'))
           throw err
         }
@@ -20,6 +21,10 @@ const self = module.exports = {
 
   get: async (url, options) => {
     return self.request('get', url, options)
+  },
+
+  getJson: async (url) => {
+    return self.get(url, { json: true })
   },
 
   post: async (url, options) => {
@@ -33,7 +38,14 @@ const self = module.exports = {
     return self.post(url, options)
   },
 
-  getJson: async (url) => {
-    return self.get(url, { json: true })
+  put: async (url, options) => {
+    return self.request('put', url, options)
+  },
+
+  putJson: async (url, options) => {
+    options = options || {}
+    options.json = true
+
+    return self.put(url, options)
   }
 }

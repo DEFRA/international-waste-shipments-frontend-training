@@ -3,14 +3,28 @@ const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
-const api = require('../../server/services/notification-api')
+const restClient = require('../../server/services/rest-client')
 
 lab.experiment('Competent Authority Tests', () => {
+  let sandbox
   let server
 
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+  })
+
+  // Stop server after the tests
+  lab.after(async () => {
+    await server.stop()
+  })
+
+  lab.beforeEach(async () => {
+    sandbox = await sinon.createSandbox()
+  })
+
+  lab.afterEach(async () => {
+    await sandbox.restore()
   })
 
   lab.test('1 - GET /notification/competent-authority route works', async () => {
@@ -24,13 +38,7 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('2 - POST /notification/competent-authority one competent authority selected', async () => {
-    var mockApiPut = sinon.stub(api, 'put').callsFake(function fakePut () {
-      return {
-        statusCode: 200
-      }
-    })
-
+  lab.test('2 - POST /notification/competent-authority with valid competent authority selected', async () => {
     const options = {
       method: 'POST',
       url: '/notification/competent-authority',
@@ -38,40 +46,49 @@ lab.experiment('Competent Authority Tests', () => {
         authority: 'ea'
       }
     }
-
+    sandbox.stub(restClient, 'putJson').returns()
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
-    mockApiPut.restore()
+    Code.expect(response.headers.location).to.equal('./shipment-type')
   })
 
-  lab.test('3 - POST /notification/competent-authority calls api for new notification', async () => {
-    var mockApi = sinon.mock(api)
-
+  lab.test('3 - POST /notification/competent-authority does not redirect if invalid payload is submitted', async () => {
     const options = {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        id: 'GB 0001 000001',
-        authority: 'ea'
-      }
-    }
-
-    server.inject(options)
-    mockApi.expects('put').once()
-    mockApi.restore()
-  })
-
-  lab.test('4 - POST /notification/competent-authority error if multiple competent authorities selected', async () => {
-    const options = {
-      method: 'POST',
-      url: '/notification/competent-authority',
-      payload: {
-        id: 'GB 0001 000001',
-        authorities: [{ authority: 'ea' }, { authority: 'sepa' }]
+        authority: 'ea',
+        type: 'recovery'
       }
     }
 
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
+  })
+
+  lab.test('4 - POST /notification/competent-authority does not redirect if invalid competent authority is submitted', async () => {
+    const options = {
+      method: 'POST',
+      url: '/notification/competent-authority',
+      payload: {
+        authority: 'defra'
+      }
+    }
+
+    const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(200)
+  })
+
+  lab.test('5 - POST /notification/competent-authority when notification API is unavailable', async () => {
+    const options = {
+      method: 'POST',
+      url: '/notification/competent-authority',
+      payload: {
+        authority: 'ea'
+      }
+    }
+
+    const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(400)
   })
 })

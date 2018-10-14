@@ -11,10 +11,15 @@ lab.experiment('Home Tests', () => {
     server = await createServer()
   })
 
+  // Stop server after the tests
+  lab.after(async () => {
+    await server.stop()
+  })
+
   lab.test('GET / route works', async () => {
     const options = {
       method: 'GET',
-      url: '/applicant/home'
+      url: '/'
     }
 
     const response = await server.inject(options)

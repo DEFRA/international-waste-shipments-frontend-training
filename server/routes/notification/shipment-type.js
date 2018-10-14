@@ -9,7 +9,7 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    return h.redirect('notification-id')
+    return h.redirect('./notification-id')
   },
 
   fail: (request, h, error) => {
