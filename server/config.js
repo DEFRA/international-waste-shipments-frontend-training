@@ -10,6 +10,7 @@ const schema = {
 const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV
+ 
 }
 
 // Validate config
