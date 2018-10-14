@@ -8,6 +8,9 @@ module.exports = [{
     handler: (request, h) => {
       var note = api.getNotification('GB 0001 006415')
       console.log(JSON.stringify(note))
+      let requirement = request.yar.get('requirement')
+      requirement.id = note.id
+      request.yar.set('requirement', requirement)
       return h.view('notification/final', { notification: note.id })
     }
   }

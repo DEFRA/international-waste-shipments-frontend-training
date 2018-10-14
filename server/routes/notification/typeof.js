@@ -30,6 +30,9 @@ module.exports = [{
       if (request.payload.typeOfShipment === undefined) {
         return h.view('notification/typeof', { errorMessage: true })
       } else {
+        var requirement = request.yar.get('requirement', false)
+        requirement.type = request.payload.typeOfShipment
+        request.yar.set('requirement', requirement)
         api.setTypeOf(null, request.payload.typeOfShipment)
       }
       return h.redirect('final')
