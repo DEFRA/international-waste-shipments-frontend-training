@@ -1,4 +1,5 @@
 const createServer = require('./server')
+require('docker-composer')
 
 createServer()
   .then(server => server.start())

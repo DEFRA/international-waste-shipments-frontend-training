@@ -7,14 +7,16 @@ const lab = exports.lab = Lab.script()
 const createServer = require('../server')
 const notificationAPI = require('../server/services/notification-api')
 
-lab.experiment('Web test', () => {
+lab.experiment('Web test home', () => {
   let server
 
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
-
+  var sleep = require('sleep')
+  sleep.sleep(10)
   lab.test('GET / route works', async () => {
     const options = {
       method: 'GET',
@@ -63,7 +65,7 @@ lab.experiment('Web test', () => {
   lab.test('POST /notification POST CA', async () => {
     const options = {
       method: 'POST',
-      url: '/notification/competent-authority/',
+      url: '/notification/competent-authority',
       payload: { 'competentAuthority': 'EA' }
 
     }
@@ -73,7 +75,7 @@ lab.experiment('Web test', () => {
   })
 
   // Notification Test - PUT update notification
-  lab.test('PUT /notification update', async () => {
+  lab.test('PUT /notification/competent-authority/ update', async () => {
     const options = {
       method: 'PUT',
       url: '/notification/competent-authority/2',
@@ -88,7 +90,7 @@ lab.experiment('Web test', () => {
     var notificactionSpy = sinon.spy(notificationAPI, 'setCompetentAuthority')
     const options = {
       method: 'POST',
-      url: '/notification/competent-authority/',
+      url: '/notification/competent-authority',
       payload: { 'competentAuthority': 'EA' }
     }
     const response = await server.inject(options)
