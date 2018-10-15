@@ -1,6 +1,6 @@
+const config = require('../config')
 const notificationService = require('../services/notification-api')
 const uuid = require('uuid')
-const SESSION_COOKIE_NAME = process.env.IWS_NOTIFICATION_SESSION_COOKIE_NAME
 
 const self = module.exports = {
   create: async (request, h) => {
@@ -71,8 +71,8 @@ const self = module.exports = {
   },
   destroy: async (request, h) => {
     request.log('info', 'Destroying session')
-    h.state(SESSION_COOKIE_NAME, null)
-    h.unstate(SESSION_COOKIE_NAME)
+    h.state(config.sessionCookieName, null)
+    h.unstate(config.sessionCookieName)
 
     const session = getSessionCookie(request)
 
@@ -89,14 +89,14 @@ const self = module.exports = {
 }
 
 function getSessionCookie (request) {
-  return request.state[SESSION_COOKIE_NAME]
-    ? request.state[SESSION_COOKIE_NAME].sessionId
+  return request.state[config.sessionCookieName]
+    ? request.state[config.sessionCookieName].sessionId
     : null
 }
 
 function setSessionCookie (h, sessionId) {
-  h.unstate(SESSION_COOKIE_NAME)
+  h.unstate(config.sessionCookieName)
   const session = { sessionId: sessionId }
   // Put the session object in for the reply later on
-  h.state(SESSION_COOKIE_NAME, session)
+  h.state(config.sessionCookieName, session)
 }
