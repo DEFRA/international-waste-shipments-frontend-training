@@ -1,6 +1,5 @@
 const hapi = require('hapi')
 const config = require('./config')
-require('dotenv').config()
 
 async function createServer () {
   // Create the hapi server
