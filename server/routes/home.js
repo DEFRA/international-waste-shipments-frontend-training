@@ -3,10 +3,10 @@ module.exports = {
   path: '/',
   options: {
     handler: (request, h) => {
-      return h.view('home', {
-        title: 'Hello',
-        message: 'World'
-      })
+      request.yar.reset()
+      let requirement = {}
+      request.yar.set('requirement', requirement)
+      return h.view('home')
     }
   }
 }

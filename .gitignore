@@ -5,3 +5,7 @@ coverage
 node_modules
 npm-debug.log
 server/public/build
+docker-compose.yml
+Dockerfile
+.env
+volumes/

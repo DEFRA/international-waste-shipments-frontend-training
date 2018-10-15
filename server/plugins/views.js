@@ -10,6 +10,10 @@ module.exports = {
     engines: {
       njk: {
         compile: (src, options) => {
+          // Adding new filter to the environment so it can be used in the view with nunjucks
+          options.environment.addFilter('jsonParse', function (str) {
+            return JSON.parse(str)
+          })
           const template = nunjucks.compile(src, options.environment)
 
           return (context) => {
