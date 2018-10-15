@@ -39,4 +39,5 @@ const value = result.value
 value.isDev = value.env === 'development'
 value.isProd = value.env === 'production'
 
+// Make the validated configuration read only to preserve integrity of the validation process.
 module.exports = Object.freeze(value)

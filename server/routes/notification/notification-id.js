@@ -8,7 +8,7 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    // The  transaction is complete so destroy the session cookie
+    // The  user journey is complete so destroy the session cookie
     sessionCache.destroy(request, h)
     return h.redirect('/')
   },
@@ -26,6 +26,7 @@ module.exports = [{
     handler: handlers.get
   }
 },
+// As the user journey is complete, common session management is not required by this POST handler.
 {
   method: 'POST',
   path: '/notification/notification-id',

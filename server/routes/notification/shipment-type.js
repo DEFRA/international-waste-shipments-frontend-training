@@ -26,6 +26,7 @@ module.exports = [{
     handler: handlers.get
   }
 },
+// Merge common session management into the POST handler.
 hoek.merge({
   method: 'POST',
   path: '/notification/shipment-type',
