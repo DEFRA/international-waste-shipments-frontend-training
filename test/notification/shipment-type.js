@@ -23,14 +23,12 @@ lab.experiment('Shipment Type Tests', () => {
 
     await notificationApi.get(fakeSessionId)
     request.log('info', `Got fake session ${fakeSessionId}`)
-    request.sessionCache = cache
     return cache
   }
 
   async function getFakeSessionCacheWithNoSessionId (request, h) {
     let cache = {
     }
-    request.sessionCache = cache
     return cache
   }
 
@@ -118,20 +116,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('6 - POST /notification/shipment-type fails when session cache entry is not added to the request', async () => {
-    const options = {
-      method: 'POST',
-      url: '/notification/shipment-type',
-      payload: {
-        type: 'recovery'
-      }
-    }
-    sandbox.stub(sessionCache, 'get').returns({})
-    const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(400)
-  })
-
-  lab.test('7 - POST /notification/shipment-type does not redirect if invalid payload is submitted', async () => {
+  lab.test('6 - POST /notification/shipment-type does not redirect if invalid payload is submitted', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -145,7 +130,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('8 - POST /notification/shipment-type does not redirect if invalid shipment type is submitted', async () => {
+  lab.test('7 - POST /notification/shipment-type does not redirect if invalid shipment type is submitted', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',

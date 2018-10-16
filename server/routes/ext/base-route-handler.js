@@ -20,7 +20,8 @@ async function getSessionCache (request, h) {
     if (!result) {
       throw new Error('Cache item not found')
     }
-    request.sessionId = result.id
+    // Add the cache entry to the request for convenient access.
+    request.sessionCache = result
     return h.continue
   } catch (err) {
     // If a session could not be retrieved, redirect to the home page to start a new user journey.

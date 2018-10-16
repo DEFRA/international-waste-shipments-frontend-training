@@ -66,23 +66,19 @@ const self = module.exports = {
         throw new Error('No session cookie')
       }
     }
-    request.sessionCache = cache
     return cache
   },
   destroy: async (request, h) => {
-    request.log('info', 'Destroying session')
-    h.state(config.sessionCookieName, null)
-    h.unstate(config.sessionCookieName)
-
-    const session = getSessionCookie(request)
-
-    if (!session) {
+    const sessionId = getSessionCookie(request)
+    if (sessionId) {
+      request.log('info', `Destroying session cookie for session ${sessionId}`)
+      h.state(config.sessionCookieName, null)
+      h.unstate(config.sessionCookieName)
+    } else {
       const err = new Error('No session found')
       request.log('error', err)
       throw err
     }
-
-    request.log('info', 'Destroyed session ' + session.id)
 
     return true
   }
