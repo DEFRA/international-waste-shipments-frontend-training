@@ -3,13 +3,17 @@ const joi = require('joi')
 // Define config schema
 const schema = {
   port: joi.number().default(3000),
-  env: joi.string().valid('development', 'test', 'production').default('development')
+  env: joi.string().valid('development', 'test', 'production').default('development'),
+  cookiePassword: joi.string().min(32).required(),
+  cookieSecure: joi.boolean()
 }
 
 // Build config
 const config = {
   port: process.env.PORT,
-  env: process.env.NODE_ENV
+  env: process.env.NODE_ENV,
+  cookiePassword: process.env.COOKIE_PASSWORD,
+  cookieSecure: process.env.COOKIE_SECURE
 }
 
 // Validate config

@@ -11,6 +11,12 @@ async function createServer () {
           abortEarly: false
         }
       }
+    },
+    cache: {
+      name: 'redisCache',
+      engine: require('catbox-redis'),
+      host: '127.0.0.1',
+      partition: 'WEEE'
     }
   })
 
@@ -19,6 +25,22 @@ async function createServer () {
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
+  await server.register({
+    plugin: require('yar'),
+    options: {
+      maxCookieSize: 0,
+      storeBlank: false,
+      cache: {
+        cache: 'redisCache',
+        expiresIn: 120 * 1000,
+        segment: 'session'
+      },
+      cookieOptions: {
+        password: config.cookiePassword,
+        isSecure: config.cookieSecure
+      }
+    }
+  })
 
   if (config.isDev) {
     await server.register(require('blipp'))

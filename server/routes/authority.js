@@ -9,13 +9,15 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    // let authority = request.payload.authority
     // Add authority to Redis
+    let authority = request.payload.authority
+    request.yar.set('authority', authority)
     return h.redirect('./type')
   },
 
   fail: (request, h, error) => {
-    return h.view('authority', new ViewModel(error)).takeover()
+    let authority = request.payload.authority
+    return h.view('authority', new ViewModel(error, authority)).takeover()
   }
 }
 

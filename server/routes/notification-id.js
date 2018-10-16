@@ -7,8 +7,8 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    // let authority = request.payload.authority
-    // Add authority to Redis
+    let notificationId = request.payload.notificationId
+    request.yar.set('notificationId', notificationId)
     return h.redirect('./')
   },
 

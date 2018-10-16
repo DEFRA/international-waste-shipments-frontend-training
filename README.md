@@ -13,10 +13,12 @@ This solution exists for training purposes. The structure of this repository is 
 
 ## Environment variables
 
-| name     | description      | required | default |            valid            | notes |
-|----------|------------------|:--------:|---------|:---------------------------:|-------|
-| NODE_ENV | Node environment |    no    |         | development,test,production |       |
-| PORT     | Port number      |    no    | 3000    |                             |       |
+| name                | description                             | required | default                   |            valid            | notes |
+|---------------------|-----------------------------------------|:--------:|---------------------------|:---------------------------:|-------|
+| NODE_ENV            | Node environment                        |    no    |                           | development,test,production |       |
+| PORT                | Port number                             |    no    |     3000                  |                             |       |
+| COOKIE_PASSWORD     | Encrypt and sign the cookie data.       |    yes   |     32 charactures min    |                             |       |
+| COOKIE_SECURE       | Determins TLS/SSL                       |    no    |     true                  |                             |       |
 
 ## Prerequires
 

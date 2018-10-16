@@ -10,11 +10,14 @@ const handlers = {
     // let type = request.payload.type
     // Add notification to Redis
     console.log(request.payload)
+    let type = request.payload.type
+    request.yar.set('type', type)
     return h.redirect('./notification-id')
   },
 
   fail: (request, h, error) => {
-    return h.view('type', new ViewModel(error)).takeover()
+    let type = request.payload.type
+    return h.view('type', new ViewModel(error, type)).takeover()
   }
 }
 
