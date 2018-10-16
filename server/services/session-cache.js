@@ -2,6 +2,10 @@ const config = require('../config')
 const notificationService = require('../services/notification-api')
 const uuid = require('uuid')
 
+// This module is based on the session-cache module of the fish-sales-app (https://github.com/DEFRA/fish-sales-app/blob/develop/server/services/session-cache.js).
+// The main changes are support for lazy session cache creation and delegation to the Notification API
+// (https://github.com/DEFRA/international-waste-shipments-notification-service-training) instead of DynamoDb.
+// This module may be replaced as things progress.
 const self = module.exports = {
   create: async (request, h) => {
     const cache = {}
@@ -46,6 +50,7 @@ const self = module.exports = {
 
     if (sessionId) {
       try {
+        // Use the Notification API as the source of the cache for initial training purposes.
         cache = await notificationService.get(sessionId)
         if (!cache) {
           const err = new Error('Session not found ' + sessionId)
@@ -69,6 +74,8 @@ const self = module.exports = {
     return cache
   },
   destroy: async (request, h) => {
+    // Prepare to remove the session cookie. Removal of the cache entry can be managed elsewhere
+    // once notification data has reached persistent storage.
     const sessionId = getSessionCookie(request)
     if (sessionId) {
       request.log('info', `Destroying session cookie for session ${sessionId}`)

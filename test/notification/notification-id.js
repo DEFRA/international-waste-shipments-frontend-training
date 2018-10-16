@@ -10,16 +10,17 @@ lab.experiment('Number Tests', () => {
   let sandbox
   let server
 
-  // Create server before the tests
+  // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
   })
 
-  // Stop server after the tests
+  // Stop server after the tests.
   lab.after(async () => {
     await server.stop()
   })
 
+  // Use a Sinon sandbox to manage spies, stubs and mocks for each test.
   lab.beforeEach(async () => {
     sandbox = sinon.createSandbox()
   })
@@ -47,9 +48,12 @@ lab.experiment('Number Tests', () => {
         notificationId: uuid.v4()
       }
     }
+    // Use a mock to specify that the destroy function of the session cache should be called.
     const mockSessionCache = sandbox.mock(sessionCache)
     mockSessionCache.expects('destroy').once()
     const response = await server.inject(options)
+    // Verify that the expections specified on the mock were met. If this call is missed the
+    // test will pass regardless of whether or not the destroy function is called.
     mockSessionCache.verify()
     Code.expect(response.statusCode).to.equal(302)
     Code.expect(response.headers.location).to.equal('/')

@@ -3,6 +3,9 @@ const wreck = require('wreck').defaults({
   timeout: config.restClientTimeoutMillis
 })
 
+// A set of convenience functions intended for use with RESTful APIs.
+// This module is based on the utils module of the fish-sales-app (https://github.com/DEFRA/fish-sales-app/blob/develop/server/util.js)
+// Functionality like this is normally published as a or as part of a utility module for use by multiple projects.
 const self = module.exports = {
   request: async (method, url, options) => {
     return wreck[method](url, options)

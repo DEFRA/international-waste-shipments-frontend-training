@@ -9,16 +9,17 @@ lab.experiment('Competent Authority Tests', () => {
   let sandbox
   let server
 
-  // Create server before the tests
+  // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
   })
 
-  // Stop server after the tests
+  // Stop server after the tests.
   lab.after(async () => {
     await server.stop()
   })
 
+  // Use a Sinon sandbox to manage spies, stubs and mocks for each test.
   lab.beforeEach(async () => {
     sandbox = await sinon.createSandbox()
   })
@@ -46,6 +47,8 @@ lab.experiment('Competent Authority Tests', () => {
         authority: 'ea'
       }
     }
+    // Don't interact with the Notification API in a unit test. All that matters in this test case is
+    // what the frontend application does in response to a stubbed successful save of notification data.
     sandbox.stub(restClient, 'putJson').returns()
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
@@ -80,6 +83,9 @@ lab.experiment('Competent Authority Tests', () => {
   })
 
   lab.test('5 - POST /notification/competent-authority when notification API is unavailable', async () => {
+    // Spies, mocks and stubs are not used in this test case. If the notification API is not running
+    // does the frontend application behave as expected?
+    // Note: For this test to work as intended the Notification API should not be running.
     const options = {
       method: 'POST',
       url: '/notification/competent-authority',

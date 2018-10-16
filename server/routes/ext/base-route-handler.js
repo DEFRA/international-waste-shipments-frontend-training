@@ -31,7 +31,7 @@ async function getSessionCache (request, h) {
 
 async function updateSessionCache (request, h) {
   try {
-    // Retrieved session data should have added to the request.
+    // Defensive programming as retrieved session data should have added to the request by the function above.
     if (request.sessionCache) {
       // Merge the request payload with the session data and save the result.
       hoek.merge(request.sessionCache, request.payload)

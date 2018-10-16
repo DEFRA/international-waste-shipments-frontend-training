@@ -6,12 +6,12 @@ const createServer = require('../server')
 lab.experiment('Home Tests', () => {
   let server
 
-  // Create server before the tests
+  // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
   })
 
-  // Stop server after the tests
+  // Stop server after the tests.
   lab.after(async () => {
     await server.stop()
   })

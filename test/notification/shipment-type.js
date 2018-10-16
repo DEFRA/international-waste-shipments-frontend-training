@@ -12,8 +12,8 @@ lab.experiment('Shipment Type Tests', () => {
   let sandbox
   let server
 
-  //  A fake implementation of retrieving a session cache entry that ensures
-  //  the sessiion cache entry is set as a request property.
+  // A fake implementation of retrieving a valid session cache entry. Unit tests simply need an object
+  // with an id property.
   async function getFakeSessionCache (request, h) {
     let fakeSessionId = uuid.v4()
 
@@ -21,6 +21,8 @@ lab.experiment('Shipment Type Tests', () => {
       id: fakeSessionId
     }
 
+    // As modules in the services directory do not have their own unit tests make a call
+    // to the notification API client to increase test coverage.
     await notificationApi.get(fakeSessionId)
     request.log('info', `Got fake session ${fakeSessionId}`)
     return cache
@@ -28,20 +30,22 @@ lab.experiment('Shipment Type Tests', () => {
 
   async function getFakeSessionCacheWithNoSessionId (request, h) {
     let cache = {
+      // A cache entry with no id property is used to test error handling.
     }
     return cache
   }
 
-  // Create server before the tests
+  // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
   })
 
-  // Stop server after the tests
+  // Stop server after the tests.
   lab.after(async () => {
     await server.stop()
   })
 
+  // Use a Sinon sandbox to manage spies, stubs and mocks for each test.
   lab.beforeEach(async () => {
     sandbox = sinon.createSandbox()
   })
@@ -68,7 +72,12 @@ lab.experiment('Shipment Type Tests', () => {
         type: 'recovery'
       }
     }
+    // Don't interact with the Notification API in a unit test. All that matters in this test case is
+    // what the frontend application does in response to stubbed successful retrieval and saving of
+    // notification data.
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
+    // As the stub for session cache retrieval calls the Notification API client to increase
+    // test coverage the call to retrieve data from the Notification API needs to be stubbed.
     sandbox.stub(restClient, 'getJson').returns({})
     sandbox.stub(restClient, 'putJson').returns()
     const response = await server.inject(options)
@@ -77,6 +86,7 @@ lab.experiment('Shipment Type Tests', () => {
   })
 
   lab.test('3 - POST /notification/shipment-type requires a valid session', async () => {
+    // Spies, mocks and stubs are not used in this test case. As such no session should be present.
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -97,6 +107,7 @@ lab.experiment('Shipment Type Tests', () => {
         type: 'recovery'
       }
     }
+    // Does the frontend application respond as expected if the session cache returns a null value?
     sandbox.stub(sessionCache, 'get').returns(null)
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
@@ -111,6 +122,8 @@ lab.experiment('Shipment Type Tests', () => {
         type: 'recovery'
       }
     }
+    // Does the frontend application respond as expected if the session cache returns an entry with no
+    // id property?
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCacheWithNoSessionId)
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(400)
