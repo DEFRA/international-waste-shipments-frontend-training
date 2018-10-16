@@ -1,7 +1,7 @@
 var api = require('../../services/notification-api')
 
 module.exports = [{
-  // (GET) Start of notification user journey
+  // (GET) Start notification type
   method: 'GET',
   path: '/notification/typeof',
   options: {
@@ -11,7 +11,7 @@ module.exports = [{
   }
 },
 {
-  // (GET) Start of notification user journey
+  // (GET) Find existing notification type
   method: 'GET',
   path: '/notification/typeof/{id}',
   options: {
@@ -22,7 +22,7 @@ module.exports = [{
   }
 },
 {
-  // (POST) Start of notification user journey
+  // (POST) SET Notification type
   method: 'POST',
   path: '/notification/typeof',
   options: {
@@ -30,14 +30,14 @@ module.exports = [{
       if (request.payload.typeOfShipment === undefined) {
         return h.view('notification/typeof', { errorMessage: true })
       } else {
-        api.setTypeOf(null, request.payload.typeOfShipment)
+        request.yar.set('notification', api.setTypeOf(null, request.payload.typeOfShipment))
       }
       return h.redirect('final')
     }
   }
 },
 {
-  // (PUT) Start of notification user journey
+  // (PUT) Update a notification type
   method: 'PUT',
   path: '/notification/typeof/{id}',
   options: {

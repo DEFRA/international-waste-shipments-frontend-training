@@ -3,25 +3,7 @@ function getNotification (ID) {
   var notification = {
     id: ID,
     competentAuthority: 'EA',
-    type: 'Recovery',
-    get getID () {
-      return this.id
-    },
-    set setID (ID) {
-      this.id = ID
-    },
-    get getCompAuth () {
-      return this.competentAuthority
-    },
-    set setCompAuth (compAuth) {
-      this.competentAuthority = compAuth
-    },
-    get typeOf () {
-      return this.typea
-    },
-    set typeOf (type) {
-      this.type = type
-    }
+    type: 'Recovery'
   } // set the id and return this notication because we don't have a database
   return notification
 }
@@ -34,7 +16,7 @@ function setCompetentAuthority (id, CA) {
   }
   let notification = getNotification(id)
   notification.setCompAuth = CA
-  return notification.getCompAuth
+  return notification
 }
 
 function getCompetentAuthority (id) {
@@ -52,7 +34,7 @@ function setTypeOf (id, type) {
   notification.type = type
   console.log('NotificatonAPI type = ' + notification.type)
 
-  return notification.type
+  return notification
 }
 
 function getTypeOf (id) {
