@@ -3,9 +3,10 @@ const notificationService = require('../services/notification-api')
 const uuid = require('uuid')
 
 // This module is based on the session-cache module of the fish-sales-app (https://github.com/DEFRA/fish-sales-app/blob/develop/server/services/session-cache.js).
-// The main changes are support for lazy session cache creation and delegation to the Notification API
+// The main changes are support for lazy session cache creation and initial delegation to the Notification API
 // (https://github.com/DEFRA/international-waste-shipments-notification-service-training) instead of DynamoDb.
-// This module may be replaced as things progress.
+// This module may be refactored/removed as the solution evolves. For example, round trips to the Notification API to save user journey progress
+// may be replaced by a dedicated cache and a single call to the Notification API to save a notification at the end of a user journey.
 const self = module.exports = {
   create: async (request, h) => {
     const cache = {}
@@ -36,6 +37,7 @@ const self = module.exports = {
     request.log('info', 'Updating session ' + cache.id)
 
     try {
+      // A
       await notificationService.put(cache)
       request.log('info', 'Updated session ' + cache.id)
       return cache
