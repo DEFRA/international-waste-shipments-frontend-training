@@ -9,7 +9,10 @@ lab.experiment('Happy path Test', () => {
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+    // initializing the server cache, stops yar giving back 500 response when expecting a 200
+    server.initialize()
   })
+
   // Happy tests
 
   lab.test('POST /authority route works', async () => {

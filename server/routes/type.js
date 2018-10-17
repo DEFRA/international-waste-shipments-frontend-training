@@ -7,9 +7,7 @@ const handlers = {
   },
 
   post: async (request, h) => {
-    // let type = request.payload.type
-    // Add notification to Redis
-    console.log(request.payload)
+    // Add notification to Redis using yar
     let type = request.payload.type
     request.yar.set('type', type)
     return h.redirect('./notification-id')

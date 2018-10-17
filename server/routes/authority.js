@@ -3,8 +3,6 @@ const ViewModel = require('../models/authority-model.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    const apiUrl = require('../routes/home')
-    console.log(apiUrl)
     return h.view('authority', new ViewModel(null))
   },
 

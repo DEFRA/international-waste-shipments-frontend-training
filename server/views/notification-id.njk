@@ -7,12 +7,12 @@
   <div class="govuk-body">
     <form method="PUT">
 
-      <h1>Your notification number</h1>
+      <h1>{{model.title}}</h1>
 
-      <p>Here is your notification number:</p>
+      <p>{{model.notificationNumber}}</p>
       {{ govukInsetText(model) }} 
     
-      <p>Print and complete a <a href='/pdfs/IwsFinancialGuarantee28_09_2018 08_19_39.pdf'>financial guarantee form</a>. An approved financial guarantee must be in place before any shipments can be made.</p>
+      <p>Print and complete a <a href={{model.financialGuarantee}}>financial guarantee form</a>. An approved financial guarantee must be in place before any shipments can be made.</p>
 
       {{ govukButton({
   text: "Save and continue"
@@ -21,9 +21,3 @@
   </div>
 
 {% endblock %}
-
-
-
-GB 0001 006421
-
-
