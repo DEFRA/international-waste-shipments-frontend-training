@@ -14,6 +14,7 @@ lab.experiment('Competent Authority Tests', () => {
   // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
 
   // Stop server after the tests.
@@ -97,7 +98,7 @@ lab.experiment('Competent Authority Tests', () => {
     }
 
     const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(302)
   })
 
   lab.test('6 - Retry of POST /notification/competent-authority after a brief outage ensures the existence of a session cache entry', async () => {

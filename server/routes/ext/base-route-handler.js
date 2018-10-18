@@ -1,6 +1,7 @@
 const Boom = require('boom')
-const hoek = require('hoek')
+const config = require('../../config')
 const sessionCache = require('../../services/session-cache')
+const sessionCookieName = config.sessionCookieName
 
 // A route template for POST requests that facilitates session management without the use of cut and paste.
 module.exports = {
@@ -11,7 +12,8 @@ module.exports = {
         onPostHandler: { method: updateSessionCache }
       }
     }
-  }
+  },
+  getSessionItem: getSessionItem
 }
 
 async function getSessionCache (request, h) {
@@ -20,8 +22,6 @@ async function getSessionCache (request, h) {
     if (!result) {
       throw new Error('Cache item not found')
     }
-    // Add the cache entry to the request for convenient access.
-    request.sessionCache = result
     return h.continue
   } catch (err) {
     // If a session could not be retrieved, redirect to the home page to start a new user journey.
@@ -29,12 +29,20 @@ async function getSessionCache (request, h) {
   }
 }
 
+async function getSessionItem (request, item) {
+  try {
+    let result = sessionCache.getSessionItem(request, item)
+    return result
+  } catch (err) {
+    return Boom.badRequest('Failed to get session cache item ' + item, err)
+  }
+}
+
 async function updateSessionCache (request, h) {
   try {
     // Defensive programming as retrieved session data should have added to the request by the function above.
-    if (request.sessionCache) {
+    if (request.yar.get(sessionCookieName)) {
       // Merge the request payload with the session data and save the result.
-      hoek.merge(request.sessionCache, request.payload)
       await sessionCache.update(request, h)
       return h.continue
     } else {

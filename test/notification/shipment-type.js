@@ -1,26 +1,21 @@
+const config = require('../../server/config')
 const Lab = require('lab')
 const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
-const restClient = require('../../server/services/rest-client')
 const sessionCache = require('../../server/services/session-cache')
-const uuid = require('uuid')
 
 lab.experiment('Shipment Type Tests', () => {
   let sandbox
   let server
 
-  // A fake implementation of retrieving a valid session cache entry. Unit tests simply need an object
+  // A fake implementation of retrieving a valid session cache entry. Unit tests simply need a yar object
   // with an id property.
+
   async function getFakeSessionCache (request, h) {
-    let fakeSessionId = uuid.v4()
-
-    let cache = {
-      id: fakeSessionId
-    }
-
-    request.log('info', `Got fake session ${fakeSessionId}`)
+    let cache = request.yar.set(config.sessionCookieName, '{}')
+    request.log('info', `Got fake session ${request.yar.id}`)
     return cache
   }
 
@@ -34,6 +29,7 @@ lab.experiment('Shipment Type Tests', () => {
   // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
 
   // Stop server after the tests.
@@ -68,11 +64,10 @@ lab.experiment('Shipment Type Tests', () => {
         type: 'recovery'
       }
     }
-    // Don't interact with the Notification API in a unit test. All that matters in this test case is
+    // Test needs a fake sessionCache to exist n order to succeed. All that matters in this test case is
     // what the frontend application does in response to stubbed successful retrieval and saving of
     // notification data.
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
-    sandbox.stub(restClient, 'putJson').returns()
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
     Code.expect(response.headers.location).to.equal('./notification-id')

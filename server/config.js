@@ -9,7 +9,11 @@ const schema = {
   notificationService: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(5000),
   sessionCookieName: joi.string().default('iwsSessionCookie'),
-  sessionTimeoutMinutes: joi.number().default(15)
+  sessionTimeoutMinutes: joi.number().default(15),
+  sessionCacheName: joi.string().default('redis-cache'),
+  sessionCacheHost: joi.string().default('localhost'),
+  sessionCachePort: joi.number().default(6379),
+  sessionCachePassword: joi.string().required()
 }
 
 // Build config
@@ -19,7 +23,11 @@ const config = {
   notificationService: process.env.IWS_NOTIFICATION_SERVICE,
   restClientTimeoutMillis: process.env.IWS_REQUEST_TIMEOUT_IN_MILLIS,
   sessionCookieName: process.env.IWS_SESSION_COOKIE_NAME,
-  sessionTimeoutMinutes: process.env.IWS_SESSION_TIMEOUT_IN_MINUTES
+  sessionTimeoutMinutes: process.env.IWS_SESSION_TIMEOUT_IN_MINUTES,
+  sessionCacheName: process.env.IWS_SESSION_CACHE_NAME,
+  sessionCacheHost: process.env.IWS_SESSION_CACHE_HOST,
+  sessionCachePort: process.env.IWS_SESSION_CACHE_PORT,
+  sessionCachePassword: process.env.IWS_SESSION_CACHE_PASSWORD
 }
 
 // Validate config

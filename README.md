@@ -21,10 +21,14 @@ This solution exists for training purposes. The structure of this repository is 
 | IWS_SESSION_COOKIE_NAME               | Session cookie name      |    no    | iwsSessionCookie             |                             |
 | IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length   |    no    | 15                           |                             |
 | IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout          |    no    | 5000                         |                             |
+| IWS_SESSION_CACHE_NAME                | Session cache name       |    no    | redis-cache                  |                             |
+| IWS_SESSION_CACHE_HOST                | Session cache hostname   |    no    | localhost                    |                             |
+| IWS_SESSION_CACHE_PORT                | Session cache port       |    no    | 6379                         |                             |
+| IWS_SESSION_CACHE_PASSWORD            | Session cache password   |    yes   |                              |                             |   
 
 ## Prerequires
 
-Node v8+
+Node v8+, Redis
 
 ## Running the application
 

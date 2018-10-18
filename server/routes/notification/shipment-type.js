@@ -5,7 +5,8 @@ const ViewModel = require('../../models/notification/shipment-type.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    return h.view('notification/shipment-type', new ViewModel(null))
+    let shipmentType = await baseRouteHandler.getSessionItem(request, 'type')
+    return h.view('notification/shipment-type', new ViewModel(shipmentType, null))
   },
 
   post: async (request, h) => {
