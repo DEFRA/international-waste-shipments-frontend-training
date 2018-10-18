@@ -5,13 +5,21 @@ const restClient = require('../services/rest-client')
 // might utilise coding to programming language interfaces here. Instead a RESTful API is utilised
 // as part of a microservice based solution. RESTful APIs function at the level of well known protocols
 // such as HTTP rather than the programming language level.
-// While the initial implementation is nothing more than a wrapper for REST calls it could evolve to
-// include logic such as payload manipulation.
 module.exports = {
   get: async function (id) {
-    return restClient.getJson(`${config.notificationService}/notification/${id}`)
+    // If the Notification API returns a 404 status code, the REST client will thrown an exception.
+    // Convert this to an undefined return to differentiate this scenario from other exceptions.
+    let notification
+    try {
+      notification = await restClient.getJson(`${config.notificationService}/notification/${id}`)
+    } catch (err) {
+      if (err.output.statusCode !== 404) {
+        throw err
+      }
+    }
+    return notification
   },
   put: async function (notification) {
-    return restClient.putJson(`${config.notificationService}/notification/${notification.id}`, { payload: notification })
+    await restClient.putJson(`${config.notificationService}/notification/${notification.id}`, { payload: notification })
   }
 }

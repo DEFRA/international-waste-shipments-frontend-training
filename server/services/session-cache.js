@@ -37,7 +37,6 @@ const self = module.exports = {
     request.log('info', 'Updating session ' + cache.id)
 
     try {
-      // A
       await notificationService.put(cache)
       request.log('info', 'Updated session ' + cache.id)
       return cache
@@ -49,29 +48,17 @@ const self = module.exports = {
   get: async (request, h) => {
     let cache
     let sessionId = getSessionCookie(request)
-
-    if (sessionId) {
-      try {
+    try {
+      if (sessionId) {
         // Use the Notification API as the source of the cache for initial training purposes.
-        cache = await notificationService.get(sessionId)
-        if (!cache) {
-          const err = new Error('Session not found ' + sessionId)
-          request.log('error', err)
-          throw err
-        }
-        request.log('info', 'Got session ' + sessionId)
-      } catch (err) {
-        request.log('error', err)
-        throw err
-      }
-    } else {
-      if (request.createSessionIfAbsent) {
-        request.log('Cache item not found - creating new session')
-        cache = await self.create(request, h)
+        cache = await notificationService.get(sessionId) || await createSessionIfRequired(request, `Session not found ${sessionId}`, h)
       } else {
-        request.log('error', 'No session cookie')
-        throw new Error('No session cookie')
+        cache = await createSessionIfRequired(request, 'No session cookie', h)
       }
+      request.log('info', `Got session ${cache.id}`)
+    } catch (err) {
+      request.log('error', err)
+      throw err
     }
     return cache
   },
@@ -104,4 +91,15 @@ function setSessionCookie (h, sessionId) {
   const session = { sessionId: sessionId }
   // Put the session object in for the reply later on
   h.state(config.sessionCookieName, session)
+}
+
+async function createSessionIfRequired (request, errorMessage, h) {
+  let session
+  if (request.createSessionIfAbsent) {
+    request.log('Cache item not found - creating new session')
+    session = await self.create(request, h)
+  } else {
+    throw new Error(errorMessage)
+  }
+  return session
 }

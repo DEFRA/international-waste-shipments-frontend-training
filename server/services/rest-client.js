@@ -8,18 +8,12 @@ const wreck = require('wreck').defaults({
 // Functionality like this is normally published as a or as part of a utility module for use by multiple projects.
 const self = module.exports = {
   request: async (method, url, options) => {
-    return wreck[method](url, options)
-      .then(response => {
-        const res = response.res
-        const payload = response.payload
-
-        if (res.statusCode < 200 || res.statusCode >= 300) {
-          const err = (payload || new Error('Unknown error'))
-          throw err
-        }
-
-        return payload
-      })
+    try {
+      const response = await wreck[method](url, options)
+      return response.payload
+    } catch (err) {
+      throw err
+    }
   },
 
   get: async (url, options) => {
