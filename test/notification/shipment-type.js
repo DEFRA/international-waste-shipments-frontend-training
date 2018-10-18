@@ -11,6 +11,7 @@ lab.experiment('Shipment Type Tests', () => {
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
 
   lab.test('1 - GET /notification/shipment-type route works', async () => {

@@ -11,6 +11,7 @@ lab.experiment('Competent Authority Tests', () => {
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
 
   lab.test('1 - GET /notification/competent-authority route works', async () => {
@@ -51,7 +52,6 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        id: 'GB 0001 000001',
         authority: 'ea'
       }
     }
@@ -66,7 +66,6 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        id: 'GB 0001 000001',
         authorities: [{ authority: 'ea' }, { authority: 'sepa' }]
       }
     }

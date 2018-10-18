@@ -9,6 +9,7 @@ lab.experiment('Number Tests', () => {
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
+    server.initialize()
   })
 
   lab.test('1 - GET /notification/notification-id route works', async () => {
