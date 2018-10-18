@@ -24,7 +24,7 @@ This solution exists for training purposes. The structure of this repository is 
 | IWS_SESSION_CACHE_NAME                | Session cache name       |    no    | redis-cache                  |                             |
 | IWS_SESSION_CACHE_HOST                | Session cache hostname   |    no    | localhost                    |                             |
 | IWS_SESSION_CACHE_PORT                | Session cache port       |    no    | 6379                         |                             |
-| IWS_SESSION_CACHE_PASSWORD            | Session cache password   |    yes   |                              |                             |   
+| IWS_SESSION_CACHE_PASSWORD            | Session cache password   |    yes   |                              |                             |
 
 ## Prerequires
 
