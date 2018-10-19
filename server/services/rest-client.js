@@ -8,12 +8,8 @@ const wreck = require('wreck').defaults({
 // Functionality like this is normally published as a or as part of a utility module for use by multiple projects.
 const self = module.exports = {
   request: async (method, url, options) => {
-    try {
-      const response = await wreck[method](url, options)
-      return response.payload
-    } catch (err) {
-      throw err
-    }
+    const response = await wreck[method](url, options)
+    return response.payload
   },
 
   get: async (url, options) => {
