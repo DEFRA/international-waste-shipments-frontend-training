@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const config = require('../config')
 const restClient = require('../services/rest-client')
 
@@ -13,7 +14,11 @@ module.exports = {
     try {
       notification = await restClient.getJson(`${config.notificationService}/notification/${id}`)
     } catch (err) {
-      if (err.output.statusCode !== 404) {
+      if (err.isBoom) {
+        if (_.get(err, 'output.statusCode') !== 404) {
+          throw err
+        }
+      } else {
         throw err
       }
     }
