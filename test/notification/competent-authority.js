@@ -100,7 +100,7 @@ lab.experiment('Competent Authority Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('6 - Retry of POST /notification/competent-authority after a brief outage ensures the existence a session cache entry', async () => {
+  lab.test('6 - Retry of POST /notification/competent-authority after a brief outage ensures the existence of a session cache entry', async () => {
     // If the Notification API has a brief outage when an attempt to  submit a competent authority is made,
     // a session without any link to a session cache entry. If the user retries to submit the competent
     // authority a session cache entry needs to be created for the existing session.
@@ -108,7 +108,7 @@ lab.experiment('Competent Authority Tests', () => {
     // To simulate this scenario, inject a dummy cookie and stub a null retrieval
     // from the notification API (i.e. a valid session exists but is not associated with a session
     // cache entry)
-    sandbox.stub(notificationApi, 'get').returns(null)
+    sandbox.stub(notificationApi, 'get').returns()
     // Don't interact with the Notification API in a unit test. All that matters in this test case is
     // what the frontend application does in response to a stubbed successful save of notification data.
     sandbox.stub(restClient, 'putJson').returns()
