@@ -1,26 +1,17 @@
-function get (id) {
-  if (id == null) {
-    console.log('calling API GET method to generate new id')
-  } else {
-    console.log(`calling API GET method to retrieve notification id ${id}`)
-  }
+const config = require('../config')
+const restClient = require('../services/rest-client')
 
-  // As no API yet exists just return new notifiction.
-  // return request.request(config.notificationApi.url, 'notification', config.notificationApi.token, 'GET', id)
-  return {
-    id: id || 'GB 0001 000001'
-  }
-}
-
-function put (notification) {
-  console.log(`calling API PUT to add/update notification id ${notification.id}`)
-  // As no API yet exists just return 200 status code
-  // return request.request(config.notificationApi.url, 'notification', config.notificationApi.token, 'PUT', notification)
-
-  return {
-    statusCode: 200
+// A module providing access to a notification API. A monolithic layered application based solution
+// might utilise coding to programming language interfaces here. Instead a RESTful API is utilised
+// as part of a microservice based solution. RESTful APIs function at the level of well known protocols
+// such as HTTP rather than the programming language level.
+// While the initial implementation is nothing more than a wrapper for REST calls it could evolve to
+// include logic such as payload manipulation.
+module.exports = {
+  get: async function (id) {
+    return restClient.getJson(`${config.notificationService}/notification/${id}`)
+  },
+  put: async function (notification) {
+    return restClient.putJson(`${config.notificationService}/notification/${notification.id}`, { payload: notification })
   }
 }
-
-module.exports.get = get
-module.exports.put = put

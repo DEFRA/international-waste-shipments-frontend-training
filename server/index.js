@@ -15,8 +15,8 @@ async function createServer () {
     cache: [{
       name: 'redisCache',
       engine: require('catbox-redis'),
-      host: process.env.REDIS_HOSTNAME,
-      password: process.env.REDIS_PASSWORD,
+      host: config.redisHost,
+      password: config.redisPassword,
       partition: 'iws'
     }]
   })
@@ -33,12 +33,12 @@ async function createServer () {
       storeBlank: false,
       cache: {
         cache: 'redisCache',
-        expiresIn: 60 * 1000, // 1 minute (not accounting for leap years or leap seconds...)
+        expiresIn: config.sessionTimeoutMinutes * 60 * 1000, // (not accounting for leap years or leap seconds...)
         segment: 'session'
       },
       cookieOptions: {
-        password: process.env.COOKIE_PASSWORD,
-        isSecure: process.env.HTTPS === 'true' || false
+        password: config.cookiePassword,
+        isSecure: config.env !== 'development' || false
       }
     }
   })
