@@ -15,7 +15,7 @@ lab.experiment('Home Tests', () => {
   lab.test('GET / route works', async () => {
     const options = {
       method: 'GET',
-      url: '/applicant/home'
+      url: '/'
     }
 
     const response = await server.inject(options)
