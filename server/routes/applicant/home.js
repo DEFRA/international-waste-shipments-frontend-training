@@ -8,7 +8,7 @@ const handlers = {
 
 module.exports = {
   method: 'GET',
-  path: '/applicant/home',
+  path: '/',
   options: {
     description: 'Handle the page request for home page',
     handler: handlers.get

@@ -1,22 +1,17 @@
+const sessionHandler = require('../../services/session-handler')
 const schema = require('../../schema/notification/shipment-type')
 const ViewModel = require('../../models/notification/shipment-type.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    let notification = request.yar.get('notification')
-    if (notification == null) {
-      notification = {}
-    }
+    let notification = sessionHandler.get(request, 'notification')
     return h.view('notification/shipment-type', new ViewModel(notification.type, false))
   },
 
   post: async (request, h) => {
-    let notification = request.yar.get('notification')
-    if (notification == null) {
-      notification = {}
-    }
+    let notification = sessionHandler.get(request, 'notification')
     notification.type = request.payload.type
-    request.yar.set('notification', notification)
+    sessionHandler.set(request, 'notification', notification)
 
     return h.redirect('notification-id')
   },
