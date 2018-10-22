@@ -13,5 +13,5 @@ services:
         - REDIS_HOSTNAME=redis
         - REDIS_PASSWORD=${REDIS_PASSWORD}
         - COOKIE_PASSWORD=${COOKIE_PASSWORD}
-        - HTTPS=false
+        - HTTPS=${HTTPS}
       command: npm start 
