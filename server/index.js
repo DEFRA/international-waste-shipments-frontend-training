@@ -36,8 +36,7 @@ async function createServer () {
         segment: 'session'
       },
       cookieOptions: {
-        password: config.cookiePassword,
-        isSecure: config.cookieSecure
+        password: config.sessionCachePassword
       }
     }
   })
