@@ -12,6 +12,9 @@ cache:
   directories:
     - node_modules
 
+services:
+  - redis-server
+  
 before_install:
   - npm install markdownlint-cli
 
