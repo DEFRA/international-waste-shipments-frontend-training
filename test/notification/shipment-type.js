@@ -3,7 +3,6 @@ const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
-const notificationApi = require('../../server/services/notification-api')
 const restClient = require('../../server/services/rest-client')
 const sessionCache = require('../../server/services/session-cache')
 const uuid = require('uuid')
@@ -21,9 +20,6 @@ lab.experiment('Shipment Type Tests', () => {
       id: fakeSessionId
     }
 
-    // As modules in the services directory do not have their own unit tests make a call
-    // to the notification API client to increase test coverage.
-    await notificationApi.get(fakeSessionId)
     request.log('info', `Got fake session ${fakeSessionId}`)
     return cache
   }
@@ -76,9 +72,6 @@ lab.experiment('Shipment Type Tests', () => {
     // what the frontend application does in response to stubbed successful retrieval and saving of
     // notification data.
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
-    // As the stub for session cache retrieval calls the Notification API client to increase
-    // test coverage the call to retrieve data from the Notification API needs to be stubbed.
-    sandbox.stub(restClient, 'getJson').returns({})
     sandbox.stub(restClient, 'putJson').returns()
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
