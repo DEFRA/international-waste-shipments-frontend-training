@@ -1,11 +1,12 @@
 const baseRouteHandler = require('../ext/base-route-handler')
 const hoek = require('hoek')
 const schema = require('../../schema/notification/shipment-type')
+const sessionCache = require('../../services/session-cache')
 const ViewModel = require('../../models/notification/shipment-type.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    let shipmentType = await baseRouteHandler.getSessionItem(request, 'type')
+    let shipmentType = await sessionCache.getSessionItem(request, 'type')
     return h.view('notification/shipment-type', new ViewModel(shipmentType, null))
   },
 

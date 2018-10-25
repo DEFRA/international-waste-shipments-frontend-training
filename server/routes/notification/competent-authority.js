@@ -1,11 +1,12 @@
 const baseRouteHandler = require('../ext/base-route-handler')
 const hoek = require('hoek')
 const schema = require('../../schema/notification/competent-authority')
+const sessionCache = require('../../services/session-cache')
 const ViewModel = require('../../models/notification/competent-authority.js')
-// GET, POST & FAIL handlers seperated from the route export
+// GET, POST & FAIL handlers separated from the route export
 const handlers = {
   get: async (request, h) => {
-    let competentAuthority = await baseRouteHandler.getSessionItem(request, 'authority')
+    let competentAuthority = await sessionCache.getSessionItem(request, 'authority')
     return h.view('notification/competent-authority', new ViewModel(competentAuthority, null))
   },
   post: async (request, h) => {

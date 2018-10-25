@@ -3,7 +3,7 @@ const config = require('../../config')
 const sessionCache = require('../../services/session-cache')
 const sessionCookieName = config.sessionCookieName
 
-// A route template for POST requests that facilitates session management without the use of cut and paste.
+// A route template for HTTP requests that facilitates session management without the use of cut and paste.
 module.exports = {
   post: {
     options: {
@@ -12,8 +12,7 @@ module.exports = {
         onPostHandler: { method: updateSessionCache }
       }
     }
-  },
-  getSessionItem: getSessionItem
+  }
 }
 
 async function getSessionCache (request, h) {
@@ -26,15 +25,6 @@ async function getSessionCache (request, h) {
   } catch (err) {
     // If a session could not be retrieved, redirect to the home page to start a new user journey.
     return h.redirect('/').takeover()
-  }
-}
-
-async function getSessionItem (request, item) {
-  try {
-    let result = sessionCache.getSessionItem(request, item)
-    return result
-  } catch (err) {
-    return Boom.badRequest('Failed to get session cache item ' + item, err)
   }
 }
 
