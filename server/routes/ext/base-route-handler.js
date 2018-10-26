@@ -1,7 +1,6 @@
 const Boom = require('boom')
-const config = require('../../config')
+const notificationService = require('../../services/notification-api')
 const sessionCache = require('../../services/session-cache')
-const sessionCookieName = config.sessionCookieName
 
 // A route template for HTTP requests that facilitates session management without the use of cut and paste.
 module.exports = {
@@ -30,14 +29,12 @@ async function getSessionCache (request, h) {
 
 async function updateSessionCache (request, h) {
   try {
-    // Defensive programming as retrieved session data should have added to the request by the function above.
-    if (request.yar.get(sessionCookieName)) {
-      // Merge the request payload with the session data and save the result.
-      await sessionCache.update(request, h)
-      return h.continue
-    } else {
-      throw new Error('Missing session')
+    // Merge the request payload with the session data and save the result.
+    await sessionCache.update(request, h)
+    if (request.persistNotification) {
+      await notificationService.post(await sessionCache.get(request, h))
     }
+    return h.continue
   } catch (err) {
     return Boom.badRequest('Failed to update session cache', err)
   }

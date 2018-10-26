@@ -4,13 +4,19 @@ const sessionCache = require('../../services/session-cache.js')
 // GET, POST & FAIL handlers seperated from the route export
 const handlers = {
   get: async (request, h) => {
-    return h.view('notification/notification-id', new ViewModel(null))
+    // Do not attempt to persist a notification without a valid session
+    try {
+      let notification = await sessionCache.get(request, h)
+      // The  user journey is complete so destroy the session cookie
+      await sessionCache.destroy(request, h)
+      return h.view('notification/notification-id', new ViewModel(notification.notificationNumber, null))
+    } catch (err) {
+      return h.redirect('/').takeover()
+    }
   },
 
   post: async (request, h) => {
-    // The  user journey is complete so destroy the session cookie
-    sessionCache.destroy(request, h)
-    return h.redirect('/')
+    return h.redirect('/').takeover()
   },
 
   fail: (request, h, error) => {

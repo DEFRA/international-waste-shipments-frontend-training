@@ -9,7 +9,7 @@ lab.experiment('Home Tests', () => {
   // Create server before the tests
   lab.before(async () => {
     server = await createServer()
-    server.initialize()
+    await server.initialize()
   })
 
   // Stop server after the tests

@@ -2,7 +2,7 @@ const config = require('../config')
 const sessionCookieName = config.sessionCookieName
 
 // This module is based on the session-cache module of the fish-sales-app (https://github.com/DEFRA/fish-sales-app/blob/develop/server/services/session-cache.js).
-// It has been modified to use Yar/Catbox/Redis rather than the notification API and DynamoDB.
+// It has been modified to use Yar/Catbox/Redis instead of DynamoDB.
 const self = module.exports = {
   create: async (request, h) => {
     const cache = {}
@@ -43,12 +43,7 @@ const self = module.exports = {
       if (cache) {
         request.log('info', `Got session ${request.yar.id}`)
       } else {
-        if (request.createSessionIfAbsent) {
-          request.log('Cache item not found - creating new session')
-          cache = await self.create(request, h)
-        } else {
-          cache = await createSessionIfRequired(request, 'No session cookie', h)
-        }
+        cache = await createSessionIfRequired(request, 'No session cookie', h)
         request.log('info', `Got session ${request.yar.id}`)
       }
     } catch (err) {
@@ -77,8 +72,7 @@ const self = module.exports = {
 }
 
 function updateSessionCache (session, values) {
-  var newSession = Object.assign(session, values)
-  return newSession
+  return Object.assign(session, values)
 }
 
 async function createSessionIfRequired (request, errorMessage, h) {

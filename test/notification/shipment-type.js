@@ -4,6 +4,7 @@ const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
 const createServer = require('../../server')
+const restClient = require('../../server/services/rest-client')
 const sessionCache = require('../../server/services/session-cache')
 
 lab.experiment('Shipment Type Tests', () => {
@@ -29,7 +30,7 @@ lab.experiment('Shipment Type Tests', () => {
   // Create server before the tests.
   lab.before(async () => {
     server = await createServer()
-    server.initialize()
+    await server.initialize()
   })
 
   // Stop server after the tests.
@@ -68,6 +69,7 @@ lab.experiment('Shipment Type Tests', () => {
     // what the frontend application does in response to stubbed successful retrieval and saving of
     // notification data.
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
+    sandbox.stub(restClient, 'postJson').returns()
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
     Code.expect(response.headers.location).to.equal('./notification-id')
