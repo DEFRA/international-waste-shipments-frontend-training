@@ -13,22 +13,35 @@ This solution exists for training purposes. The structure of this repository is 
 
 ## Environment variables
 
-| name                                  | description              | required |          default             |            valid            |
-|---------------------------------------|--------------------------|:--------:|-----------------------------:|----------------------------:|
-| NODE_ENV                              | Node environment         |    no    |                              | development,test,production |
-| PORT                                  | Port number              |    no    | 3000                         |                             |
-| IWS_NOTIFICATION_SERVICE              | Notification service URL |    yes   |                              |                             |
-| IWS_SESSION_COOKIE_NAME               | Session cookie name      |    no    | iwsSessionCookie             |                             |
-| IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length   |    no    | 15                           |                             |
-| IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout          |    no    | 5000                         |                             |
-| IWS_SESSION_CACHE_NAME                | Session cache name       |    no    | redis-cache                  |                             |
-| IWS_SESSION_CACHE_HOST                | Session cache hostname   |    no    | localhost                    |                             |
-| IWS_SESSION_CACHE_PORT                | Session cache port       |    no    | 6379                         |                             |
-| IWS_SESSION_CACHE_PASSWORD            | Session cache password   |    yes   |                              |                             |
+| name                                  | description                   | required |          default             |            valid            |
+|---------------------------------------|-------------------------------|:--------:|-----------------------------:|----------------------------:|
+| NODE_ENV                              | Node environment              |    no    |                              | development,test,production |
+| PORT                                  | Port number                   |    no    | 3000                         |                             |
+| IWS_NOTIFICATION_SERVICE              | Notification service URL      |    yes   |                              |                             |
+| IWS_SESSION_COOKIE_NAME               | Session cookie name           |    no    | iwsSessionCookie             |                             |
+| IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length        |    no    | 15                           |                             |
+| IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout               |    no    | 5000                         |                             |
+| IWS_SESSION_CACHE_NAME                | Session cache name            |    no    | redis-cache                  |                             |
+| IWS_SESSION_CACHE_HOST                | Session cache hostname        |    no    | localhost                    |                             |
+| IWS_SESSION_CACHE_CONTAINER_PORT      | Session cache Docker port     |    no    | 6379                         |                             |
+| IWS_SESSION_CACHE_PORT                | Session cache port            |    no    | 6379                         |                             |
+| IWS_SESSION_CACHE_GUI_CONTAINER_PORT  | Session cache GUI Docker port |    no    | 8081                         |                             |
+| IWS_SESSION_CACHE_GUI_PORT            | Session cache GUI port        |    no    | 8081                         |                             |
+| IWS_SESSION_CACHE_PASSWORD            | Session cache password        |    yes   |                              |                             |
 
 ## Prerequires
 
-Node v8+, Redis
+### Mandatory
+
+* Node 8.x or above
+* Redis 5.x or above (Host or Docker based)
+
+### Optional
+
+If using Docker
+
+* Docker 18.06 CE or above
+* Docker Compose 1.22 or above
 
 ## Running the application
 
@@ -41,6 +54,29 @@ Currently this will just build the `govuk-frontend` sass but may be extended to 
 Now the application is ready to run:
 
 `$ node index.js`
+
+## Docker Considerations
+
+### Introduction
+
+This service uses Redis for intermediate storage. The following Docker Compose files provide Docker based Redis support for use in a local development
+environment.
+
+* docker-compose.yaml - Provides Docker containers for Redis and Redis Commander
+* docker-compose.volumes.yml - This can be used to supplement the Redis Docker container with volume support. Support is provided for a
+  custom Redis configuration file volume and a data volume.
+
+### Running Unit Tests With Docker Based Redis
+
+`$ docker-compose up -d && npm test && docker-compose down`
+
+### Running Docker Based Redis With Volumes
+
+`$ mkdir -p volumes/redisconf && mkdir -p volumes/redisdata`
+
+`$ cp <</path/to/redis.conf>> volumes/redisconf/redis.conf`
+
+`$ docker-compose -f docker-compose.yml -f docker-compose.volumes.yml up -d`
 
 ## Contributing to this project
 
