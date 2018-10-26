@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+
+#######################################################
+# Redis
+#######################################################
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - iws_docker
+    restart: always
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - ADDRESS=redis-commander
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+    restart: always
+    networks:
+      - iws_docker
+    
+networks:
+  iws_docker:
+    driver: bridge
