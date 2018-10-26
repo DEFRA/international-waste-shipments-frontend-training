@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.7"
 services:
 
 #######################################################
@@ -8,7 +8,7 @@ services:
     image: redis
     user: redis
     ports:
-      - "6379:6379"
+      - ${IWS_SESSION_CACHE_PORT:-6379}:${IWS_SESSION_CACHE_CONTAINER_PORT:-6379}
     networks:
       - iws_docker
     restart: always
@@ -17,9 +17,9 @@ services:
     user: redis
     environment:
       - ADDRESS=redis-commander
-      - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis:${IWS_SESSION_CACHE_CONTAINER_PORT:-6379}
     ports:
-      - 8081:8081
+      - ${IWS_SESSION_CACHE_GUI_PORT:-8081}:${IWS_SESSION_CACHE_GUI_CONTAINER_PORT:-8081}
     depends_on:
       - redis
     restart: always
