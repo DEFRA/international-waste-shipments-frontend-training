@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+
+#######################################################
+# Redis
+#######################################################
+  redis:
+    image: redis
+    volumes:
+      - ./volumes/redisdata:/data
+      - ./volumes/redisconf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server --appendonly yes

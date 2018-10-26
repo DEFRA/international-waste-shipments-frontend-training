@@ -1,44 +1,35 @@
 const config = require('../config')
-const notificationService = require('../services/notification-api')
-const uuid = require('uuid')
+const sessionCookieName = config.sessionCookieName
 
 // This module is based on the session-cache module of the fish-sales-app (https://github.com/DEFRA/fish-sales-app/blob/develop/server/services/session-cache.js).
-// The main changes are support for lazy session cache creation and initial delegation to the Notification API
-// (https://github.com/DEFRA/international-waste-shipments-notification-service-training) instead of DynamoDb.
-// This module may be refactored/removed as the solution evolves. For example, round trips to the Notification API to save user journey progress
-// may be replaced by a dedicated cache and a single call to the Notification API to save a notification at the end of a user journey.
+// It has been modified to use Yar/Catbox/Redis instead of DynamoDB.
 const self = module.exports = {
   create: async (request, h) => {
     const cache = {}
-    const id = uuid.v4()
-
-    cache.id = id
-    cache.timestamp = new Date()
-
-    request.log('info', 'Creating new session ' + id)
 
     try {
-      setSessionCookie(h, cache.id)
-      request.log('info', 'Created new session ' + cache.id)
+      request.yar.set(sessionCookieName, cache)
+      request.log('info', `Created new session ${request.yar.id}`)
       return cache
     } catch (err) {
-      request.log('error', 'Failed to create new session ' + cache.id)
+      request.log('error', 'Failed to create new session')
       throw err
     }
   },
   update: async (request, h) => {
-    const cache = request.sessionCache
+    const cache = request.yar.get(sessionCookieName)
 
-    if (!cache || !cache.id) {
+    if (!cache) {
       request.log('error', 'No session found to update')
       throw new Error('No session found to update')
     }
 
-    request.log('info', 'Updating session ' + cache.id)
+    request.log('info', `Updating session ${request.yar.id}`)
 
     try {
-      await notificationService.put(cache)
-      request.log('info', 'Updated session ' + cache.id)
+      const updatedCache = updateSessionCache(cache, request.payload)
+      request.yar.set(sessionCookieName, updatedCache)
+      request.log('info', `Updated session ${request.yar.id}`)
       return cache
     } catch (err) {
       request.log('error', err)
@@ -47,50 +38,41 @@ const self = module.exports = {
   },
   get: async (request, h) => {
     let cache
-    let sessionId = getSessionCookie(request)
     try {
-      if (sessionId) {
-        // Use the Notification API as the source of the cache for initial training purposes.
-        cache = await notificationService.get(sessionId) || await createSessionIfRequired(request, `Session not found ${sessionId}`, h)
+      cache = request.yar.get(sessionCookieName)
+      if (cache) {
+        request.log('info', `Got session ${request.yar.id}`)
       } else {
         cache = await createSessionIfRequired(request, 'No session cookie', h)
+        request.log('info', `Got session ${request.yar.id}`)
       }
-      request.log('info', `Got session ${cache.id}`)
     } catch (err) {
       request.log('error', err)
       throw err
     }
     return cache
   },
-  destroy: async (request, h) => {
-    // Prepare to remove the session cookie. Removal of the cache entry can be managed elsewhere
-    // once notification data has reached persistent storage.
-    const sessionId = getSessionCookie(request)
-    if (sessionId) {
-      request.log('info', `Destroying session cookie for session ${sessionId}`)
-      h.state(config.sessionCookieName, null)
-      h.unstate(config.sessionCookieName)
-    } else {
-      const err = new Error('No session found')
-      request.log('error', err)
-      throw err
+  getSessionItem: async (request, item) => {
+    try {
+      if (request.yar.get(sessionCookieName)) {
+        let cache = request.yar.get(sessionCookieName)
+        return cache[item]
+      } else {
+        return null
+      }
+    } catch (err) {
+      throw new Error(`Session item ${item} does not exist`)
     }
-
+  },
+  destroy: async (request, h) => {
+    // Prepare to reset the session cookie.
+    request.yar.reset()
     return true
   }
 }
 
-function getSessionCookie (request) {
-  return request.state[config.sessionCookieName]
-    ? request.state[config.sessionCookieName].sessionId
-    : null
-}
-
-function setSessionCookie (h, sessionId) {
-  h.unstate(config.sessionCookieName)
-  const session = { sessionId: sessionId }
-  // Put the session object in for the reply later on
-  h.state(config.sessionCookieName, session)
+function updateSessionCache (session, values) {
+  return Object.assign(session, values)
 }
 
 async function createSessionIfRequired (request, errorMessage, h) {

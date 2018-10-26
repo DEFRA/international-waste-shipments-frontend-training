@@ -24,7 +24,7 @@ module.exports = {
     }
     return notification
   },
-  put: async function (notification) {
-    await restClient.putJson(`${config.notificationService}/notification/${notification.id}`, { payload: notification })
+  post: async function (notification) {
+    await restClient.postJson(`${config.notificationService}/notification`, { payload: notification })
   }
 }

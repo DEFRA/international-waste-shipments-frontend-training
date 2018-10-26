@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+
+#######################################################
+# Redis
+#######################################################
+  redis:
+    image: redis
+    user: redis
+    ports:
+      - ${IWS_SESSION_CACHE_PORT:-6379}:${IWS_SESSION_CACHE_CONTAINER_PORT:-6379}
+    networks:
+      - iws_docker
+    restart: always
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    user: redis
+    environment:
+      - ADDRESS=redis-commander
+      - REDIS_HOSTS=local:redis:${IWS_SESSION_CACHE_CONTAINER_PORT:-6379}
+    ports:
+      - ${IWS_SESSION_CACHE_GUI_PORT:-8081}:${IWS_SESSION_CACHE_GUI_CONTAINER_PORT:-8081}
+    depends_on:
+      - redis
+    restart: always
+    networks:
+      - iws_docker
+    
+networks:
+  iws_docker:
+    driver: bridge
