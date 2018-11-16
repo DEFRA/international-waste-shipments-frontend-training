@@ -1,3 +1,5 @@
+const baseRouteHandler = require('../ext/base-route-handler')
+const hoek = require('hoek')
 const ViewModel = require('../../models/applicant/home.js')
 
 const handlers = {
@@ -6,11 +8,12 @@ const handlers = {
   }
 }
 
-module.exports = {
+module.exports =
+hoek.merge({
   method: 'GET',
-  path: '/',
+  path: '/applicant/home',
   options: {
     description: 'Handle the page request for home page',
     handler: handlers.get
   }
-}
+}, baseRouteHandler.get)

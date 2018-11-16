@@ -31,26 +31,28 @@ const handlers = {
   }
 }
 
-module.exports = [{
-  method: 'GET',
-  path: '/notification/shipment-type',
-  options: {
-    description: 'Handle the page request for shipment type',
-    handler: handlers.get
-  }
-},
-// Merge common session management into the POST handler.
-hoek.merge({
-  method: 'POST',
-  path: '/notification/shipment-type',
-  options: {
-    description: 'Handle the post to the shipment type page',
-    handler: handlers.post,
-    validate: { payload: { type: schema },
-      failAction: handlers.fail
+module.exports = [
+  hoek.merge({
+    method: 'GET',
+    path: '/notification/shipment-type',
+    options: {
+      description: 'Handle the page request for shipment type',
+      handler: handlers.get
     }
-  }
-}, baseRouteHandler.post)]
+  }, baseRouteHandler.get),
+  // Merge common session management into the POST handler.
+  hoek.merge({
+    method: 'POST',
+    path: '/notification/shipment-type',
+    options: {
+      description: 'Handle the post to the shipment type page',
+      handler: handlers.post,
+      validate: {
+        payload: { type: schema },
+        failAction: handlers.fail
+      }
+    }
+  }, baseRouteHandler.post)]
 
 // FOR TRAINING PRUPOSES ON A SINGLE SERVER USE A SIMPLE VARIABLE WHEN GENERATING NOTIFICATION NUMBERS
 // THIS APPROACH NEEDS REFACTORING IN DUE COURSE
