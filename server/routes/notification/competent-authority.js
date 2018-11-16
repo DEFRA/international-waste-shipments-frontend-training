@@ -18,32 +18,25 @@ const handlers = {
   }
 }
 
-module.exports = [{
-  method: 'GET',
-  path: '/notification/competent-authority',
-  options: {
-    description: 'Handle the page request for competent authority',
-    handler: handlers.get
-  }
-},
-// Merge common session management into the POST handler.
-hoek.merge({
-  method: 'POST',
-  path: '/notification/competent-authority',
-  options: {
-    description: 'Handle the post to the competent authority page',
-    // The route specific pre-handler will be prepended to existing pre-handlers.
-    pre: [{ method: ensureSessionCacheEntryExists }],
-    handler: handlers.post,
-    validate: { payload: { authority: schema },
-      failAction: handlers.fail
+module.exports = [
+  hoek.merge({
+    method: 'GET',
+    path: '/notification/competent-authority',
+    options: {
+      description: 'Handle the page request for competent authority',
+      handler: handlers.get
     }
-  }
-}, baseRouteHandler.post)]
-
-async function ensureSessionCacheEntryExists (request, h) {
-  request.log('Ensuring session exists')
-  // Set a property on the request to enable lazy session creation.
-  request.createSessionIfAbsent = true
-  return h.continue
-}
+  }, baseRouteHandler.get),
+  // Merge common session management into the POST handler.
+  hoek.merge({
+    method: 'POST',
+    path: '/notification/competent-authority',
+    options: {
+      description: 'Handle the post to the competent authority page',
+      handler: handlers.post,
+      validate: {
+        payload: { authority: schema },
+        failAction: handlers.fail
+      }
+    }
+  }, baseRouteHandler.post)]

@@ -47,17 +47,29 @@ lab.experiment('Shipment Type Tests', () => {
     sandbox.restore()
   })
 
-  lab.test('1 - GET /notification/shipment-type route works', async () => {
+  lab.test('1 - GET /notification/shipment-type redirects without session', async () => {
     const options = {
       method: 'GET',
       url: '/notification/shipment-type'
     }
     const response = await server.inject(options)
+    Code.expect(response.statusCode).to.equal(302)
+    Code.expect(response.headers['content-type']).to.include('text/html')
+  })
+
+  lab.test('2 - GET /notification/shipment-type succeeds with session', async () => {
+    const options = {
+      method: 'GET',
+      url: '/notification/shipment-type'
+    }
+
+    sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
+    const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(200)
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
-  lab.test('2 - POST /notification/shipment-type succeeds with valid shipment type selected', async () => {
+  lab.test('3 - POST /notification/shipment-type succeeds with valid shipment type selected', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -75,7 +87,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.headers.location).to.equal('./notification-id')
   })
 
-  lab.test('3 - POST /notification/shipment-type requires a valid session', async () => {
+  lab.test('4 - POST /notification/shipment-type requires a valid session', async () => {
     // Spies, mocks and stubs are not used in this test case. As such no session should be present.
     const options = {
       method: 'POST',
@@ -89,7 +101,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.headers.location).to.equal('/')
   })
 
-  lab.test('4 - POST /notification/shipment-type fails with null session', async () => {
+  lab.test('5 - POST /notification/shipment-type fails with null session', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -104,7 +116,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.headers.location).to.equal('/')
   })
 
-  lab.test('5 - POST /notification/shipment-type fails with missing session ID', async () => {
+  lab.test('6 - POST /notification/shipment-type fails with missing session ID', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -119,7 +131,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.statusCode).to.equal(400)
   })
 
-  lab.test('6 - POST /notification/shipment-type does not redirect if invalid payload is submitted', async () => {
+  lab.test('7 - POST /notification/shipment-type does not redirect if invalid payload is submitted', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
@@ -133,7 +145,7 @@ lab.experiment('Shipment Type Tests', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('7 - POST /notification/shipment-type does not redirect if invalid shipment type is submitted', async () => {
+  lab.test('8 - POST /notification/shipment-type does not redirect if invalid shipment type is submitted', async () => {
     const options = {
       method: 'POST',
       url: '/notification/shipment-type',
