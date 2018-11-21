@@ -55,6 +55,13 @@ Now the application is ready to run:
 
 `$ node index.js`
 
+### Development user name and password
+
+To log in to the development version of the application:
+
+username: dev@iws.gov.uk
+password: secret
+
 ## Docker Considerations
 
 ### Introduction
