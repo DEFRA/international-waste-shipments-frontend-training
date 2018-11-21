@@ -1,0 +1,64 @@
+{% block content %}
+        <aside id="form-menu" class="form-status grid-row">
+            <p>
+                <span class="number">GB 0001 000000</span>
+            </p>
+
+            <p>
+                <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href="/iws/notification-application//exporter" id="Notification_overview" role="progressbar" title="Notification&#32;overview">Notification overview
+                </a>
+            </p>
+
+            <span>{{partial.headingOne}}</span>
+            {% for feature in partial.organisationsInvolved %}
+                <div class="module">
+                     <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href= {{feature.href}} id= {{feature.id}} role = {{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+            <span>{{partial.headingTwo}}</span>
+            {% for feature in partial.disposalOperation %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+            <span>{{partial.headingThree}}</span>
+            {% for feature in partial.theTransportation %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+            <span>{{partial.headingFour}}</span>
+            {% for feature in partial.theJourney %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+            <span>{{partial.headingFive}}</span>
+            {% for feature in partial.amountsAndDates %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+
+            <span>{{partial.headingSix}}</span>
+            {% for feature in partial.wasteClassifications %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+            <span>{{partial.headingSeven}}</span>
+            {% for feature in partial.wasteCodes %}
+                <div class="module">
+                    <a aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" href={{feature.href}} id={{feature.id}} role={{feature.role}} title={{feature.title}}>{{ feature.text }}</a>
+                </div>
+            {% endfor %}
+
+        </aside>
+    
+{% endblock %}
