@@ -67,14 +67,14 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        authority: 'ea'
+        competentauthority: '1'
       }
     }
 
     sandbox.stub(sessionCache, 'get').callsFake(getFakeSessionCache)
     const response = await server.inject(options)
     Code.expect(response.statusCode).to.equal(302)
-    Code.expect(response.headers.location).to.equal('./shipment-type')
+    Code.expect(response.headers.location).to.equal('./notification-type')
   })
 
   lab.test('4 - POST /notification/competent-authority does not redirect if invalid payload is submitted', async () => {
@@ -82,8 +82,8 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        authority: 'ea',
-        type: 'recovery'
+        competentauthority: 'ea',
+        notificationtype: 'recovery'
       }
     }
 
@@ -96,7 +96,7 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        authority: 'defra'
+        competentauthority: 'defra'
       }
     }
 
@@ -112,7 +112,7 @@ lab.experiment('Competent Authority Tests', () => {
       method: 'POST',
       url: '/notification/competent-authority',
       payload: {
-        authority: 'ea'
+        competentauthority: '1'
       }
     }
 

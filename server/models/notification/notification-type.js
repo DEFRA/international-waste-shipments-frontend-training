@@ -1,9 +1,9 @@
-function ViewModel (shipmentType, error) {
+function ViewModel (notificationType, error) {
   // Constructor function to create logic dependent nunjucks page
 
   this.model = {
-    idPrefix: 'type',
-    name: 'type',
+    idPrefix: 'notificationtype',
+    name: 'notificationtype',
     fieldset: {
       legend: {
         text: 'What type of waste shipment notification are you applying for?',
@@ -13,11 +13,11 @@ function ViewModel (shipmentType, error) {
     },
     items: [
       {
-        value: 'recovery',
+        value: '1',
         text: 'Recovery'
       },
       {
-        value: 'disposal',
+        value: '2',
         text: 'Disposal',
         conditional: {
           html: `If you're shipping for disposal, we advise you to contact your relevant competent authority before completing your notification application.</br></br> Environment Agency - Telephone: 03708 506 506`
@@ -26,9 +26,9 @@ function ViewModel (shipmentType, error) {
     ]
   }
 
-  // Check if a shipment type has been added to the model. If it has, set the corresponding checked property
-  if (shipmentType != null) {
-    let item = this.model.items.find(x => x.value === shipmentType)
+  // Check if a notification type has been added to the model. If it has, set the corresponding checked property
+  if (notificationType != null) {
+    let item = this.model.items.find(x => x.value === notificationType)
     if (item != null) {
       item.checked = true
     }

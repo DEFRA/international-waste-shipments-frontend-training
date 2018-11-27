@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt')
 module.exports = {
   get: async function (request) {
     // Temporary local authentication for development purposes. Replace with service call.
-    let user = { email: 'dev@iws.gov.uk', passwordHash: '$2b$10$b/gB1ALSbgfbKUpBdQOzOuQ.5Xy6fkSQ8q3Ko1ieGoaPN3KMI.bea' } // secret
+    let user = { email: 'dev@iws.gov.uk', userid: 'c88b353c-0090-48fe-8f0d-90a1f8eebff9', passwordHash: '$2b$10$b/gB1ALSbgfbKUpBdQOzOuQ.5Xy6fkSQ8q3Ko1ieGoaPN3KMI.bea' } // secret
     let requestEmail = request.payload.email
     let requestPassword = request.payload.password
     const isValidPassword = await bcrypt.compare(requestPassword, user.passwordHash)

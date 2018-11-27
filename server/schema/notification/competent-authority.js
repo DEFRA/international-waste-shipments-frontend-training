@@ -1,3 +1,3 @@
 const Joi = require('joi')
 
-module.exports = Joi.any().valid('ea', 'sepa', 'niea', 'nrw').required()
+module.exports = Joi.any().valid('1', '2', '3', '4').required()

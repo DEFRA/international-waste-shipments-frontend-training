@@ -1,5 +1,6 @@
 const baseRouteHandler = require('../ext/base-route-handler')
 const hoek = require('hoek')
+const joi = require('joi')
 const ViewModel = require('../../models/applicant/login.js')
 const userService = require('../../services/user-api')
 
@@ -9,11 +10,19 @@ const handlers = {
   },
   post: async (request, h) => {
     try {
-      await userService.get(request)
-      return h.redirect('/applicant/home').takeover()
+      let user = await userService.get(request)
+      let userPayload = {
+        userid: user.userid,
+        createddate: Date.now()
+      }
+      hoek.merge(request.payload, userPayload)
+      return h.redirect('/applicant/home')
     } catch (err) {
       return h.view('applicant/login', new ViewModel(null, err)).takeover()
     }
+  },
+  fail: (request, h, error) => {
+    return h.view('applicant/login', new ViewModel(null, error)).takeover()
   }
 }
 
@@ -31,7 +40,14 @@ hoek.merge({
   options: {
     description: 'Handle the post to the login page',
     pre: [{ method: ensureSessionCacheEntryExists }],
-    handler: handlers.post
+    handler: handlers.post,
+    validate: {
+      payload: {
+        email: joi.string().email({ minDomainAtoms: 2 }),
+        password: joi.string()
+      },
+      failAction: handlers.fail
+    }
   }
 }, baseRouteHandler.post)]
 

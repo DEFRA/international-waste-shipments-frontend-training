@@ -4,7 +4,7 @@ const routes = [].concat(
   require('../routes/applicant/login'),
   require('../routes/notification/competent-authority'),
   require('../routes/notification/notification-id'),
-  require('../routes/notification/shipment-type'),
+  require('../routes/notification/notification-type'),
   require('../routes/public')
 )
 

@@ -11,7 +11,7 @@ const handlers = {
       let notification = await sessionCache.get(request, h)
       // The  user journey is complete so destroy the session cookie
       await sessionCache.destroy(request, h)
-      return h.view('notification/notification-id', new ViewModel(notification.notificationNumber, null))
+      return h.view('notification/notification-id', new ViewModel(notification.notificationnumber, null))
     } catch (err) {
       return h.redirect('/').takeover()
     }

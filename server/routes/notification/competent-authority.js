@@ -10,7 +10,7 @@ const handlers = {
     return h.view('notification/competent-authority', new ViewModel(competentAuthority, null))
   },
   post: async (request, h) => {
-    return h.redirect('./shipment-type')
+    return h.redirect('./notification-type')
   },
   fail: (request, h, error) => {
     const competentAuthority = (request.payload.authority)
@@ -35,7 +35,7 @@ module.exports = [
       description: 'Handle the post to the competent authority page',
       handler: handlers.post,
       validate: {
-        payload: { authority: schema },
+        payload: { competentauthority: schema },
         failAction: handlers.fail
       }
     }
