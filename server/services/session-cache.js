@@ -72,6 +72,9 @@ const self = module.exports = {
 }
 
 function updateSessionCache (session, values) {
+  if ('password' in values) {
+    delete values.password
+  }
   return Object.assign(session, values)
 }
 
