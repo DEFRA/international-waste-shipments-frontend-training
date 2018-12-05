@@ -4,9 +4,11 @@
 {% from "checkboxes/macro.njk" import govukCheckboxes %}
 {% from "select/macro.njk" import govukSelect %}
 
-
 {% block content %}
   <div class="govuk-body">
+
+    <h1 class="govuk-heading-xl">About you and your organisation</h1>
+    <p class="govuk-body-l">Enter your contact details and correspondence address</p>
 
     {{ govukInput({ model.firstName }) }}
     
@@ -31,6 +33,28 @@
     {{ govukInput({ model.password }) }}
 
     {{ govukInput({ model.confirmPassword }) }}
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Read full terms and conditions of use
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        {% include partials "terms-and-conditions" %}
+      </div>
+    </details>
+
+    <details class="govuk-details">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">
+          Read our standard data notice
+        </span>
+      </summary>
+      <div class="govuk-details__text">
+        {% include partials "standard-data-notice" %}
+      </div>
+    </details>   
 
     {{ govukCheckboxes({ model.termsAndConditions }) }}
 
