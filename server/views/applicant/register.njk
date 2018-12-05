@@ -1,0 +1,42 @@
+{% extends 'layout.njk' %}
+{% from "button/macro.njk" import govukButton %}
+{% from "input/macro.njk" import govukInput %}
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "select/macro.njk" import govukSelect %}
+
+
+{% block content %}
+  <div class="govuk-body">
+
+    {{ govukInput({ model.firstName }) }}
+    
+    {{ govukInput({ model.lastName }) }}
+
+    {{ govukInput({ model.organisationName }) }}
+
+    {{ govukInput({ model.telephoneNumber }) }}
+
+    {{ govukInput({ model.email }) }}
+
+    {{ govukInput({ model.addressLine1 }) }}
+
+    {{ govukInput({ model.addressLine2 }) }}
+
+    {{ govukInput({ model.town }) }}
+
+    {{ govukSelect({ model.country }) }}
+
+    {{ govukInput({ model.postcode }) }}
+
+    {{ govukInput({ model.password }) }}
+
+    {{ govukInput({ model.confirmPassword }) }}
+
+    {{ govukCheckboxes({ model.termsAndConditions }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      href: "/application/register"
+    }) }}
+  </div>
+{% endblock %}
