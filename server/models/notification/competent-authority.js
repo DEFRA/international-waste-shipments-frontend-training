@@ -1,8 +1,8 @@
 function ViewModel (competentAuthority, error) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {
-    idPrefix: 'authority',
-    name: 'authority',
+    idPrefix: 'competentauthority',
+    name: 'competentauthority',
     fieldset: {
       legend: {
         text: 'Which competent authority are you applying to?',
@@ -12,19 +12,19 @@ function ViewModel (competentAuthority, error) {
     },
     items: [
       {
-        value: 'ea',
+        value: '1',
         text: 'Environment Agency (EA)'
       },
       {
-        value: 'sepa',
+        value: '2',
         text: 'Scotish Environment Protection Agency (SEPA)'
       },
       {
-        value: 'niea',
+        value: '3',
         text: 'Northern Ireland Environment Agency(NIEA)'
       },
       {
-        value: 'nrw',
+        value: '4',
         text: 'Natural Resources Wales (NRW)'
       }
     ]

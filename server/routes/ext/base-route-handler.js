@@ -4,6 +4,11 @@ const sessionCache = require('../../services/session-cache')
 
 // A route template for HTTP requests that facilitates session management without the use of cut and paste.
 module.exports = {
+  get: {
+    options: {
+      pre: [{ method: getSessionCache }]
+    }
+  },
   post: {
     options: {
       pre: [{ method: getSessionCache }],
