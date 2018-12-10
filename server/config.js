@@ -21,6 +21,7 @@ const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   notificationService: process.env.IWS_NOTIFICATION_SERVICE,
+  countryService: process.env.IWS_COUNTRY_SERVICE,
   restClientTimeoutMillis: process.env.IWS_REQUEST_TIMEOUT_IN_MILLIS,
   sessionCookieName: process.env.IWS_SESSION_COOKIE_NAME,
   sessionTimeoutMinutes: process.env.IWS_SESSION_TIMEOUT_IN_MINUTES,
