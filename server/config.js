@@ -7,6 +7,7 @@ const schema = {
   port: joi.number().default(3000),
   env: joi.string().valid('development', 'test', 'production').default('development'),
   notificationService: joi.string().uri().required(),
+  countryService: joi.string().uri().required(),
   restClientTimeoutMillis: joi.number().default(5000),
   sessionCookieName: joi.string().default('iwsSessionCookie'),
   sessionTimeoutMinutes: joi.number().default(15),
