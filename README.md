@@ -18,6 +18,7 @@ This solution exists for training purposes. The structure of this repository is 
 | NODE_ENV                              | Node environment              |    no    |                              | development,test,production |
 | PORT                                  | Port number                   |    no    | 3000                         |                             |
 | IWS_NOTIFICATION_SERVICE              | Notification service URL      |    yes   |                              |                             |
+| IWS_COUNTRY_SERVICE                   | Country service URL           |    yes   |                              |                             |
 | IWS_SESSION_COOKIE_NAME               | Session cookie name           |    no    | iwsSessionCookie             |                             |
 | IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length        |    no    | 15                           |                             |
 | IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout               |    no    | 5000                         |                             |
@@ -54,6 +55,13 @@ Currently this will just build the `govuk-frontend` sass but may be extended to 
 Now the application is ready to run:
 
 `$ node index.js`
+
+### Development user name and password
+
+To log in to the development version of the application:
+
+username: dev@iws.gov.uk
+password: secret
 
 ## Docker Considerations
 
