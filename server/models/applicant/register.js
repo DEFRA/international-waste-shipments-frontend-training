@@ -1,6 +1,7 @@
 function ViewModel (countries, errors) {
   // Constructor function to create logic dependent nunjucks page
 
+  this.model = {}
   this.model.firstName = {
     label: {
       text: 'First name'
@@ -121,27 +122,29 @@ function ViewModel (countries, errors) {
   }
 
   countries.forEach(country => {
-    country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
+    this.model.country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
   })
 
-  if (errors.indexOf('firstName') > -1) {
-    this.model.firstName.errorMessage = {
-      'text': 'Please enter First name'
+  if (errors != null) {
+    if (errors.indexOf('firstName') > -1) {
+      this.model.firstName.errorMessage = {
+        'text': 'Please enter First name'
+      }
     }
-  }
-  if (errors.indexOf('lastName') > -1) {
-    this.model.lastName.errorMessage = {
-      'text': 'Please enter Last name'
+    if (errors.indexOf('lastName') > -1) {
+      this.model.lastName.errorMessage = {
+        'text': 'Please enter Last name'
+      }
     }
-  }
-  if (errors.indexOf('organisationName') > -1) {
-    this.model.organisationName.errorMessage = {
-      'text': 'Please enter Organisation name'
+    if (errors.indexOf('organisationName') > -1) {
+      this.model.organisationName.errorMessage = {
+        'text': 'Please enter Organisation name'
+      }
     }
-  }
-  if (errors.indexOf('organisationName') > -1) {
-    this.model.organisationName.errorMessage = {
-      'text': 'Please enter Organisation name'
+    if (errors.indexOf('organisationName') > -1) {
+      this.model.organisationName.errorMessage = {
+        'text': 'Please enter Organisation name'
+      }
     }
   }
 }
