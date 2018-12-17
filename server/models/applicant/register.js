@@ -1,6 +1,6 @@
 function ViewModel (countries, errors) {
   // Constructor function to create logic dependent nunjucks page
-
+  this.model = {}
   this.model.firstName = {
     label: {
       text: 'First name'
@@ -102,12 +102,12 @@ function ViewModel (countries, errors) {
     type: 'password'
   }
 
-  this.model.confirmpassword = {
+  this.model.confirmPassword = {
     label: {
       text: 'Confirm Password'
     },
-    id: 'confirmpassword',
-    name: 'confirmpassword',
+    id: 'confirmPassword',
+    name: 'confirmPassword',
     type: 'password'
   }
 
@@ -121,27 +121,78 @@ function ViewModel (countries, errors) {
   }
 
   countries.forEach(country => {
-    country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
+    this.model.country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
   })
-
-  if (errors.indexOf('firstName') > -1) {
-    this.model.firstName.errorMessage = {
-      'text': 'Please enter First name'
+  if (errors != null) {
+    if (errors.indexOf('firstName') > -1) {
+      this.model.firstName.errorMessage = {
+        'text': 'Please enter your First name'
+      }
     }
-  }
-  if (errors.indexOf('lastName') > -1) {
-    this.model.lastName.errorMessage = {
-      'text': 'Please enter Last name'
+    if (errors.indexOf('lastName') > -1) {
+      this.model.lastName.errorMessage = {
+        'text': 'Please enter your Last name'
+      }
     }
-  }
-  if (errors.indexOf('organisationName') > -1) {
-    this.model.organisationName.errorMessage = {
-      'text': 'Please enter Organisation name'
+    if (errors.indexOf('organisationName') > -1) {
+      this.model.organisationName.errorMessage = {
+        'text': 'Please enter an Organisation name'
+      }
     }
-  }
-  if (errors.indexOf('organisationName') > -1) {
-    this.model.organisationName.errorMessage = {
-      'text': 'Please enter Organisation name'
+    if (errors.indexOf('telephoneNumber') > -1) {
+      this.model.telephoneNumber.errorMessage = {
+        'text': 'Please enter your Telephone number'
+      }
+    }
+    if (errors.indexOf('email') > -1) {
+      this.model.email.errorMessage = {
+        'text': 'Please enter an Email Address'
+      }
+    }
+    if (errors.indexOf('addressLine1') > -1) {
+      this.model.addressLine1.errorMessage = {
+        'text': 'Please enter Address line 1'
+      }
+    }
+    if (errors.indexOf('addressLine2') > -1) {
+      this.model.addressLine2.errorMessage = {
+        'text': 'Please enter Address line 2'
+      }
+    }
+    if (errors.indexOf('town') > -1) {
+      this.model.town.errorMessage = {
+        'text': 'Please enter Town or City'
+      }
+    }
+    if (errors.indexOf('county') > -1) {
+      this.model.county.errorMessage = {
+        'text': 'Please enter County'
+      }
+    }
+    if (errors.indexOf('postcode') > -1) {
+      this.model.postcode.errorMessage = {
+        'text': 'Please enter Postcode'
+      }
+    }
+    if (errors.indexOf('country') > -1) {
+      this.model.country.errorMessage = {
+        'text': 'Please enter country'
+      }
+    }
+    if (errors.indexOf('password') > -1) {
+      this.model.password.errorMessage = {
+        'text': 'Please enter Password'
+      }
+    }
+    if (errors.indexOf('confirmPassword') > -1) {
+      this.model.confirmPassword.errorMessage = {
+        'text': 'Please enter the same Password as above'
+      }
+    }
+    if (errors.indexOf('termsandconditions') > -1) {
+      this.model.termsandconditions.errorMessage = {
+        'text': 'Please accept terms and conditions of use'
+      }
     }
   }
 }
