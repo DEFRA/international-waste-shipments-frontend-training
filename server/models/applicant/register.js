@@ -1,9 +1,5 @@
 function ViewModel (countries, errors) {
   // Constructor function to create logic dependent nunjucks page
-<<<<<<< HEAD
-=======
-
->>>>>>> 76d2afea53778c2deec1b7be3ce6fcf71efc53a0
   this.model = {}
   this.model.firstName = {
     label: {
@@ -127,32 +123,19 @@ function ViewModel (countries, errors) {
   countries.forEach(country => {
     this.model.country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
   })
-<<<<<<< HEAD
   if (errors != null) {
     if (errors.indexOf('firstName') > -1) {
       this.model.firstName.errorMessage = {
         'text': 'Please enter your First name'
-=======
-
-  if (errors != null) {
-    if (errors.indexOf('firstName') > -1) {
-      this.model.firstName.errorMessage = {
-        'text': 'Please enter First name'
->>>>>>> 76d2afea53778c2deec1b7be3ce6fcf71efc53a0
       }
     }
     if (errors.indexOf('lastName') > -1) {
       this.model.lastName.errorMessage = {
-<<<<<<< HEAD
         'text': 'Please enter your Last name'
-=======
-        'text': 'Please enter Last name'
->>>>>>> 76d2afea53778c2deec1b7be3ce6fcf71efc53a0
       }
     }
     if (errors.indexOf('organisationName') > -1) {
       this.model.organisationName.errorMessage = {
-<<<<<<< HEAD
         'text': 'Please enter an Organisation name'
       }
     }
@@ -209,14 +192,6 @@ function ViewModel (countries, errors) {
     if (errors.indexOf('termsandconditions') > -1) {
       this.model.termsandconditions.errorMessage = {
         'text': 'Please accept terms and conditions of use'
-=======
-        'text': 'Please enter Organisation name'
-      }
-    }
-    if (errors.indexOf('organisationName') > -1) {
-      this.model.organisationName.errorMessage = {
-        'text': 'Please enter Organisation name'
->>>>>>> 76d2afea53778c2deec1b7be3ce6fcf71efc53a0
       }
     }
   }
