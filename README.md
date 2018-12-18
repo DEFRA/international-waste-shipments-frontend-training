@@ -19,6 +19,7 @@ This solution exists for training purposes. The structure of this repository is 
 | PORT                                  | Port number                   |    no    | 3000                         |                             |
 | IWS_NOTIFICATION_SERVICE              | Notification service URL      |    yes   |                              |                             |
 | IWS_COUNTRY_SERVICE                   | Country service URL           |    yes   |                              |                             |
+| IWS_USER_SERVICE                      | Country service URL           |    yes   |                              |                             |
 | IWS_SESSION_COOKIE_NAME               | Session cookie name           |    no    | iwsSessionCookie             |                             |
 | IWS_SESSION_TIMEOUT_IN_MINUTES        | Session timeout length        |    no    | 15                           |                             |
 | IWS_REQUEST_TIMEOUT_IN_MILLIS         | Request timeout               |    no    | 5000                         |                             |
