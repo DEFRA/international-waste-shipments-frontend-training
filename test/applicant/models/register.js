@@ -115,4 +115,11 @@ lab.experiment('Home Tests', () => {
     let register = new ViewModel(countries, errors)
     Code.expect(register.model.termsandconditions.errorMessage.text).to.not.equal(null)
   })
+
+  lab.test('17 - Test error displayed on two correct properties', async () => {
+    let errors = ['termsandconditions', 'firstName']
+    let register = new ViewModel(countries, errors)
+    Code.expect(register.model.termsandconditions.errorMessage.text).to.not.equal(null)
+    Code.expect(register.model.firstName.errorMessage.text).to.not.equal(null)
+  })
 })
