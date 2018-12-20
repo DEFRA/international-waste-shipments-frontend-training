@@ -1,14 +1,17 @@
 {% extends "template.njk" %}
+{% from "phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "back-link/macro.njk" import govukBackLink %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
     <link href="{{ assetPath }}/stylesheets/application.css" rel="stylesheet" />
+      <link href="{{ assetPath }}/stylesheets/customs.css" rel="stylesheet" />
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
   {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
   <!--[if IE 8]>
-    <link href="{{ assetPath }}/govuk-frontend/all-ie8.css" rel="stylesheet" />
+    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
   <![endif]-->
 
   {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
@@ -17,25 +20,46 @@
   <![endif]-->
 {% endblock %}
 
+{% block pageTitle %}
+  {{ pageTitle }}
+{% endblock %}
+
 {% block header %}
   {{ govukHeader({
     homepageUrl: "#",
     containerClasses: "govuk-width-container",
     serviceName: serviceName,
-    serviceUrl: "/"
+    serviceUrl: "#"
+  }) }}
+
+{% endblock %}
+
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "alpha"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+  {{ govukBackLink({
+    href: "javascript:window.history.go(-1)",
+    text: "Back"
   }) }}
 {% endblock %}
 
-{% block pageTitle %}
-  {{ pageTitle }}
-{% endblock %}
-
+<div class="govuk-form-group">
 {% block content %}
   <h1 class="govuk-heading-xl">Default page template</h1>
 {% endblock %}
+</div>
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="{{ assetPath }}/all.js"></script>
+  <script src="{{ assetPath }}/ukaddressfield.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
+  {% if BROWSER_REFRESH_URL %}
+    <script src="{{ BROWSER_REFRESH_URL }}"></script>
+  {% endif %}
 {% endblock %}

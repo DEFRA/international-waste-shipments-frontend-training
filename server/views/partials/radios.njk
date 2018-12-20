@@ -1,0 +1,176 @@
+{% extends 'layout.njk' %}
+{% from "input/macro.njk" import govukInput %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "details/macro.njk" import govukDetails %}
+
+{% block content %}
+
+    {% set sole %}
+    {{ govukInput({
+        id: 'radio',
+        name: 'radio',
+        type: 'email',
+        classes: 'govuk-!-width-one-third',
+        label: {
+          text: 'Registration Number'
+        },
+        hint: {
+          text: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number"
+        }
+      }) }}
+
+    {{ govukInput(  {
+          id: 'radio',
+          name: 'radio',
+          type: 'email',
+          classes: 'govuk-!-width-one-third',
+          label: {
+            text: 'Additional registration number (optional)'
+          }
+        }) }}
+    {% endset -%}
+
+    {% set partner %}
+    {{ govukInput(      {
+        id: 'radio',
+        name: 'radio',
+        type: 'email',
+        classes: 'govuk-!-width-one-third',
+        label: {
+          text: 'Registration Number'
+        },
+        hint: {
+          text: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number"
+        }
+      }) }}
+
+    {{ govukInput(  {
+          id: 'radio',
+          name: 'radio',
+          type: 'email',
+          classes: 'govuk-!-width-one-third',
+          label: {
+            text: 'Additional registration number (optional)'
+          }
+        }) }}
+    {% endset -%}
+
+    {% set limitedCompany %}
+    {{ govukInput(  {
+        id: 'radio',
+        name: 'radio',
+        type: 'email',
+        classes: 'govuk-!-width-one-third',
+        label: {
+          text: 'Registration Number'
+        },
+        hint: {
+          text: 'This should be your Companies House number'
+        }
+      }) }}
+
+    {{ govukDetails( {
+        summaryText: 'Where can I find my Companies House number?',
+        html: 'Your Companies House number is on your organisations certificate of incorporation. You can also get the number from your organisations accountant or accounts department, or <a href="https://beta.companieshouse.gov.uk/" target="_blank" rel="external">search the Companies House online services</a>'
+      }) }}
+
+    {{ govukInput( {
+          id: 'radio',
+          name: 'radio',
+          type: 'email',
+          classes: 'govuk-!-width-one-third',
+          label: {
+            text: 'Additional registration number (optional)'
+          },
+          hint: {
+            text: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number"
+          }
+        }) }}
+    {% endset -%}
+    {% set other %}
+    {{ govukInput(     {
+          id: 'radio',
+          name: 'radio',
+          type: 'email',
+          classes: 'govuk-!-width-one-third',
+          label: {
+            text: 'Organisation type'
+          }
+        }) }}
+
+    {{ govukInput({
+        id: 'radio',
+        name: 'radio',
+        type: 'email',
+        classes: 'govuk-!-width-one-third',
+        label: {
+          text: 'Registration Number'
+        },
+        hint: {
+          text: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number"
+        }
+         }) }}
+
+    {{ govukInput({
+          id: 'radio',
+          name: 'radio',
+          type: 'email',
+          classes: 'govuk-!-width-one-third',
+          label: {
+            text: 'Additional registration number (optional)'
+          }
+         }) }}
+    {% endset -%}
+
+    {{ govukRadios({
+  idPrefix: "sole",
+  name: "radio",
+  fieldset: {
+    legend: {
+      text: "",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--xl"
+    }
+  },
+  hint: {
+    text: 'If none of these options apply, please select "Other" and add details'
+  },
+  items: [
+    {
+      
+      value: "string",
+      text: "Sole trader",
+      hint: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number",
+      conditional: {
+        html: sole
+      }
+    },
+        {
+      
+      value: "string",
+      text: "Partner",
+      hint: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number",
+      conditional: {
+        html: partner
+      }
+    },
+        {
+      
+      value: "string",
+      text: "Limited company",
+      hint: "If you're acting on behalf of the waste generator - producer, this will be your waste broker licence number",
+      conditional: {
+        html: {{ govukInput(object that has to fit macro validation for input componenent) }}   
+      }
+    },
+        {
+      
+      value: "string",
+      text: "Other",
+      conditional: {
+        html: other
+      }
+    }
+  ]
+}) }}
+{% endblock %}

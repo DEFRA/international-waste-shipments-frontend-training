@@ -1,4 +1,5 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
+{% from "partials/components.html" import componentList %}
 
 {% extends 'layout.html' %}
 
@@ -14,5 +15,6 @@
         <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
     </div>
+      {% include "partials/form.html" %}
   </div>
 {% endblock %}
