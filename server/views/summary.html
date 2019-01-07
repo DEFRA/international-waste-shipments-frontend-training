@@ -15,6 +15,7 @@
         <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
     </div>
-      {% include "partials/form.html" %}
+    <!-- Disable form submission untl the level of Notification service integration is clarified. -->
+    {# include "partials/form.html" #}
   </div>
 {% endblock %}

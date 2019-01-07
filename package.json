@@ -18,7 +18,7 @@
     "boom": "7.2.0",
     "catbox-redis": "4.2.3",
     "digital-form-builder-designer": "0.1.7",
-    "digital-form-builder-engine": "0.1.4",
+    "digital-form-builder-engine": "file:../digital-form-builder-engine",
     "govuk-frontend": "2.0.0",
     "hapi": "17.5.4",
     "inert": "5.1.0",
