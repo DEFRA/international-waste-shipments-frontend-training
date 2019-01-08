@@ -1,20 +1,17 @@
+const config = require('./config')
+const sessionCookieName = config.sessionCookieName
 const hoek = require('hoek')
 
-/*
-  Simple in-memory data store used for saving page state.
-  Should be replaced with a real db in production.
-*/
-const cache = {}
+// State is cached using linkage between yar and catbox-redis.
 
 async function getState (request) {
-  return Promise.resolve(cache[request.yar.id] || {})
+  return Promise.resolve(request.yar.get(sessionCookieName) || {})
 }
 
 async function mergeState (request, value) {
-  const state = cache[request.yar.id] || {}
+  const state = request.yar.get(sessionCookieName) || {}
   hoek.merge(state, value, true, false)
-  cache[request.yar.id] = state
-
+  request.yar.set(sessionCookieName, state)
   return Promise.resolve(state)
 }
 
