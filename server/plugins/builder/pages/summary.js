@@ -1,3 +1,5 @@
+
+const config = require('../../../config')
 const joi = require('joi')
 const Page = require('.')
 
@@ -85,6 +87,7 @@ class SummaryViewModel {
     this.details = details
     this.state = state
     this.value = result.value
+    this.debug = config.env === 'development'
   }
 }
 

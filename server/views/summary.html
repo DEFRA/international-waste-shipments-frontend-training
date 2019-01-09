@@ -12,7 +12,9 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
-        <pre>{{ result.error | dump(2) | safe }}</pre>
+        {% if debug %}
+          <pre>{{ result.error | dump(2) | safe }}</pre>
+        {% endif %}
       </div>
     </div>
     <!-- Disable form submission untl the level of Notification service integration is clarified. -->
