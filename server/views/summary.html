@@ -17,7 +17,8 @@
         {% endif %}
       </div>
     </div>
-    <!-- Disable form submission untl the level of Notification service integration is clarified. -->
-    {# include "partials/form.html" #}
+    {% if not result.error %}
+      {% include "partials/form.html" %}
+    {% endif %}
   </div>
 {% endblock %}
