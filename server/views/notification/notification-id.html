@@ -3,16 +3,25 @@
 {% from "button/macro.njk" import govukButton %}
 
 {% block content %}
-  <div class="govuk-body">
-    <form method="POST">
-      <h1>{{model.title}}</h1>
-      <p>{{model.notificationNumber}}</p>
-      {{govukInsetText(model)}}    
-      <p>Print and complete a <a href={{model.financialGuarantee}}>financial guarantee form</a>.</p>
-      <p>An approved financial guarantee must be in place before any shipments can be made.</p>
-      {{ govukButton({
-        text: "Save and continue"
-      }) }}
-    </form>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">
+            <span class="govuk-caption-xl">{{model.sectionTitle}}</span>
+            {{model.title}}
+          </h1>
+        <div class="govuk-body">
+          <form method="POST">
+            <div class="govuk-inset-text govuk-!-font-weight-bold">{{model.html}}</div>
+            <p>Your unique notification number has been saved automatically.</p>
+            <div class="form-group">
+              Print and complete a <a href="">financial guarantee form</a>. An approved financial guarentee must be in place before any shipments can be made.
+            </div>
+            {{ govukButton({
+              text: "Continue"
+            }) }}
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}

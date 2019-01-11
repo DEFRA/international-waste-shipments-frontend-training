@@ -87,13 +87,14 @@
       ],
       "next": [
         {
-          "path": "/notification-number"
+          "path": "/notification-id"
         }
       ],
+      "controller": "./pages/shipment-notification.js",
       "section": "start"
     },
     {
-      "path": "/notification-number",
+      "path": "/notification-id",
       "title": "Your notification number",
       "components": [
         {
@@ -104,7 +105,7 @@
         },
         {
           "type": "InsetText",
-          "content": "{{Insert the number from API}}",
+          "content": "Generated notification number",
           "options": {},
           "schema": {}
         },
@@ -126,7 +127,7 @@
           "path": "/exporter"
         }
       ],
-      "controller": "./pages/notification-api-call.js",
+      "controller": "./pages/notification-id.js",
       "section": "start"
     },
     {
@@ -175,7 +176,7 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
+          "name": "exporterFullName",
           "title": "Full Name",
           "hint": "This should be the contact person for the exporter - notifier",
           "options": {},
@@ -183,7 +184,7 @@
         },
         {
           "type": "TelephoneNumberField",
-          "name": "telNumber",
+          "name": "exporterTelNumber",
           "title": "Telephone Number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
@@ -303,14 +304,14 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
+          "name": "producerFullName",
           "title": "Full name",
           "options": {},
           "schema": {}
         },
         {
           "type": "TelephoneNumberField",
-          "name": "telNumber",
+          "name": "producerTelNumber",
           "title": "Telephone Number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
