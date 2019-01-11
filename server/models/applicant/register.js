@@ -5,32 +5,32 @@ function ViewModel (countries, errors) {
     label: {
       text: 'First name'
     },
-    id: 'first-name',
-    name: 'first-name'
+    id: 'firstName',
+    name: 'firstName'
   }
 
   this.model.lastName = {
     label: {
       text: 'Last name'
     },
-    id: 'last-name',
-    name: 'last-name'
+    id: 'lastName',
+    name: 'lastName'
   }
 
   this.model.organisationName = {
     label: {
       text: 'Organisation name'
     },
-    id: 'organisation-name',
-    name: 'organisation-name'
+    id: 'organisationName',
+    name: 'organisationName'
   }
 
   this.model.telephoneNumber = {
     label: {
       text: 'Telephone number'
     },
-    id: 'telephone-number',
-    name: 'telephone-number',
+    id: 'telephoneNumber',
+    name: 'telephoneNumber',
     type: 'tel',
     classes: 'govuk-input--width-20'
   }
@@ -46,18 +46,18 @@ function ViewModel (countries, errors) {
 
   this.model.addressLine1 = {
     label: {
-      html: 'Building and street <span class="govuk-visually-hidden">line 1 of 2</span>'
+      text: 'Address Line 1'
     },
-    id: 'address-line-1',
-    name: 'address-line-1'
+    id: 'addressLine1',
+    name: 'addressLine1'
   }
 
   this.model.addressLine2 = {
     label: {
-      html: '<span class="govuk-visually-hidden">Building and street line 2 of 2</span>'
+      text: 'Address Line 2'
     },
-    id: 'address-line-2',
-    name: 'address-line-2'
+    id: 'addressLine2',
+    name: 'addressLine2'
   }
 
   this.model.town = {
@@ -65,17 +65,17 @@ function ViewModel (countries, errors) {
       text: 'Town or city'
     },
     classes: 'govuk-!-width-two-thirds',
-    id: 'address-town',
-    name: 'address-town'
+    id: 'town',
+    name: 'town'
   }
 
   this.model.county = {
     label: {
-      text: 'County'
+      text: 'County (optional)'
     },
     classes: 'govuk-!-width-two-thirds',
-    id: 'address-county',
-    name: 'address-county'
+    id: 'county',
+    name: 'county'
   }
 
   this.model.postcode = {
@@ -83,8 +83,8 @@ function ViewModel (countries, errors) {
       text: 'Postcode'
     },
     classes: 'govuk-input--width-10',
-    id: 'address-postcode',
-    name: 'address-postcode'
+    id: 'postcode',
+    name: 'postcode'
   }
   // Country needs an if statement to pull each item in the list across
   this.model.country = {
@@ -112,6 +112,8 @@ function ViewModel (countries, errors) {
   }
 
   this.model.termsandconditions = {
+    idPrefix: 'terms',
+    name: 'termsandconditions',
     items: [
       {
         value: 'termsandconditions',

@@ -6,33 +6,33 @@
 
 {% block content %}
   <div class="govuk-body">
-
+  <form method="POST" action="register">
     <h1 class="govuk-heading-xl">About you and your organisation</h1>
     <p class="govuk-body-l">Enter your contact details and correspondence address</p>
 
-    {{ govukInput({ model.firstName }) }}
+    {{ govukInput(model.firstName) }}
     
-    {{ govukInput({ model.lastName }) }}
+    {{ govukInput(model.lastName) }}
 
-    {{ govukInput({ model.organisationName }) }}
+    {{ govukInput(model.organisationName) }}
 
-    {{ govukInput({ model.telephoneNumber }) }}
+    {{ govukInput(model.telephoneNumber) }}
 
-    {{ govukInput({ model.email }) }}
+    {{ govukInput(model.email) }}
 
-    {{ govukInput({ model.addressLine1 }) }}
+    {{ govukInput(model.addressLine1) }}
 
-    {{ govukInput({ model.addressLine2 }) }}
+    {{ govukInput(model.addressLine2) }}
 
-    {{ govukInput({ model.town }) }}
+    {{ govukInput(model.town) }}
 
-    {{ govukSelect({ model.country }) }}
+    {{ govukSelect(model.country) }}
 
-    {{ govukInput({ model.postcode }) }}
+    {{ govukInput(model.postcode) }}
 
-    {{ govukInput({ model.password }) }}
+    {{ govukInput(model.password) }}
 
-    {{ govukInput({ model.confirmPassword }) }}
+    {{ govukInput(model.confirmPassword) }}
 
     <details class="govuk-details">
       <summary class="govuk-details__summary">
@@ -41,7 +41,7 @@
         </span>
       </summary>
       <div class="govuk-details__text">
-        {% include partials "terms-and-conditions" %}
+        {# {% include "terms-and-conditions" %} #}
       </div>
     </details>
 
@@ -52,15 +52,14 @@
         </span>
       </summary>
       <div class="govuk-details__text">
-        {% include partials "standard-data-notice" %}
+        {# {% include partials "standard-data-notice" %} #}
       </div>
     </details>   
-
-    {{ govukCheckboxes({ model.termsAndConditions }) }}
+    
+    {{ govukCheckboxes(model.termsandconditions) }}
 
     {{ govukButton({
-      text: "Continue",
-      href: "/application/register"
+      text: "Continue"
     }) }}
-  </div>
+    </form>
 {% endblock %}
