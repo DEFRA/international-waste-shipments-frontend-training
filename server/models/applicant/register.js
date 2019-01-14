@@ -35,7 +35,7 @@ function ViewModel (countries, errors, register) {
     classes: 'govuk-input--width-20',
     id: 'telephoneNumber',
     name: 'telephoneNumber',
-    type: 'tel'
+    type: 'text'
   }
 
   this.model.email = {
