@@ -1,10 +1,11 @@
-function ViewModel (countries, errors) {
+function ViewModel (countries, errors, register) {
   // Constructor function to create logic dependent nunjucks page
   this.model = {}
   this.model.firstName = {
     label: {
       text: 'First name'
     },
+    classes: 'govuk-input--width-20',
     id: 'firstName',
     name: 'firstName'
   }
@@ -13,6 +14,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Last name'
     },
+    classes: 'govuk-input--width-20',
     id: 'lastName',
     name: 'lastName'
   }
@@ -21,6 +23,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Organisation name'
     },
+    classes: 'govuk-input--width-20',
     id: 'organisationName',
     name: 'organisationName'
   }
@@ -29,16 +32,17 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Telephone number'
     },
+    classes: 'govuk-input--width-20',
     id: 'telephoneNumber',
     name: 'telephoneNumber',
-    type: 'tel',
-    classes: 'govuk-input--width-20'
+    type: 'tel'
   }
 
   this.model.email = {
     label: {
       text: 'Email address'
     },
+    classes: 'govuk-input--width-20',
     id: 'email',
     name: 'email',
     type: 'email'
@@ -48,6 +52,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Address Line 1'
     },
+    classes: 'govuk-input--width-20',
     id: 'addressLine1',
     name: 'addressLine1'
   }
@@ -56,6 +61,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Address Line 2'
     },
+    classes: 'govuk-input--width-20',
     id: 'addressLine2',
     name: 'addressLine2'
   }
@@ -64,7 +70,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Town or city'
     },
-    classes: 'govuk-!-width-two-thirds',
+    classes: 'govuk-input--width-20',
     id: 'town',
     name: 'town'
   }
@@ -73,7 +79,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'County (optional)'
     },
-    classes: 'govuk-!-width-two-thirds',
+    classes: 'govuk-input--width-20',
     id: 'county',
     name: 'county'
   }
@@ -82,12 +88,18 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Postcode'
     },
-    classes: 'govuk-input--width-10',
+    classes: 'govuk-input--width-20',
     id: 'postcode',
     name: 'postcode'
   }
   // Country needs an if statement to pull each item in the list across
   this.model.country = {
+    label: {
+      text: 'Country'
+    },
+    classes: 'govuk-input--width-20',
+    id: 'country',
+    name: 'country',
     items: [] }
 
   this.model.password = {
@@ -97,6 +109,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Password'
     },
+    classes: 'govuk-input--width-20',
     id: 'password',
     name: 'password',
     type: 'password'
@@ -106,6 +119,7 @@ function ViewModel (countries, errors) {
     label: {
       text: 'Confirm Password'
     },
+    classes: 'govuk-input--width-20',
     id: 'confirmPassword',
     name: 'confirmPassword',
     type: 'password'
@@ -116,15 +130,21 @@ function ViewModel (countries, errors) {
     name: 'termsandconditions',
     items: [
       {
-        value: 'termsandconditions',
+        value: 'agree',
         text: 'Accept terms and conditions of use'
       }
     ]
   }
 
+  let selectedCountry = 'United Kingdom'
+  if (errors != null && register.country != null) {
+    selectedCountry = register.country
+  }
+
   countries.forEach(country => {
-    this.model.country.items.push({ value: country.id, text: country.name, selected: country.name === 'United Kingdom' })
+    this.model.country.items.push({ value: country.id, text: country.name, selected: selectedCountry === 'United Kingdom' ? country.name === selectedCountry : country.id === selectedCountry })
   })
+
   if (errors != null) {
     if (errors.indexOf('firstName') > -1) {
       this.model.firstName.errorMessage = {
@@ -178,17 +198,17 @@ function ViewModel (countries, errors) {
     }
     if (errors.indexOf('country') > -1) {
       this.model.country.errorMessage = {
-        'text': 'Please enter country'
+        'text': 'Please enter Country'
       }
     }
     if (errors.indexOf('password') > -1) {
       this.model.password.errorMessage = {
-        'text': 'Please enter Password'
+        'text': 'Invalid Password'
       }
     }
     if (errors.indexOf('confirmPassword') > -1) {
       this.model.confirmPassword.errorMessage = {
-        'text': 'Please enter the same Password as above'
+        'text': 'Passwords must match'
       }
     }
     if (errors.indexOf('termsandconditions') > -1) {
@@ -196,6 +216,20 @@ function ViewModel (countries, errors) {
         'text': 'Please accept terms and conditions of use'
       }
     }
+  }
+
+  if (register != null) {
+    this.model.firstName.value = register.firstName
+    this.model.lastName.value = register.lastName
+    this.model.organisationName.value = register.organisationName
+    this.model.telephoneNumber.value = register.telephoneNumber
+    this.model.email.value = register.email
+    this.model.addressLine1.value = register.addressLine1
+    this.model.addressLine2.value = register.addressLine2
+    this.model.town.value = register.town
+    this.model.county.value = register.county
+    this.model.postcode.value = register.postcode
+    this.model.country.value = register.country
   }
 }
 
