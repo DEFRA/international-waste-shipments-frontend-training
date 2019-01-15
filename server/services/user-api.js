@@ -9,11 +9,13 @@ const config = require('../config')
 module.exports = {
   get: async function (request) {
     // Temporary local authentication for development purposes. Replace with service call.
-    let user = { email: 'dev@iws.gov.uk', userid: 'c88b353c-0090-48fe-8f0d-90a1f8eebff9', passwordHash: '$2b$10$b/gB1ALSbgfbKUpBdQOzOuQ.5Xy6fkSQ8q3Ko1ieGoaPN3KMI.bea' } // secret
-    let requestEmail = request.payload.email
-    let requestPassword = request.payload.password
-    const isValidPassword = await bcrypt.compare(requestPassword, user.passwordHash)
-    if (requestEmail === user.email && isValidPassword) {
+    let user = await restClient.getJson(`${config.userService}/user/${request.payload.email}`)
+
+    let isValidPassword = false
+    if (user != null) {
+      isValidPassword = await bcrypt.compare(request.payload.password, user.passwordHash)
+    }
+    if (isValidPassword) {
       return user
     } else {
       throw new Error('Authentication error')

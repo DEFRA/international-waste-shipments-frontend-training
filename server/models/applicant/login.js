@@ -26,7 +26,7 @@ function ViewModel (credentials, error) {
       titleText: 'You have 1 error on this page',
       errorList: [
         {
-          text: 'The email address or password is incorrect. Please make sure you enter the right login details',
+          text: 'The email address or password is incorrect. Please make sure you enter the correct login details',
           href: '#email'
         }
       ]
