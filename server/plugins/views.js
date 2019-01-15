@@ -39,8 +39,8 @@ module.exports = {
     context: {
       appVersion: pkg.version,
       assetPath: '/assets',
-      serviceName: 'Service name',
-      pageTitle: 'Service name - GOV.UK',
+      serviceName: 'International Waste Shipments (IWS)',
+      pageTitle: 'International Waste Shipments - GOV.UK',
       analyticsAccount: analyticsAccount,
       BROWSER_REFRESH_URL: config.browserRefreshUrl
     }
