@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const restClient = require('../services/rest-client')
 const config = require('../config')
+const saltRounds = 10
 // A module providing access to a user API. A monolithic layered application based solution
 // might utilise coding to programming language interfaces here. Instead a RESTful API is utilised
 // as part of a microservice based solution. RESTful APIs function at the level of well known protocols
@@ -22,6 +23,8 @@ module.exports = {
     }
   },
   post: async function (user) {
+    var salt = bcrypt.genSaltSync(saltRounds)
+    var passwordHash = bcrypt.hashSync(request.payload.password, salt)
     await restClient.postJson(`${config.userService}/user`, { payload: user })
   }
 }
