@@ -24,7 +24,7 @@ module.exports = {
   },
   post: async function (user) {
     var salt = bcrypt.genSaltSync(saltRounds)
-    var passwordHash = bcrypt.hashSync(request.payload.password, salt)
+    user.password = bcrypt.hashSync(user.password, salt)
     await restClient.postJson(`${config.userService}/user`, { payload: user })
   }
 }
