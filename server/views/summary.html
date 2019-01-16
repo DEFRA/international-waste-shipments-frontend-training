@@ -1,0 +1,24 @@
+{% from "partials/summary-detail.html" import summaryDetail %}
+{% from "partials/components.html" import componentList %}
+
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {% for detail in details %}
+          {{ summaryDetail(detail) }}
+        {% endfor %}
+
+        {% if debug %}
+          <pre>{{ result.error | dump(2) | safe }}</pre>
+        {% endif %}
+      </div>
+    </div>
+    {% if not result.error %}
+      {% include "partials/form.html" %}
+    {% endif %}
+  </div>
+{% endblock %}

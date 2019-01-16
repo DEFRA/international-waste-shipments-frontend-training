@@ -15,6 +15,7 @@ function ViewModel (credentials, error) {
         text: 'Password'
       },
       classes: 'govuk-!-width-one-half',
+      type: 'password',
       id: 'password',
       name: 'password'
     }

@@ -4,5 +4,8 @@
 coverage
 node_modules
 npm-debug.log
-server/public/build
+server/public/build/*
+!server/public/build/stylesheets
+server/public/build/stylesheets/*
+!server/public/build/stylesheets/customs.css
 volumes

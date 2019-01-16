@@ -1,11 +1,11 @@
-{% extends 'layout.njk' %}
-{% from "input/macro.njk" import govukInput %}
+{% extends 'layout.html' %}
 {% from "radios/macro.njk" import govukRadios %}
 {% from "button/macro.njk" import govukButton %}
+{% from "error-message/macro.njk" import govukErrorMessage %}
 
 {% block content %}
   <div class="govuk-body">
-    <form method="POST" action="/notification/notification-type">
+    <form method="POST" action="/notification/competent-authority">
       {{ govukRadios(model) }}
       {{ govukButton({
         text: "Save and continue"

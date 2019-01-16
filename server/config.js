@@ -13,7 +13,8 @@ const schema = {
   sessionCacheName: joi.string().default('redis-cache'),
   sessionCacheHost: joi.string().default('localhost'),
   sessionCachePort: joi.number().default(6379),
-  sessionCachePassword: joi.string().required()
+  sessionCachePassword: joi.string().required(),
+  ordnanceSurveyKey: joi.string().optional()
 }
 
 // Build config
@@ -27,7 +28,8 @@ const config = {
   sessionCacheName: process.env.IWS_SESSION_CACHE_NAME,
   sessionCacheHost: process.env.IWS_SESSION_CACHE_HOST,
   sessionCachePort: process.env.IWS_SESSION_CACHE_PORT,
-  sessionCachePassword: process.env.IWS_SESSION_CACHE_PASSWORD
+  sessionCachePassword: process.env.IWS_SESSION_CACHE_PASSWORD,
+  ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY
 }
 
 // Validate config

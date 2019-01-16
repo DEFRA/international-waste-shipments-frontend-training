@@ -5,7 +5,8 @@ const routes = [].concat(
   require('../routes/notification/competent-authority'),
   require('../routes/notification/notification-id'),
   require('../routes/notification/notification-type'),
-  require('../routes/public')
+  require('../routes/public'),
+  require('../routes/summary')
 )
 
 module.exports = {
