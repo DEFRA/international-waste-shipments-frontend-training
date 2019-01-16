@@ -23,6 +23,10 @@
     {
       "name": "recoveryInformationProvided",
       "value": "recoveryInformationProvision == yes"
+    },
+    {
+      "name": "false",
+      "value": "false"
     }
   ],
   "pages": [
@@ -351,6 +355,34 @@
       "section": "organisationsInvolved"
     },
     {
+      "path": "/site-of-export",
+      "title": "Which waste generator - producer is the site of export?",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"form-group\">\r\n<table title=List of producers for set site of export>\r\n<thead>\r\n<tr>                   <th>Organisation name</th>                  <th>Address</th>\r\n<th>Site of export</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n\r\n<td>                              {{ from state }}\r\n</td>\r\n\r\n<td>\r\n{{ from state }}\r\n</td>\r\n\r\n<td>\r\n<input id=\"\"  title=\"\" type=\"radio\" />\r\n</td>\r\n\r\n</tr>\r\n</tbody>\r\n\r\n</table>\r\n</div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "owAdditional",
+          "title": "Additional details",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/importer-consignee"
+        }
+      ],
+      "controller": "./pages/sidebar.js",
+      "section": "organisationsInvolved"
+    },
+    {
       "path": "/importer-consignee",
       "title": "Who is the importer-consignee - notifier?",
       "components": [
@@ -448,25 +480,6 @@
       "section": "organisationsInvolved"
     },
     {
-      "path": "/site-of-export",
-      "title": "Which waste generator - producer is the site of export?",
-      "components": [
-        {
-          "type": "Html",
-          "content": "<div class=\"form-group\">\r\n<table title=List of producers for set site of export>\r\n<thead>\r\n<tr>                   <th>Organisation name</th>                  <th>Address</th>\r\n<th>Site of export</th>\r\n</tr>\r\n</thead>\r\n\r\n<tbody>\r\n<tr>\r\n\r\n<td>                              {{ from state }}\r\n</td>\r\n\r\n<td>\r\n{{ from state }}\r\n</td>\r\n\r\n<td>\r\n<input id=\"\"  title=\"\" type=\"radio\" />\r\n</td>\r\n\r\n</tr>\r\n</tbody>\r\n\r\n</table>\r\n</div>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/importer-consignee"
-        }
-      ],
-      "controller": "./pages/sidebar.js",
-      "section": "organisationsInvolved"
-    },
-    {
       "path": "/recovery-facility",
       "components": [
         {
@@ -485,6 +498,15 @@
           "type": "Html",
           "content": "<div class=\"form-group\">\r\n<a href='/recovery-facility-form'>Add a facility</a>\r\n</div>",
           "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "orAdditional",
+          "title": "Additional details",
           "schema": {}
         }
       ],
@@ -607,6 +629,15 @@
           "content": "<table title=List of producers for set site of export>\r\n                <thead>\r\n                    <tr>\r\n                        <th>Organisation name</th>\r\n                        <th>Address</th>\r\n                        <th>Site of export</th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody>\r\n                        <tr>\r\n                            <td>\r\n                              {{ from state }}\r\n                            </td>\r\n                            <td>\r\n                    {{ from state }}\r\n                            </td>\r\n                            <td>\r\n<input checked=\"checked\" id=\"Producers[0].Id\"  title=\"Actual site of disposal\" type=\"radio\" />\r\n                            </td>\r\n                        </tr>\r\n                </tbody>\r\n            </table>\r\n</br>",
           "options": {},
           "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "oaAdditional",
+          "title": "Additional details",
+          "schema": {}
         }
       ],
       "controller": "./pages/sidebar.js",
@@ -717,124 +748,6 @@
       "controller": "./pages/sidebar.js"
     },
     {
-      "path": "/intended-carrier",
-      "section": "theTransportation",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Add details of all the intended carriers for the whole journey. After you've added your first carrier, you can add several more by selecting - \"Add a new carrier\".",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
-          "content": "<div class=\"form-group\"><a href=\"/intended-carrier-form\">Add a new carrier</a></div>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
-          "content": "<div class=\"form-group\"><a href=\"\">Add carriers from your address book</a></div>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
-          "content": "<div class=\"form-group\">\r\n        <table title=List of facilities>\r\n            <thead>\r\n                <tr>\r\n                    <th>Organisation name</th>\r\n                    <th>Address</th>\r\n                    <th></th>\r\n                </tr>\r\n            </thead>\r\n            <tbody>\r\n                    <tr>\r\n                        <td>\r\n             {{ from state }}\r\n                        </td>\r\n                        <td>\r\n             {{ from state }}\r\n                        </td>\r\n                        <td>\r\n                            <a href=\"\">Edit</a>\r\n                            <span class=\"table-divider\">|</span>\r\n                            <a href=\"\">Remove</a>\r\n                        </td>\r\n                    </tr>\r\n            </tbody>\r\n        </table>\r\n    </div>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/means-of-transport"
-        },
-        {
-          "path": "/intended-carrier-form"
-        }
-      ],
-      "title": "Who are your intended carriers?",
-      "controller": "./pages/sidebar.js"
-    },
-    {
-      "path": "/means-of-transport",
-      "section": "theTransportation",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Enter each of the transport methods that will be used for the whole journey in  the order in which they will occur.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
-          "content": "<table title=\"Transport methods\">\r\n            <caption class=\"visuallyhidden\">Transport methods</caption>\r\n            <thead>\r\n            <tr>\r\n                <th>Symbol</th>\r\n                <th>Transport method</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                    <td>R</td>\r\n                    <td>Road</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>T</td>\r\n                    <td>Train / rail</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>S</td>\r\n                    <td>Sea</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>A</td>\r\n                    <td>Air</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>W</td>\r\n                    <td>Inland waterways</td>\r\n                </tr>\r\n            </tbody>\r\n        </table>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "meansOfTransport",
-          "title": "Means of transport",
-          "hint": "If your journey is Road - Sea - Road enter R - S - R",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/packaging-types"
-        }
-      ],
-      "title": "Which means of transport will be used?",
-      "controller": "./pages/sidebar.js"
-    },
-    {
-      "path": "/packaging-types",
-      "section": "theTransportation",
-      "components": [
-        {
-          "options": {
-            "list": "PackagingTypes"
-          },
-          "type": "CheckboxesField",
-          "name": "packagingTypes",
-          "title": "Which packaging types will be used?",
-          "hint": "Select all that apply:",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/special-handling"
-        }
-      ],
-      "title": "What packaging types will be used?",
-      "controller": "./pages/sidebar.js"
-    },
-    {
-      "path": "/special-handling",
-      "section": "theTransportation",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Special handling requirements sometimes get prescribed by producers or other parties. These could include handling instructions for employees, health and safety information, or transport emergency cards.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "YesNoField",
-          "name": "specialHandling",
-          "title": "Are there any special handling requirements?",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [],
-      "title": "Are there any special handling requirements?",
-      "controller": "./pages/sidebar.js"
-    },
-    {
       "path": "/intended-carrier-form",
       "title": "Add intended carrier",
       "components": [
@@ -932,6 +845,134 @@
           "path": "/intended-carrier"
         }
       ]
+    },
+    {
+      "path": "/intended-carrier",
+      "section": "theTransportation",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Add details of all the intended carriers for the whole journey. After you've added your first carrier, you can add several more by selecting - \"Add a new carrier\".",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<div class=\"form-group\"><a href=\"/intended-carrier-form\">Add a new carrier</a></div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<div class=\"form-group\"><a href=\"\">Add carriers from your address book</a></div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<div class=\"form-group\">\r\n        <table title=List of facilities>\r\n            <thead>\r\n                <tr>\r\n                    <th>Organisation name</th>\r\n                    <th>Address</th>\r\n                    <th></th>\r\n                </tr>\r\n            </thead>\r\n            <tbody>\r\n                    <tr>\r\n                        <td>\r\n             {{ from state }}\r\n                        </td>\r\n                        <td>\r\n             {{ from state }}\r\n                        </td>\r\n                        <td>\r\n                            <a href=\"\">Edit</a>\r\n                            <span class=\"table-divider\">|</span>\r\n                            <a href=\"\">Remove</a>\r\n                        </td>\r\n                    </tr>\r\n            </tbody>\r\n        </table>\r\n    </div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "t1Additional",
+          "title": "Additional information",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/means-of-transport"
+        },
+        {
+          "path": "/intended-carrier-form"
+        }
+      ],
+      "title": "Who are your intended carriers?",
+      "controller": "./pages/sidebar.js"
+    },
+
+    {
+      "path": "/means-of-transport",
+      "section": "theTransportation",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Enter each of the transport methods that will be used for the whole journey in  the order in which they will occur.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<table title=\"Transport methods\">\r\n            <caption class=\"visuallyhidden\">Transport methods</caption>\r\n            <thead>\r\n            <tr>\r\n                <th>Symbol</th>\r\n                <th>Transport method</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n                <tr>\r\n                    <td>R</td>\r\n                    <td>Road</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>T</td>\r\n                    <td>Train / rail</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>S</td>\r\n                    <td>Sea</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>A</td>\r\n                    <td>Air</td>\r\n                </tr>\r\n                <tr>\r\n                    <td>W</td>\r\n                    <td>Inland waterways</td>\r\n                </tr>\r\n            </tbody>\r\n        </table>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "meansOfTransport",
+          "title": "Means of transport",
+          "hint": "If your journey is Road - Sea - Road enter R - S - R",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/packaging-types"
+        }
+      ],
+      "title": "Which means of transport will be used?",
+      "controller": "./pages/sidebar.js"
+    },
+    {
+      "path": "/packaging-types",
+      "section": "theTransportation",
+      "components": [
+        {
+          "options": {
+            "list": "PackagingTypes"
+          },
+          "type": "CheckboxesField",
+          "name": "packagingTypes",
+          "title": "Which packaging types will be used?",
+          "hint": "Select all that apply:",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/special-handling"
+        }
+      ],
+      "title": "What packaging types will be used?",
+      "controller": "./pages/sidebar.js"
+    },
+    {
+      "path": "/special-handling",
+      "section": "theTransportation",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Special handling requirements sometimes get prescribed by producers or other parties. These could include handling instructions for employees, health and safety information, or transport emergency cards.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "specialHandling",
+          "title": "Are there any special handling requirements?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "title": "Are there any special handling requirements?",
+      "controller": "./pages/sidebar.js"
     },
     {
       "path": "/transport-route-export",
@@ -1055,6 +1096,9 @@
         },
         {
           "path": "/no-customs-office"
+        },
+        {
+          "path": "/transport-route-import-detail"
         }
       ],
       "title": "Transport route",
@@ -1180,14 +1224,26 @@
         }
       ],
       "title": "Where is the waste travelling through?",
+      "condition": "false",
       "controller": "./pages/sidebar.js"
     },
     {
       "path": "/no-customs-office",
       "title": "Your transit route doesn't require any customs details",
+      "condition": "false",
       "section": "theJourney",
       "controller": "./pages/sidebar.js",
-      "components": [],
+      "components": [
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "jcAdditional",
+          "title": "Notes",
+          "schema": {}
+        }
+      ],
       "next": []
     },
     {
@@ -1658,6 +1714,7 @@
     {
       "path": "/other-codes",
       "title": "What other codes apply to the waste?",
+      "controller": "./pages/sidebar.js",
       "section": "wasteCodes",
       "components": [
         {
