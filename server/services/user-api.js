@@ -13,8 +13,8 @@ module.exports = {
     let user = await restClient.getJson(`${config.userService}/user/${request.payload.email}`)
 
     let isValidPassword = false
-    if (user != null) {
-      isValidPassword = await bcrypt.compare(request.payload.password, user.passwordHash)
+    if (user.length > 0) {
+      isValidPassword = await bcrypt.compare(request.payload.password, user[0].passwordhash)
     }
     if (isValidPassword) {
       return user
@@ -23,8 +23,12 @@ module.exports = {
     }
   },
   post: async function (user) {
-    var salt = bcrypt.genSaltSync(saltRounds)
-    user.password = bcrypt.hashSync(user.password, salt)
-    await restClient.postJson(`${config.userService}/user`, { payload: user })
+    bcrypt.hash(user.password, saltRounds, async function (err, hash) {
+      if (err) {
+        throw new Error('Unable to hash password')
+      }
+      user.password = hash
+      await restClient.postJson(`${config.userService}/user`, { payload: user })
+    })
   }
 }
