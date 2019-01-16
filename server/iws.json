@@ -1816,7 +1816,6 @@
           "path": "/recovery-information-value"
         }
       ],
-      "condition": "recoveryInformationProvided",
       "title": "What percentage of the waste is recovered (%)?"
     },
     {
@@ -1846,8 +1845,7 @@
           "path": "/recovery-information-cost"
         }
       ],
-      "title": "What is the estimated value of the recovered material?",
-      "condition": "recoveryInformationProvided"
+      "title": "What is the estimated value of the recovered material?"
     },
     {
       "path": "/recovery-information-cost",
@@ -1876,8 +1874,7 @@
           "path": "/recovery-information-non-recoverable"
         }
       ],
-      "title": "What is the cost of the recovery?",
-      "condition": "recoveryInformationProvided"
+      "title": "What is the cost of the recovery?"
     },
     {
       "path": "/recovery-information-non-recoverable",
@@ -1906,8 +1903,7 @@
         {
           "path": "/recovery-information-non-recoverable-cost"
         }
-      ],
-      "condition": "recoveryInformationProvided"
+      ]
     },
     {
       "path": "/recovery-information-non-recoverable-cost",
@@ -1932,8 +1928,7 @@
           "schema": {}
         }
       ],
-      "next": [],
-      "condition": "recoveryInformationProvided"
+      "next": []
     },
     {
       "path": "/assign-notification",
