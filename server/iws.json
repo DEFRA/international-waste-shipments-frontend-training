@@ -139,7 +139,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "orgName",
+          "name": "exporterOrgName",
           "title": "Organisation name",
           "hint": "For example, ‘Organisation Name Limited’. For \"trading as\" names, record it as ‘Organisation Name Limited T/A Name of Organisation’",
           "options": {},
@@ -150,14 +150,14 @@
             "list": "orgTypeConditional"
           },
           "type": "RadiosField",
-          "name": "orgType",
-          "title": "Organisation Type",
+          "name": "exporterOrgType",
+          "title": "Organisation type",
           "hint": "If none of these options apply, please select Other and add details",
           "schema": {}
         },
         {
           "type": "UkAddressField",
-          "name": "address",
+          "name": "exporterAddress",
           "title": "Address",
           "hint": "This should be the correspondence address for the importer-consignee - notifier",
           "options": {},
@@ -168,7 +168,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "country",
+          "name": "exporterCountry",
           "title": "Country",
           "schema": {}
         },
@@ -181,7 +181,7 @@
         {
           "type": "TextField",
           "name": "exporterFullName",
-          "title": "Full Name",
+          "title": "Full name",
           "hint": "This should be the contact person for the exporter - notifier",
           "options": {},
           "schema": {}
@@ -189,7 +189,7 @@
         {
           "type": "TelephoneNumberField",
           "name": "exporterTelNumber",
-          "title": "Telephone Number",
+          "title": "Telephone number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
           "schema": {}
@@ -199,15 +199,15 @@
             "required": false
           },
           "type": "TelephoneNumberField",
-          "name": "faxNumber",
-          "title": "Fax Number",
+          "name": "exporterFaxNumber",
+          "title": "Fax number",
           "hint": "Enter the full fax number including the international dialling code, for example +44 1709389201",
           "schema": {}
         },
         {
           "type": "EmailAddressField",
-          "name": "email",
-          "title": "Email Address",
+          "name": "exporterEmail",
+          "title": "Email address",
           "options": {},
           "schema": {}
         }
@@ -261,7 +261,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "businessName",
+          "name": "wasteGeneratorBusinessName",
           "title": "Organisation name",
           "hint": "For example, ‘Organisation Name Limited’. For \"trading as\" names, record it as ‘Organisation Name Limited T/A Name of Organisation’",
           "options": {},
@@ -272,7 +272,7 @@
             "list": "orgTypeConditional"
           },
           "type": "RadiosField",
-          "name": "businessType",
+          "name": "wasteGeneratorBusinessType",
           "title": "Company type",
           "schema": {}
         },
@@ -285,7 +285,7 @@
         },
         {
           "type": "UkAddressField",
-          "name": "address",
+          "name": "wasteGeneratorAddress",
           "title": "Address",
           "hint": "This should be the site address for the waste generator-producer",
           "options": {},
@@ -296,7 +296,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "country",
+          "name": "wasteGeneratorCountry",
           "title": "Country",
           "schema": {}
         },
@@ -308,15 +308,15 @@
         },
         {
           "type": "TextField",
-          "name": "producerFullName",
+          "name": "wasteGeneratorProducerFullName",
           "title": "Full name",
           "options": {},
           "schema": {}
         },
         {
           "type": "TelephoneNumberField",
-          "name": "producerTelNumber",
-          "title": "Telephone Number",
+          "name": "wasteGeneratorProducerTelNumber",
+          "title": "Telephone number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
           "schema": {}
@@ -326,21 +326,21 @@
             "required": false
           },
           "type": "TelephoneNumberField",
-          "name": "faxNumber",
-          "title": "Fax Number",
+          "name": "wasteGeneratorFaxNumber",
+          "title": "Fax number",
           "hint": "Enter the full fax number including the international dialling code, for example +44 1709389201",
           "schema": {}
         },
         {
           "type": "EmailAddressField",
-          "name": "emailAddress",
+          "name": "wasteGeneratorEmailAddress",
           "title": "Email address",
           "options": {},
           "schema": {}
         },
         {
           "type": "YesNoField",
-          "name": "addAddress",
+          "name": "wasteGeneratorAddAddress",
           "title": "Add as new address to address book",
           "options": {},
           "schema": {}
@@ -388,7 +388,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "orgName",
+          "name": "importerConsigneeGeneratorOrgName",
           "title": "Organisation name",
           "hint": "For example, ‘Organisation Name Limited’. For \"trading as\" names, record it as ‘Organisation Name Limited T/A Name of Organisation’",
           "options": {},
@@ -399,14 +399,14 @@
             "list": "orgTypeConditional"
           },
           "type": "RadiosField",
-          "name": "orgType",
-          "title": "Organisation Type",
+          "name": "importerConsigneeOrgType",
+          "title": "Organisation type",
           "hint": "If none of these options apply, please select Other and add details",
           "schema": {}
         },
         {
           "type": "UkAddressField",
-          "name": "address",
+          "name": "importerConsigneeAddress",
           "title": "Address",
           "hint": "This should be the correspondence address for the importer-consignee - notifier",
           "options": {},
@@ -417,7 +417,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "country",
+          "name": "importerConsigneeCountry",
           "title": "Country",
           "schema": {}
         },
@@ -429,16 +429,16 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
-          "title": "Full Name",
+          "name": "importerConsigneeFullName",
+          "title": "Full name",
           "hint": "This should be the contact person for the importer-consignee",
           "options": {},
           "schema": {}
         },
         {
           "type": "TelephoneNumberField",
-          "name": "telNumber",
-          "title": "Telephone Number",
+          "name": "importerConsigneeTelNumber",
+          "title": "Telephone number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
           "schema": {}
@@ -448,21 +448,21 @@
             "required": false
           },
           "type": "TelephoneNumberField",
-          "name": "faxNumber",
-          "title": "Fax Number",
+          "name": "importerConsigneeFaxNumber",
+          "title": "Fax number",
           "hint": "Enter the full fax number including the international dialling code, for example +44 1709389201",
           "schema": {}
         },
         {
           "type": "EmailAddressField",
-          "name": "email",
-          "title": "Email Address",
+          "name": "importerConsigneeEmail",
+          "title": "Email address",
           "options": {},
           "schema": {}
         },
         {
           "type": "YesNoField",
-          "name": "addAddress",
+          "name": "importerConsigneeAddAddress",
           "title": "Add as new address to address book",
           "options": {},
           "schema": {}
@@ -531,7 +531,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "businessName",
+          "name": "recoveryFacilityBusinessName",
           "title": "Organisation name",
           "hint": "For example, ‘Organisation Name Limited’. For \"trading as\" names, record it as ‘Organisation Name Limited T/A Name of Organisation’",
           "options": {},
@@ -542,13 +542,13 @@
             "list": "orgTypeConditional"
           },
           "type": "RadiosField",
-          "name": "orgType",
+          "name": "recoveryFacilityOrgType",
           "title": "Company type",
           "schema": {}
         },
         {
           "type": "UkAddressField",
-          "name": "address",
+          "name": "recoveryFacilityAddress",
           "title": "Address",
           "hint": "This should be the site address for the waste generator-producer",
           "options": {},
@@ -559,7 +559,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "country",
+          "name": "recoveryFacilityCountry",
           "title": "Country",
           "schema": {}
         },
@@ -571,14 +571,14 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
+          "name": "recoveryFacilityFullName",
           "title": "Full name",
           "options": {},
           "schema": {}
         },
         {
           "type": "TelephoneNumberField",
-          "name": "telephone",
+          "name": "recoveryFacilityTelephone",
           "title": "Telephone number",
           "hint": "Enter the full telephone number including the international dialling code, for example +44 1709389201",
           "options": {},
@@ -589,21 +589,21 @@
             "required": false
           },
           "type": "TelephoneNumberField",
-          "name": "faxNumber",
+          "name": "recoveryFacilityFaxNumber",
           "title": "Fax number",
           "hint": "Enter the full fax number including the international dialling code, for example +44 1709389201",
           "schema": {}
         },
         {
           "type": "EmailAddressField",
-          "name": "emailAddress",
+          "name": "recoveryFacilityEmailAddress",
           "title": "Email address",
           "options": {},
           "schema": {}
         },
         {
           "type": "YesNoField",
-          "name": "addAddress",
+          "name": "recoveryFacilityAddAddress",
           "title": "Add as new address to address book",
           "options": {},
           "schema": {}
@@ -696,7 +696,7 @@
             "max": 70
           },
           "type": "TextField",
-          "name": "description",
+          "name": "technologyEmployedDescription",
           "title": "Give a brief description",
           "hint": "Please limit your answer to 70 characters or less",
           "options": {}
@@ -706,7 +706,7 @@
             "required": false
           },
           "type": "TextField",
-          "name": "additionalDescription",
+          "name": "technologyEmployedAdditionalDescription",
           "title": "Provide more information",
           "hint": "Enter more detail here, or upload supporting information as a separate annex when you submit your notification",
           "schema": {}
@@ -716,7 +716,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "name": "annexProccessesInformation",
+          "name": "technologyEmployedAnnexProccessesInformation",
           "title": "Would you like to provide information in an annex when the notification is submitted?",
           "schema": {}
         }
@@ -995,8 +995,8 @@
             "list": "exitPoint"
           },
           "type": "SelectField",
-          "name": "exitPoint",
-          "title": "Exit Point",
+          "name": "transportRouteExportExitPoint",
+          "title": "Exit point",
           "hint": "Enter the specific port or border crossing from which your waste will be leaving the UK",
           "schema": {}
         },
@@ -1025,7 +1025,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "destinationCountry",
+          "name": "transportRouteImportDestinationCountry",
           "title": "Where is the waste being imported into?",
           "hint": "This is the country or state where the waste ends its journey",
           "schema": {}
@@ -1114,7 +1114,7 @@
           },
           "type": "SelectField",
           "name": "transitCountry",
-          "title": "Travelling Through",
+          "title": "Travelling through",
           "hint": "Enter the country or state which the waste passes through on its journey",
           "schema": {}
         },
@@ -1284,7 +1284,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "shipmentQuantity",
+          "name": "intendedShipmentsShipmentQuantity",
           "title": "What is the total intended number of shipments?",
           "hint": "The amount can be entered with or without commas as thousand separators. For example 3,333 or 3333",
           "options": {},
@@ -1292,7 +1292,7 @@
         },
         {
           "type": "TextField",
-          "name": "quantity",
+          "name": "intendedShipmentsQuantity",
           "title": "What is the total intended quantity?",
           "hint": "The amount can be entered with or without commas as thousand separators. For example 3,333 or 3333.",
           "options": {},
@@ -1303,7 +1303,7 @@
             "list": "shippingUnits"
           },
           "type": "SelectField",
-          "name": "units",
+          "name": "intendedShipmentsUnits",
           "title": "Units",
           "schema": {}
         },
@@ -1315,7 +1315,7 @@
         },
         {
           "type": "DatePartsField",
-          "name": "firstDeparture",
+          "name": "intendedShipmentsFirstDeparture",
           "title": "First departure",
           "hint": "For example 31 6 2019",
           "options": {},
@@ -1323,7 +1323,7 @@
         },
         {
           "type": "DatePartsField",
-          "name": "lastDeparture",
+          "name": "intendedShipmentsLastDeparture",
           "title": "Last departure",
           "hint": "For example 27 11 2020",
           "options": {},
@@ -1344,7 +1344,7 @@
             "list": "wasteType"
           },
           "type": "RadiosField",
-          "name": "wasteType",
+          "name": "chemicalCompositionWasteType",
           "title": "What type of waste is it?",
           "hint": "This may be its commercial name",
           "schema": {}
@@ -1367,13 +1367,13 @@
             "required": false
           },
           "type": "TextField",
-          "name": "wasteProductionProcess",
+          "name": "processOfGenerationWasteProductionProcess",
           "title": "Describe the process by which the waste was produced",
           "schema": {}
         },
         {
           "type": "YesNoField",
-          "name": "wasteProcessSeperate",
+          "name": "processOfGenerationWasteProcessSeperate",
           "title": "Would you like to provide the detail in a separate document",
           "options": {},
           "schema": {}
@@ -1396,7 +1396,7 @@
             "list": "wasteCharacteristics"
           },
           "type": "SelectField",
-          "name": "wasteCharacteristics",
+          "name": "physicalCharacteristicsWasteCharacteristics",
           "title": "What are the physical characteristics of the waste?",
           "hint": "This is what the waste looks like at normal temperature and pressures. Select all that apply.",
           "schema": {}
@@ -1728,7 +1728,7 @@
             "required": false
           },
           "type": "TextField",
-          "name": "codeExport",
+          "name": "otherCodesCodeExport",
           "title": "National code in country of export",
           "schema": {}
         },
@@ -1737,7 +1737,7 @@
             "required": false
           },
           "type": "TextField",
-          "name": "codeImport",
+          "name": "otherCodesCodeImport",
           "title": "National code in country of import",
           "schema": {}
         },
@@ -1746,7 +1746,7 @@
             "required": false
           },
           "type": "TextField",
-          "name": "customCode",
+          "name": "otherCodesCustomCode",
           "title": "Custom code",
           "schema": {}
         },
@@ -1755,7 +1755,7 @@
             "required": false
           },
           "type": "TextField",
-          "name": "otherCode",
+          "name": "otherCodesOtherCode",
           "title": "Other code",
           "schema": {}
         }
@@ -1805,7 +1805,7 @@
             "max": 3
           },
           "type": "TextField",
-          "name": "precentageRecovery",
+          "name": "recoveryInformationPercentageRecovery",
           "title": "What percentage of the waste is recovered ?",
           "hint": "Enter a percentage, 0-100%",
           "options": {}
@@ -1826,7 +1826,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "estimateValue",
+          "name": "recoveryInformationEstimateValue",
           "title": "Estimated value (£)",
           "options": {},
           "schema": {}
@@ -1836,7 +1836,7 @@
             "list": "valueCostUnits"
           },
           "type": "SelectField",
-          "name": "units",
+          "name": "recoveryInformationUnits",
           "title": "Unit",
           "schema": {}
         }
@@ -1856,7 +1856,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "recoveryCost",
+          "name": "recoveryInformationRecoveryCost",
           "title": "Estimated cost (£)",
           "options": {},
           "schema": {}
@@ -1866,7 +1866,7 @@
             "list": "valueCostUnits"
           },
           "type": "SelectField",
-          "name": "units",
+          "name": "recoveryInformationUnits",
           "title": "Unit",
           "schema": {}
         }
@@ -1890,7 +1890,7 @@
             "max": 40
           },
           "type": "TextField",
-          "name": "disposalMethod",
+          "name": "nonRecoverableDisposalMethod",
           "title": "Please describe the planned method of disposal (maximum 40 characters).",
           "hint": "For example: Incineration/landfill/chemical or biological treatment",
           "options": {}
@@ -1917,7 +1917,7 @@
       "components": [
         {
           "type": "TextField",
-          "name": "estimateCost",
+          "name": "nonRecoverableEstimateCost",
           "title": "Estimated Cost (£)",
           "options": {},
           "schema": {}
@@ -1927,7 +1927,7 @@
             "list": "valueCostUnits"
           },
           "type": "SelectField",
-          "name": "units",
+          "name": "nonRecoverableUnits",
           "title": "Unit",
           "schema": {}
         }
@@ -1946,7 +1946,7 @@
         },
         {
           "type": "TextField",
-          "name": "notificationAssign",
+          "name": "assignNotificationNotificationAssign",
           "title": "Enter the e-mail address of who you want to transfer the notification to",
           "hint": "This is the email address that was used to register their account and they enter when logging into the service. If they are not registered to use IWS Online, they will need to do this first.",
           "options": {},
