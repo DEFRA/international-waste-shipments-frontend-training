@@ -1,7 +1,5 @@
-// const hoek = require('hoek')
-const joi = require('joi')
 const Page = require('.')
-const extendedSchema = { notificationNumber: joi.string() }
+// const extendedSchema = { notificationNumber: joi.string() }
 // FOR TRAINING PRUPOSES ON A SINGLE SERVER USE A SIMPLE VARIABLE WHEN GENERATING NOTIFICATION NUMBERS
 // THIS APPROACH NEEDS REFACTORING IN DUE COURSE
 var notificationCount = 1
@@ -11,18 +9,7 @@ class NotificationTypePage extends Page {
   constructor (model, pageDef) {
     super(model, pageDef)
     this.hasFormComponents = true
-    this.extendedFormSchema = this.formSchema.keys(extendedSchema)
-    this.extendedStateSchema = this.stateSchema.keys(extendedSchema)
   }
-
-  validateForm (payload) {
-    return this.validate(payload, this.extendedFormSchema)
-  }
-
-  validateState (newState) {
-    return this.validate(newState, this.extendedStateSchema)
-  }
-
   getNext (state) {
     return state['notificationNumber'] ? super.getNext(state) : '/notification-id'
   }
