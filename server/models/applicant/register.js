@@ -216,6 +216,11 @@ function ViewModel (countries, errors, register) {
         'text': 'Please accept terms and conditions of use'
       }
     }
+    if (errors.indexOf('duplicateAccount') > -1) {
+      this.model.email.errorMessage = {
+        'text': 'Account already registered'
+      }
+    }
   }
 
   if (register != null) {

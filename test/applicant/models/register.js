@@ -3,8 +3,9 @@ const Code = require('code')
 const lab = exports.lab = Lab.script()
 const ViewModel = require('../../../server/models/applicant/register.js')
 
-lab.experiment('Home Tests', () => {
+lab.experiment('Register Model Tests', () => {
   let countries = []
+  let testPayload = {}
 
   lab.beforeEach(async () => {
     countries = [{
@@ -20,6 +21,7 @@ lab.experiment('Home Tests', () => {
       name: 'Singapore'
     }
     ]
+    testPayload.country = 'United Kingdom'
   })
 
   lab.test('1 - Test countries list populated', async () => {
@@ -34,7 +36,7 @@ lab.experiment('Home Tests', () => {
 
   lab.test('3 - Test error displayed on correct property for first name', async () => {
     let errors = ['firstName']
-    let register = new ViewModel(countries, errors)
+    let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.firstName.errorMessage.text).to.not.equal(null)
   })
 
