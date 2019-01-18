@@ -1,7 +1,7 @@
 const Lab = require('lab')
 const Code = require('code')
 const lab = exports.lab = Lab.script()
-const createServer = require('../../server')
+const createServer = require('../../../server')
 
 lab.experiment('Login Tests', () => {
   let server

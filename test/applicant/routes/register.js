@@ -1,10 +1,37 @@
 const Lab = require('lab')
 const Code = require('code')
 const lab = exports.lab = Lab.script()
-const createServer = require('../../server')
+const createServer = require('../../../server')
+const sinon = require('sinon')
+const countryService = require('../../../server/services/country-api')
+const ViewModel = require('../models/register.js')
 
 lab.experiment('Registration Tests', () => {
   let server
+  let sandbox
+  let countries = []
+
+  lab.beforeEach(async () => {
+    countries = [{
+      id: 1,
+      name: 'United Kingdom'
+    },
+    {
+      id: 2,
+      name: 'Norfolk Island'
+    },
+    {
+      id: 3,
+      name: 'Singapore'
+    }
+    ]
+  })
+
+  // A fake implementation of retrieving countries
+
+  async function getFakeCountryCall (request, h) {
+    return countries
+  }
 
   // Create server before the tests
   lab.before(async () => {
@@ -17,18 +44,35 @@ lab.experiment('Registration Tests', () => {
     await server.stop()
   })
 
+  // Use a Sinon sandbox to manage spies, stubs and mocks for each test.
+  lab.beforeEach(async () => {
+    sandbox = await sinon.createSandbox()
+  })
+
+  lab.afterEach(async () => {
+    await sandbox.restore()
+  })
+
   lab.test('1 - GET /applicant/register', async () => {
     const options = {
       method: 'GET',
       url: '/applicant/register'
     }
 
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(200)
     Code.expect(response.headers['content-type']).to.include('text/html')
   })
 
   lab.test('2 - Check First Name is not null', async () => {
+    sinon.spy(ViewModel, 'ViewModel')
+    let detail = {}
+    detail.message = '"firstName" Error'
+    let error = {}
+    error.details = []
+    error.details.push(detail)
+
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -36,8 +80,8 @@ lab.experiment('Registration Tests', () => {
         firstName: ''
       }
     }
-    const response = await server.inject(options)
-    Code.expect(response.statusCode).to.equal(400)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    Code.assert(ViewModel.ViewModel.calledOnceWith(countries, error, options.payload))
   })
 
   lab.test('3 - Check Last Name is not null', async () => {
@@ -48,7 +92,8 @@ lab.experiment('Registration Tests', () => {
         lastName: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -60,7 +105,8 @@ lab.experiment('Registration Tests', () => {
         organisationName: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -72,7 +118,8 @@ lab.experiment('Registration Tests', () => {
         telephoneNumber: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -84,7 +131,8 @@ lab.experiment('Registration Tests', () => {
         telephoneNumber: 'Test'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -96,7 +144,8 @@ lab.experiment('Registration Tests', () => {
         email: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -108,7 +157,8 @@ lab.experiment('Registration Tests', () => {
         addressLine1: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -120,7 +170,8 @@ lab.experiment('Registration Tests', () => {
         town: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -133,7 +184,8 @@ lab.experiment('Registration Tests', () => {
         postCode: 'NE1 1RA'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(200)
   })
 
@@ -146,7 +198,8 @@ lab.experiment('Registration Tests', () => {
         postCode: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -159,7 +212,8 @@ lab.experiment('Registration Tests', () => {
         postCode: ''
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(200)
   })
 
@@ -172,7 +226,8 @@ lab.experiment('Registration Tests', () => {
         postCode: '&GS 7~#'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(200)
   })
 
@@ -185,7 +240,8 @@ lab.experiment('Registration Tests', () => {
         postCode: 'bean'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -198,7 +254,8 @@ lab.experiment('Registration Tests', () => {
         postCode: 'ilovenode1'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -211,7 +268,8 @@ lab.experiment('Registration Tests', () => {
         postCode: 'ILOVENODE1'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 
@@ -224,7 +282,8 @@ lab.experiment('Registration Tests', () => {
         postCode: 'iLove2node'
       }
     }
-    const response = await server.inject(options)
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
     Code.expect(response.statusCode).to.equal(400)
   })
 })

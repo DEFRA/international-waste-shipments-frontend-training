@@ -1,10 +1,10 @@
-const config = require('../../server/config')
+const config = require('../../../server/config')
 const Lab = require('lab')
 const Code = require('code')
 const sinon = require('sinon')
 const lab = exports.lab = Lab.script()
-const createServer = require('../../server')
-const sessionCache = require('../../server/services/session-cache')
+const createServer = require('../../../server')
+const sessionCache = require('../../../server/services/session-cache')
 
 lab.experiment('Home Tests', () => {
   let sandbox
