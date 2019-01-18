@@ -12,7 +12,7 @@ const handlers = {
     try {
       let user = await userService.get(request)
       let userPayload = {
-        userid: user.userid,
+        userid: user[0].id,
         createddate: Date.now()
       }
       hoek.merge(request.payload, userPayload)
