@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const _ = require('lodash')
 const restClient = require('../services/rest-client')
 const config = require('../config')
 const saltRounds = 10
@@ -13,8 +14,8 @@ module.exports = {
     let user = await restClient.getJson(`${config.userService}/user/${request.payload.email}`)
 
     let isValidPassword = false
-    if (user != null) {
-      isValidPassword = await bcrypt.compare(request.payload.password, user.passwordHash)
+    if (user.length > 0) {
+      isValidPassword = await bcrypt.compare(request.payload.password, user[0].passwordhash)
     }
     if (isValidPassword) {
       return user
@@ -23,8 +24,20 @@ module.exports = {
     }
   },
   post: async function (user) {
-    var salt = bcrypt.genSaltSync(saltRounds)
+    let salt = bcrypt.genSaltSync(saltRounds)
     user.password = bcrypt.hashSync(user.password, salt)
-    await restClient.postJson(`${config.userService}/user`, { payload: user })
+    try {
+      await restClient.postJson(`${config.userService}/user`, { payload: user })
+    } catch (err) {
+      if (err.isBoom) {
+        if (_.get(err, 'output.statusCode') !== 400) {
+          throw err
+        }
+        return false
+      } else {
+        throw err
+      }
+    }
+    return true
   }
 }

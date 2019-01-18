@@ -16,7 +16,8 @@ function ViewModel (credentials, error) {
       },
       classes: 'govuk-!-width-one-half',
       id: 'password',
-      name: 'password'
+      name: 'password',
+      type: 'password'
     }
   }
   // If error is passed to model then this error property is added to the model and therefore radio macro

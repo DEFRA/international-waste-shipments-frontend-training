@@ -9,8 +9,16 @@ const handlers = {
     return h.view('applicant/register', new ViewModel(countries, null))
   },
   post: async (request, h) => {
-    // TODO hash password
-    userService.post(request.payload)
+    let response = await userService.post(request.payload)
+    if (response === false) {
+      let detail = {}
+      detail.message = '"duplicateAccount" Error'
+      let error = {}
+      error.details = []
+      error.details.push(detail)
+
+      return handlers.fail(request, h, error)
+    }
     return h.redirect('./home')
   },
   fail: async (request, h, error) => {

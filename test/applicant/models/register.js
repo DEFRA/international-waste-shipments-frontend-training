@@ -5,6 +5,7 @@ const ViewModel = require('../../../server/models/applicant/register.js')
 
 lab.experiment('Register Model Tests', () => {
   let countries = []
+  let testPayload = {}
 
   let testPayload = []
 
