@@ -4,7 +4,6 @@ const lab = exports.lab = Lab.script()
 const createServer = require('../../../server')
 const sinon = require('sinon')
 const countryService = require('../../../server/services/country-api')
-const ViewModel = require('../models/register.js')
 
 lab.experiment('Registration Tests', () => {
   let server
@@ -13,7 +12,7 @@ lab.experiment('Registration Tests', () => {
 
   lab.beforeEach(async () => {
     countries = [{
-      id: 1,
+      id: '05f9f099-9d69-4a35-9daa-b1858933961e',
       name: 'United Kingdom'
     },
     {
@@ -66,13 +65,6 @@ lab.experiment('Registration Tests', () => {
   })
 
   lab.test('2 - Check First Name is not null', async () => {
-    sinon.spy(ViewModel, 'ViewModel')
-    let detail = {}
-    detail.message = '"firstName" Error'
-    let error = {}
-    error.details = []
-    error.details.push(detail)
-
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -81,7 +73,9 @@ lab.experiment('Registration Tests', () => {
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
-    Code.assert(ViewModel.ViewModel.calledOnceWith(countries, error, options.payload))
+    const response = await server.inject(options, countries)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter your First name')
   })
 
   lab.test('3 - Check Last Name is not null', async () => {
@@ -94,7 +88,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter your Last name')
   })
 
   lab.test('4 - Check Organisation Name is not null', async () => {
@@ -107,7 +102,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter an Organisation name')
   })
 
   lab.test('5 - Check Telephone Number is not null', async () => {
@@ -120,7 +116,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter your Telephone number')
   })
 
   lab.test('6 - Check Telephone Number is a number', async () => {
@@ -133,7 +130,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter your Telephone number')
   })
 
   lab.test('7 - Check Email Address is not blank', async () => {
@@ -146,7 +144,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter an Email Address')
   })
 
   lab.test('8 - Check Address Line 1 is not Blank', async () => {
@@ -159,7 +158,8 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter Address line 1')
   })
 
   lab.test('9 - Check town is not blank', async () => {
@@ -172,10 +172,25 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter Town or City')
   })
 
-  lab.test('10 - Check PostCode is valid if in UK', async () => {
+  lab.test('10 - Check country has been selected', async () => {
+    const options = {
+      method: 'POST',
+      url: '/applicant/register',
+      payload: {
+        country: ''
+      }
+    }
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please select Country')
+  })
+
+  lab.test('11 - Check PostCode is valid if in UK', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -189,7 +204,7 @@ lab.experiment('Registration Tests', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('11 - Check PostCode is not blank in UK', async () => {
+  lab.test('12 - Check PostCode is not blank in UK', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -200,10 +215,11 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Please enter Postcode')
   })
 
-  lab.test('12 - Check PostCode being blank is fine if not in UK', async () => {
+  lab.test('13 - Check PostCode being blank is fine if not in UK', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -217,7 +233,7 @@ lab.experiment('Registration Tests', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('13 - Check PostCode being filled with nonsense is fine if not in UK', async () => {
+  lab.test('14 - Check PostCode being filled with nonsense is fine if not in UK', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -231,21 +247,21 @@ lab.experiment('Registration Tests', () => {
     Code.expect(response.statusCode).to.equal(200)
   })
 
-  lab.test('14 - Check Password has at least 8 characters', async () => {
+  lab.test('15 - Check Password has at least 8 characters', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
       payload: {
-        country: 'Afghanistan',
-        postCode: 'bean'
+        Password: 'bean'
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Invalid Password')
   })
 
-  lab.test('15 - Check Password has at least 1 upper case', async () => {
+  lab.test('16 - Check Password has at least 1 upper case', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -256,10 +272,11 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Invalid Password')
   })
 
-  lab.test('16 - Check Password has at least 1 lower case', async () => {
+  lab.test('17 - Check Password has at least 1 lower case', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -270,10 +287,11 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+    Code.expect(response.payload).to.contain('Invalid Password')
   })
 
-  lab.test('17 - Check Password has at least 1 number', async () => {
+  lab.test('18 - Check Password has at least 1 number', async () => {
     const options = {
       method: 'POST',
       url: '/applicant/register',
@@ -284,6 +302,19 @@ lab.experiment('Registration Tests', () => {
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
     const response = await server.inject(options, countries)
-    Code.expect(response.statusCode).to.equal(400)
+    Code.expect(response.statusCode).to.equal(200)
+  })
+
+  lab.test('19 - Check terms and conditions checked', async () => {
+    const options = {
+      method: 'POST',
+      url: '/applicant/register',
+      payload: {
+        terms: true
+      }
+    }
+    sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
+    const response = await server.inject(options, countries)
+    Code.expect(response.statusCode).to.equal(200)
   })
 })

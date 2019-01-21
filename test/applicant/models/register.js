@@ -7,8 +7,6 @@ lab.experiment('Register Model Tests', () => {
   let countries = []
   let testPayload = {}
 
-  let testPayload = []
-
   lab.beforeEach(async () => {
     countries = [{
       id: 1,
@@ -72,55 +70,43 @@ lab.experiment('Register Model Tests', () => {
     Code.expect(register.model.addressLine1.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('9 - Test error displayed on correct property for address line 2', async () => {
-    let errors = ['addressLine2']
-    let register = new ViewModel(countries, errors, testPayload)
-    Code.expect(register.model.addressLine2.errorMessage.text).to.not.equal(null)
-  })
-
-  lab.test('10 - Test error displayed on correct property for town or city', async () => {
+  lab.test('9 - Test error displayed on correct property for town or city', async () => {
     let errors = ['town']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.town.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('11 - Test error displayed on correct property for county', async () => {
-    let errors = ['county']
-    let register = new ViewModel(countries, errors, testPayload)
-    Code.expect(register.model.county.errorMessage.text).to.not.equal(null)
-  })
-
-  lab.test('12 - Test error displayed on correct property for postcode', async () => {
+  lab.test('10 - Test error displayed on correct property for postcode', async () => {
     let errors = ['postcode']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.postcode.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('13 - Test error displayed on correct property for country', async () => {
+  lab.test('11 - Test error displayed on correct property for country', async () => {
     let errors = ['country']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.country.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('14 - Test error displayed on correct property for password', async () => {
+  lab.test('12 - Test error displayed on correct property for password', async () => {
     let errors = ['password']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.password.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('15 - Test error displayed on correct property for confirm password', async () => {
+  lab.test('13 - Test error displayed on correct property for confirm password', async () => {
     let errors = ['confirmPassword']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.confirmPassword.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('16 - Test error displayed on correct property for terms and conditions', async () => {
+  lab.test('14 - Test error displayed on correct property for terms and conditions', async () => {
     let errors = ['termsandconditions']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.termsandconditions.errorMessage.text).to.not.equal(null)
   })
 
-  lab.test('17 - Test error displayed on two correct properties', async () => {
+  lab.test('15 - Test error displayed on two correct properties', async () => {
     let errors = ['termsandconditions', 'firstName']
     let register = new ViewModel(countries, errors, testPayload)
     Code.expect(register.model.termsandconditions.errorMessage.text).to.not.equal(null)

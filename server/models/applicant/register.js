@@ -176,19 +176,9 @@ function ViewModel (countries, errors, register) {
         'text': 'Please enter Address line 1'
       }
     }
-    if (errors.indexOf('addressLine2') > -1) {
-      this.model.addressLine2.errorMessage = {
-        'text': 'Please enter Address line 2'
-      }
-    }
     if (errors.indexOf('town') > -1) {
       this.model.town.errorMessage = {
         'text': 'Please enter Town or City'
-      }
-    }
-    if (errors.indexOf('county') > -1) {
-      this.model.county.errorMessage = {
-        'text': 'Please enter County'
       }
     }
     if (errors.indexOf('postcode') > -1) {
@@ -198,7 +188,7 @@ function ViewModel (countries, errors, register) {
     }
     if (errors.indexOf('country') > -1) {
       this.model.country.errorMessage = {
-        'text': 'Please enter Country'
+        'text': 'Please select Country'
       }
     }
     if (errors.indexOf('password') > -1) {
