@@ -195,8 +195,8 @@ lab.experiment('Registration Tests', () => {
       method: 'POST',
       url: '/applicant/register',
       payload: {
-        country: 'United Kingdom',
-        postCode: 'NE1 1RA'
+        country: '05f9f099-9d69-4a35-9daa-b1858933961e',
+        postcode: 'NE1 1RA'
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
@@ -209,8 +209,8 @@ lab.experiment('Registration Tests', () => {
       method: 'POST',
       url: '/applicant/register',
       payload: {
-        country: 'United Kingdom',
-        postCode: ''
+        country: '05f9f099-9d69-4a35-9daa-b1858933961e',
+        postcode: ''
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
@@ -225,7 +225,7 @@ lab.experiment('Registration Tests', () => {
       url: '/applicant/register',
       payload: {
         country: 'Afghanistan',
-        postCode: ''
+        postcode: ''
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
@@ -239,7 +239,7 @@ lab.experiment('Registration Tests', () => {
       url: '/applicant/register',
       payload: {
         country: 'Afghanistan',
-        postCode: '&GS 7~#'
+        postcode: '&GS 7~#'
       }
     }
     sandbox.stub(countryService, 'get').callsFake(getFakeCountryCall)
