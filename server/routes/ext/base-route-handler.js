@@ -1,6 +1,8 @@
 const Boom = require('boom')
 const notificationService = require('../../services/notification-api')
 const sessionCache = require('../../services/session-cache')
+const notificationNumberService = require('../../services/notification-number')
+const hoek = require('hoek')
 
 // A route template for HTTP requests that facilitates session management without the use of cut and paste.
 module.exports = {
@@ -37,7 +39,14 @@ async function updateSessionCache (request, h) {
     // Merge the request payload with the session data and save the result.
     await sessionCache.update(request, h)
     if (request.persistNotification) {
-      await notificationService.post(await sessionCache.get(request, h))
+      // Generate the notification number and add it to the payload
+      let payload = await sessionCache.get(request, h)
+
+      let notificationNumberPayload = {
+        notificationnumber: notificationNumberService.generateNotificationNumber(payload.competentauthority)
+      }
+      hoek.merge(payload, notificationNumberPayload)
+      await notificationService.post(payload)
     }
     return h.continue
   } catch (err) {
