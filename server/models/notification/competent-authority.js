@@ -17,7 +17,7 @@ function ViewModel (competentAuthority, error) {
       },
       {
         value: '2',
-        text: 'Scotish Environment Protection Agency (SEPA)'
+        text: 'Scottish Environment Protection Agency (SEPA)'
       },
       {
         value: '3',
